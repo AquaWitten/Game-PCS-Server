@@ -3,7 +3,7 @@ package com.company;
 public class GameServer {
 
     String IP; //Comment
-    int port;
+    int port; //Comment
 
     public static void main(String[] args) {
 	// write your code here
