@@ -5,7 +5,7 @@ public class EpidemicCard {
     String name;
     String description;
 
-    EpidemicCard(String name){
+    public EpidemicCard(String name){
         this.name = name;
         description = "Increase, Infect, Intensify";
     }

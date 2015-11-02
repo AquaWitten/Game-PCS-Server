@@ -1,6 +1,7 @@
 package com.company;
 
 import Cards.*;
+import Markers.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -13,8 +14,10 @@ public class GameServer {
 //--------------------------------------------------------------
 
     public static void main(String[] args) {
-    EventCard event = new EventCard("myFirstEventCard",1);
+    OutbreakMarker out = new OutbreakMarker();
 
+        for(int i=0; i < 10; i++)
+            out.IncreaseOutbreakMarker();
     }
 
     public void Receive(){

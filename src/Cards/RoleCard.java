@@ -5,7 +5,7 @@ public class RoleCard{
     String name;
     String description;
 
-    RoleCard(String name, String description) {
+    public RoleCard(String name, String description) {
 
 
         this.name = name;

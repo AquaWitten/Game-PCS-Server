@@ -5,7 +5,7 @@ public class InfectionCard {
 
     String name;
 
-    InfectionCard(String name){
+    public InfectionCard(String name){
         this.name = name;
 
     }
