@@ -1,12 +1,12 @@
-package com.company;
+package Cards;
 
-public class RoleCard extends Card{
+public class RoleCard{
 
     String name;
     String description;
 
     RoleCard(String name, String description) {
-        super(name);
+
 
         this.name = name;
         this.description = description;

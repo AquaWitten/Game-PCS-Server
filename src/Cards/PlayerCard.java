@@ -1,6 +1,6 @@
-package com.company;
+package Cards;
 
-public class PlayerCard extends Card{
+public class PlayerCard{
 
     String name;
     int area;
@@ -8,7 +8,7 @@ public class PlayerCard extends Card{
     String color;
 
     PlayerCard(String name, int area, int population, String color) {
-        super(name);
+
 
         this.name = name;
         this.area = area;

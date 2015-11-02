@@ -1,15 +1,15 @@
-package com.company;
+package Cards;
 
-public class EventCard extends Card{
+public class EventCard{
 
-    String name;
+    //String name;
     String description;
     int eventType;
 
-    EventCard(String name, int eventType) {
-        super(name);
+    public EventCard(String name, int eventType) {
 
-        this.name = name;
+
+        //this.name = super.name;
         this.eventType = eventType;
     }
 

@@ -1,5 +1,9 @@
 package com.company;
 
+import Cards.*;
+import java.net.Socket;
+import java.util.ArrayList;
+
 public class GameServer {
 
     //Global variables
@@ -9,7 +13,8 @@ public class GameServer {
 //--------------------------------------------------------------
 
     public static void main(String[] args) {
-	// write your code here
+    EventCard event = new EventCard("myFirstEventCard",1);
+
     }
 
     public void Receive(){
