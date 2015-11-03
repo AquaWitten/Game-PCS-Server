@@ -14,10 +14,21 @@ public class GameServer {
 //--------------------------------------------------------------
 
     public static void main(String[] args) {
-        OutbreakMarker out = new OutbreakMarker();
-        System.out.println("I LIKE CAKE");
-        for(int i=0; i < 10; i++)
-            out.IncreaseOutbreakMarker();
+
+        ArrayList<PlayerCard> cards = new ArrayList<>();
+
+        CityCard city1 = new CityCard("cityCard","sanFran");
+        EpidemicCard epi1 = new EpidemicCard("epidemicCard");
+
+        cards.add(city1);
+        cards.add(epi1);
+
+        System.out.println(cards.get(0).GetNameOfCard());
+        System.out.println(cards.get(0).GetTypeOfCard());
+
+        System.out.println(cards.get(1).GetNameOfCard());
+        System.out.println(cards.get(1).GetTypeOfCard());
+
     }
 
     public void Receive(){

@@ -1,40 +1,22 @@
 package Cards;
 
-public class EventCard{
+public class EventCard implements PlayerCard{
 
-    //String name;
+
+    String type;
+    String name;
     String description;
-    int eventType;
 
-    public EventCard(String name, int eventType) {
+    public EventCard(String type, String name) {
 
-
-        //this.name = super.name;
-        this.eventType = eventType;
+        this.type = type;
+        this.name = name;
     }
+
 
     public void Event(){
 
-        switch (eventType){
 
-            case 1:
-                ResilientPopulation();
-                break;
-            case 2:
-                OneQuietNight();
-                break;
-            case 3:
-                Forecast();
-                break;
-            case 4:
-                Airlift();
-                break;
-
-            case 5:
-                GovernmentGrant();
-                break;
-
-        }
     }
 
     private void GovernmentGrant() {
@@ -63,4 +45,13 @@ public class EventCard{
     }
 
 
+    @Override
+    public String GetTypeOfCard() {
+        return type;
+    }
+
+    @Override
+    public String GetNameOfCard() {
+        return name;
+    }
 }
