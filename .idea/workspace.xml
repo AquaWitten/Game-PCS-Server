@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/City.java" afterPath="$PROJECT_DIR$/src/com/company/City.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/GameServer.java" afterPath="$PROJECT_DIR$/src/com/company/GameServer.java" />
+    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Game-PCS-Server.iws" />
@@ -30,7 +28,7 @@
       <file leaf-file-name="GameServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/GameServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67336684">
+            <state vertical-scroll-proportion="0.66392094">
               <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -522,7 +520,7 @@
       <workItem from="1446491281872" duration="3317000" />
       <workItem from="1446540723668" duration="26000" />
       <workItem from="1446541819385" duration="21000" />
-      <workItem from="1446541858500" duration="6382000" />
+      <workItem from="1446541858500" duration="6546000" />
     </task>
     <task id="LOCAL-00001" summary="Comment test">
       <created>1444512958527</created>
@@ -554,19 +552,25 @@
       <option name="project" value="LOCAL" />
       <updated>1446542453477</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
+      <created>1446548253850</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1446548253850</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18622000" />
+    <option name="totallyTimeSpent" value="18786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -968,7 +972,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/GameServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67336684">
+        <state vertical-scroll-proportion="0.66392094">
           <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
