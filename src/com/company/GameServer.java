@@ -15,7 +15,6 @@ public class GameServer {
 
     public static void main(String[] args) {
         OutbreakMarker out = new OutbreakMarker();
-        System.out.println("I LIKE CAKE");
         for(int i=0; i < 10; i++)
             out.IncreaseOutbreakMarker();
     }
