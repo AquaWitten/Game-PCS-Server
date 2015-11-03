@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Cards/EpidemicCard.java" afterPath="$PROJECT_DIR$/src/Cards/EpidemicCard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="" />
     <ignored path="Game-PCS-Server.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -522,7 +519,7 @@
       <workItem from="1446540723668" duration="26000" />
       <workItem from="1446541819385" duration="21000" />
       <workItem from="1446541858500" duration="147000" />
-      <workItem from="1446542929930" duration="3850000" />
+      <workItem from="1446542929930" duration="4100000" />
     </task>
     <task id="LOCAL-00001" summary="Comment test">
       <created>1444512958527</created>
@@ -546,7 +543,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16237000" />
+    <option name="totallyTimeSpent" value="16487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
