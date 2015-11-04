@@ -81,8 +81,55 @@ public class GameServer {
         City johannesburg = new City("johannesburg", "yellow",new ArrayList<>(Arrays.asList("khartoum", "kinshasa")));
         allCities.add(johannesburg);
         //All black cities
-
+        City algiers = new City("algiers", "black",new ArrayList<>(Arrays.asList("madrid", "paris", "istanbul", "cairo")));
+        allCities.add(algiers);
+        City istanbul = new City("istanbul", "black",new ArrayList<>(Arrays.asList("milan", "algiers", "st petersburg", "moscow", "baghdad", "cairo")));
+        allCities.add(istanbul);
+        City cairo = new City("cairo", "black",new ArrayList<>(Arrays.asList("algiers", "istanbul", "baghdad", "riyadh")));
+        allCities.add(cairo);
+        City riyadh = new City("riyadh", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "baghdad")));
+        allCities.add(riyadh);
+        City baghdad = new City("baghdad", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "riyadh", "istanbul", "tehran")));
+        allCities.add(baghdad);
+        City moscow = new City("moscow", "black",new ArrayList<>(Arrays.asList("st petersburg", "istanbul", "tehran")));
+        allCities.add(moscow);
+        City tehran = new City("tehran", "black",new ArrayList<>(Arrays.asList("moscow", "baghdad", "karachi", "delhi")));
+        allCities.add(tehran);
+        City karachi = new City("karachi", "black",new ArrayList<>(Arrays.asList("tehran", "baghdad", "riyadh", "mumbai", "delhi")));
+        allCities.add(karachi);
+        City delhi = new City("delhi", "black",new ArrayList<>(Arrays.asList("tehran", "karachi", "kolkata", "mumbai", "chennai")));
+        allCities.add(delhi);
+        City mumbai = new City("mumbai", "black",new ArrayList<>(Arrays.asList("karachi", "delhi", "chennai")));
+        allCities.add(mumbai);
+        City kolkata = new City("kolkata", "black",new ArrayList<>(Arrays.asList("hong kong", "bangkok", "delhi", "chennai")));
+        allCities.add(kolkata);
+        City chennai = new City("chennai", "black",new ArrayList<>(Arrays.asList("kolkata", "bangkok", "jakarta", "mumbai", "delhi")));
+        allCities.add(chennai);
         //All red cities
+        City bangkok = new City("bangkok", "red",new ArrayList<>(Arrays.asList("kolkata", "hong kong", "ho chi minh city", "jakarta", "chennai")));
+        allCities.add(bangkok);
+        City jakarta = new City("jakarta", "red",new ArrayList<>(Arrays.asList("chennai", "bangkok", "ho chi minh city", "sydney")));
+        allCities.add(jakarta);
+        City sydney = new City("sydney", "red",new ArrayList<>(Arrays.asList("jakarta", "manila", "los angeles")));
+        allCities.add(sydney);
+        City manila = new City("manila", "red",new ArrayList<>(Arrays.asList("sydney", "ho chi minh city", "hong kong", "taipei", "san francisco")));
+        allCities.add(manila);
+        City hoChiMinhCity = new City("ho chi minh city", "red",new ArrayList<>(Arrays.asList("jakarta", "bangkok", "hong kong", "manila")));
+        allCities.add(hoChiMinhCity);
+        City hongKong = new City("hong kong", "red",new ArrayList<>(Arrays.asList("ho chi minh city", "bangkok", "kolkata", "shanghai", "taipei", "manila")));
+        allCities.add(hongKong);
+        City taipei = new City("taipei", "red",new ArrayList<>(Arrays.asList("shanghai", "osaka", "hong kong", "manila")));
+        allCities.add(taipei);
+        City shanghai = new City("shanghai", "red",new ArrayList<>(Arrays.asList("taipei", "beijing", "hong kong", "seoul", "tokyo")));
+        allCities.add(shanghai);
+        City beijing = new City("beijing", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul")));
+        allCities.add(beijing);
+        City seoul = new City("seoul", "red",new ArrayList<>(Arrays.asList("shanghai", "beijing", "tokyo")));
+        allCities.add(seoul);
+        City tokyo = new City("tokyo", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul", "osaka")));
+        allCities.add(tokyo);
+        City osaka = new City("osaka", "red",new ArrayList<>(Arrays.asList("taipei", "tokyo")));
+        allCities.add(osaka);
 
     }
 }
