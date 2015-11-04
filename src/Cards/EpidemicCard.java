@@ -1,17 +1,23 @@
 package Cards;
 
-public class EpidemicCard {
+public class EpidemicCard implements PlayerCard{
 
     String name;
     String description;
 
     public EpidemicCard(String name){
+
         this.name = name;
         description = "Increase, Infect, Intensify";
     }
 
-    public void Epidemic(){
+    @Override
+    public String GetTypeOfCard() {
+        return name;
+    }
 
-
+    @Override
+    public String GetNameOfCard() {
+        return name;
     }
 }

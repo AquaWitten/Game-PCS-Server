@@ -13,6 +13,7 @@ public class OutbreakMarker {
 
     public void IncreaseOutbreakMarker(){
 
+        //since the game is lost if reaches 8, there is no need to increase it beyond this value as it might cause the game to continue if the lose statement is badly constructed
         if(outbreakCounter < 8) {
             outbreakCounter++;
             System.out.println("OutbreakCounter increased to: "+outbreakCounter);
