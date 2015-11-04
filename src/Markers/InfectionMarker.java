@@ -19,12 +19,13 @@ public class InfectionMarker {
 
     public void IncreaseInfectionRate(){
 
+        //to avoid going beyond size of the array
         if(infectionDegree < infectionRate.length - 1)
             infectionDegree++;
     }
 
     public int GetInfectionRate(){
-
+        //return the current infection rate from the array based on infection degree.
         return infectionRate[infectionDegree];
     }
 }
