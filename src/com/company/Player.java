@@ -37,8 +37,8 @@ public class Player {
     public void MoveAction(City targetCity){
 
         //move to neighbor city
-        for()
+        //for()
 
-        if(targetCity == )
+        //if(targetCity == )
     }
 }
