@@ -37,8 +37,45 @@ public class Player {
     public void MoveAction(City targetCity){
 
         //move to neighbor city
-        for()
+        for(int i =0; i < currentCity.neighborCities.size(); i++){
 
-        if(targetCity == )
+            if(targetCity.getName().toLowerCase() == currentCity.neighborCities.get(i).toLowerCase()) {
+                currentCity = targetCity;
+                break;
+            }
+            else
+                System.out.println("City is not neighbor");
+
+        }
+        //move to city based on the cards in hand
+        for(int i = 0; i < cardHand.length; i++) {
+
+            //if the target city is a card in hand
+            if (targetCity.name.toLowerCase() == cardHand[i].GetNameOfCard().toLowerCase()){
+                currentCity = targetCity;
+                break;
+            }
+            //if current city is a card on hand
+            else if(currentCity.name.toLowerCase() == cardHand[i].GetNameOfCard().toLowerCase()){
+                currentCity = targetCity;
+            }
+        }
+    }
+
+    public void CreateCure(){
+
+        int numbOfRed=0;
+        int numbOfYellow=0;
+        int numbOfBlue=0;
+        int numbOfBlack=0;
+
+        for(int i = 0; i < cardHand.length; i++){
+
+            if(cardHand[i].GetTypeOfCard().toLowerCase() == "citycard") {
+
+                if (cardHand[i].GetColorOfCard() == "red")
+                    numbOfRed++;
+            }
+        }
     }
 }
