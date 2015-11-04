@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/City.java" afterPath="$PROJECT_DIR$/src/com/company/City.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/GameServer.java" afterPath="$PROJECT_DIR$/src/com/company/GameServer.java" />
+    <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Game-PCS-Server.iws" />
@@ -531,7 +529,7 @@
       <workItem from="1446541819385" duration="21000" />
       <workItem from="1446541858500" duration="6546000" />
       <workItem from="1446548476115" duration="32000" />
-      <workItem from="1446630452680" duration="6259000" />
+      <workItem from="1446630452680" duration="6291000" />
     </task>
     <task id="LOCAL-00001" summary="Comment test">
       <created>1444512958527</created>
@@ -581,11 +579,17 @@
       <option name="project" value="LOCAL" />
       <updated>1446635541251</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
+      <created>1446641530563</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1446641530563</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25077000" />
+    <option name="totallyTimeSpent" value="25109000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
