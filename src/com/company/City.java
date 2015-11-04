@@ -24,7 +24,7 @@ public class City {
 
     }
 
-    public void Outbreak(String color){ //disable continues outbreaks; reset at player turn change
+    public void Outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         recentOutbreak = true;
         for(int i = 0; i < neighborCities.size(); i++) {

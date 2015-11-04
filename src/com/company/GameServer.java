@@ -18,7 +18,7 @@ public class GameServer {
     public static void main(String[] args) {
         allCities = new ArrayList<>();
         InstantiateCities();
-        
+
         allCities.get(1).redCubes = 3;
         allCities.get(2).redCubes = 2;
         allCities.get(12).redCubes = 2;
