@@ -6,7 +6,11 @@ import java.util.ArrayList;
 public class City {
 
     String name;
-    int currentCubes = 0;
+    int blueCubes = 0;
+    int yellowCubes = 0;
+    int blackCubes = 0;
+    int redCubes = 0;
+    boolean recentOutbreak = false;
     ArrayList<String> neighborCities;
     String color;
     boolean researchStation;
@@ -20,12 +24,14 @@ public class City {
 
     }
 
-    public void Outbreak(){ //disable continues outbreaks; reset at player turn change
+    public void Outbreak(String color){ //disable continues outbreaks; reset at player turn change
+        System.out.println("There is a " + color + " outbreak in " + this.name);
+        recentOutbreak = true;
         for(int i = 0; i < neighborCities.size(); i++) {
 
             for(int j = 0; j < GameServer.allCities.size(); j++){
-                if(GameServer.allCities.get(j).getName() == neighborCities.get(i)){
-                    GameServer.allCities.get(j).AddCube(1);
+                if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).recentOutbreak){
+                    GameServer.allCities.get(j).AddCube(color, 1);
                     j = GameServer.allCities.size();
                 }
 
@@ -34,9 +40,32 @@ public class City {
         }
     }
 
-    public void AddCube(int NumberOfCubesAdded){
-        currentCubes += NumberOfCubesAdded;
-        System.out.println("Cubes added to: " + this.name);
+    public void AddCube(String color, int numberOfCubesAdded){
+        if(color == "blue"){
+            blueCubes += numberOfCubesAdded;
+            if(blueCubes > 3){
+                this.Outbreak("blue");
+                blueCubes = 3;
+            }
+        } else if(color == "yellow"){
+            yellowCubes += numberOfCubesAdded;
+            if(yellowCubes > 3){
+                this.Outbreak("yellow");
+                yellowCubes = 3;
+            }
+        } else if(color == "black"){
+            blackCubes += numberOfCubesAdded;
+            if(blackCubes > 3){
+                this.Outbreak("black");
+                blackCubes = 3;
+            }
+        } else if(color == "red"){
+            redCubes += numberOfCubesAdded;
+            if(redCubes > 3){
+                this.Outbreak("red");
+                redCubes = 3;
+            }
+        }
 
     }
 
@@ -52,8 +81,20 @@ public class City {
         return name;
     }
 
-    public int getCurrentCubes() {
-        return currentCubes;
+    public int getBlueCubes() {
+        return blueCubes;
+    }
+
+    public int getYellowCubes() {
+        return yellowCubes;
+    }
+
+    public int getBlackCubes() {
+        return blackCubes;
+    }
+
+    public int getRedCubes() {
+        return redCubes;
     }
 
     public ArrayList<String> getNeighborCities() {

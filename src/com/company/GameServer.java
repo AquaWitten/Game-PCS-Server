@@ -18,7 +18,14 @@ public class GameServer {
     public static void main(String[] args) {
         allCities = new ArrayList<>();
         InstantiateCities();
-        allCities.get(32).Outbreak();
+        
+        allCities.get(1).redCubes = 3;
+        allCities.get(2).redCubes = 2;
+        allCities.get(12).redCubes = 2;
+        allCities.get(0).Outbreak("red");
+        System.out.println(allCities.get(1).redCubes);
+        System.out.println(allCities.get(12).name + allCities.get(12).redCubes);
+
         OutbreakMarker out = new OutbreakMarker();
         for(int i=0; i < 10; i++)
             out.IncreaseOutbreakMarker();
