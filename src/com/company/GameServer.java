@@ -12,10 +12,12 @@ public class GameServer {
     int port;
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
-    ArrayList<City> allCities;
+    static ArrayList<City> allCities;
 //--------------------------------------------------------------
 
     public static void main(String[] args) {
+        allCities = new ArrayList<>();
+        InstantiateCities();
         OutbreakMarker out = new OutbreakMarker();
         for(int i=0; i < 10; i++)
             out.IncreaseOutbreakMarker();
@@ -29,7 +31,7 @@ public class GameServer {
 
     }
 
-    public void InstantiateCities(){ //Method used to instantiate all the cities
+    public static void InstantiateCities(){ //Method used to instantiate all the cities
         //All blue cities
         City sanFrancisco = new City("san francisco", "blue",new ArrayList<>(Arrays.asList("chicago", "los angeles", "tokyo", "manila")));
         allCities.add(sanFrancisco);

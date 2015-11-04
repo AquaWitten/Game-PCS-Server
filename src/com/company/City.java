@@ -31,4 +31,27 @@ public class City {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getCurrentCubes() {
+        return currentCubes;
+    }
+
+    public ArrayList<String> getNeighborCities() {
+        return neighborCities;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public boolean isResearchStation() {
+        return researchStation;
+    }
+
+    public ArrayList<String> getPlayersHere() {
+        return playersHere;
+    }
 }
