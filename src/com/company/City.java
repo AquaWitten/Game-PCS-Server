@@ -20,15 +20,32 @@ public class City {
 
     }
 
-    public void Outbreak(){
-        //Use arraylist to AddCube() to neighboor cities in a for() loop
+    public void Outbreak(){ //disable continues outbreaks; reset at player turn change
+        for(int i = 0; i < neighborCities.size(); i++) {
 
+            for(int j = 0; j < GameServer.allCities.size(); j++){
+                if(GameServer.allCities.get(j).getName() == neighborCities.get(i)){
+                    GameServer.allCities.get(j).AddCube(1);
+                    j = GameServer.allCities.size();
+                }
+
+            }
+
+        }
     }
 
     public void AddCube(int NumberOfCubesAdded){
         currentCubes += NumberOfCubesAdded;
         System.out.println("Cubes added to: " + this.name);
 
+    }
+
+    public void setResearchStation(boolean researchStation) {
+        this.researchStation = researchStation;
+    }
+
+    public void setPlayersHere(ArrayList<String> playersHere) {
+        this.playersHere = playersHere;
     }
 
     public String getName() {

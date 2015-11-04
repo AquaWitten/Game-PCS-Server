@@ -12,12 +12,13 @@ public class GameServer {
     int port;
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
-    static ArrayList<City> allCities;
+    public static ArrayList<City> allCities;
 //--------------------------------------------------------------
 
     public static void main(String[] args) {
         allCities = new ArrayList<>();
         InstantiateCities();
+        allCities.get(32).Outbreak();
         OutbreakMarker out = new OutbreakMarker();
         for(int i=0; i < 10; i++)
             out.IncreaseOutbreakMarker();
