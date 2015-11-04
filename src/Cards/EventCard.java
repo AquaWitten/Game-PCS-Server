@@ -14,10 +14,6 @@ public class EventCard implements PlayerCard{
     }
 
 
-    public void Event(){
-
-
-    }
 
     private void GovernmentGrant() {
         description = "Add 1 Research Station to any City (No City Card needed)";
