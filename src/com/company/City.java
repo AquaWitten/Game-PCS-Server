@@ -24,7 +24,6 @@ public class City {
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
 
-
     }
 
     //Perform outbreak on a city when called
@@ -49,24 +48,36 @@ public class City {
 
         if(color == "blue"){
             blueCubes += numberOfCubesAdded;
+            GameBoard.blueCubesLeft -= numberOfCubesAdded;
+            //Check lose condition after cubes are added
+            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
             if(blueCubes > 3){
                 this.Outbreak("blue");
                 blueCubes = 3;
             }
         } else if(color == "yellow"){
             yellowCubes += numberOfCubesAdded;
+            GameBoard.yellowCubesLeft -= numberOfCubesAdded;
+            //Check lose condition after cubes are added
+            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
             if(yellowCubes > 3){
                 this.Outbreak("yellow");
                 yellowCubes = 3;
             }
         } else if(color == "black"){
             blackCubes += numberOfCubesAdded;
+            GameBoard.blackCubesLeft -= numberOfCubesAdded;
+            //Check lose condition after cubes are added
+            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
             if(blackCubes > 3){
                 this.Outbreak("black");
                 blackCubes = 3;
             }
         } else if(color == "red"){
             redCubes += numberOfCubesAdded;
+            GameBoard.redCubesLeft -= numberOfCubesAdded;
+            //Check lose condition after cubes are added
+            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
             if(redCubes > 3){
                 this.Outbreak("red");
                 redCubes = 3;

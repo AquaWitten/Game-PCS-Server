@@ -15,10 +15,10 @@ public class GameBoard {
     PlayerCard[] playerDeck;
     InfectionCard[] infectionDeck;
     int researchStationsLeft = 6;
-    int blueCubesLeft = 24;
-    int yellowCubesLeft = 24;
-    int blackCubesLeft = 24;
-    int redCubesLeft = 24;
+    static int blueCubesLeft = 24;
+    static int yellowCubesLeft = 24;
+    static int blackCubesLeft = 24;
+    static int redCubesLeft = 24;
     static boolean gameWon;
     static boolean gameLost;
 
@@ -39,7 +39,6 @@ public class GameBoard {
 
     }
 
-    //check lose condition and set gameLost to true
 
     public static void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
 
