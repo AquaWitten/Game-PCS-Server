@@ -30,7 +30,7 @@ public class City {
     public void Outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         recentOutbreak = true;
-        GameBoard.outbreakMarker.increaseOutbreakMarker();
+        GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
         for(int i = 0; i < neighborCities.size(); i++) {
 
             for(int j = 0; j < GameServer.allCities.size(); j++){
