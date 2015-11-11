@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class City {
 
+    //Create variables
     String name;
     int blueCubes = 0;
     int yellowCubes = 0;
@@ -17,6 +18,7 @@ public class City {
     ArrayList<String> playersHere;
 
     City(String name, String color, ArrayList<String> neighborCities){
+        //Instantiate variable that haven't yet
         this.name = name;
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
@@ -40,7 +42,8 @@ public class City {
         }
     }
 
-    public void AddCube(String color, int numberOfCubesAdded){
+    public void AddCube(String color, int numberOfCubesAdded){  //Add cube to city after checking color
+                                                                //Also do outbreak when condition is met
         if(color == "blue"){
             blueCubes += numberOfCubesAdded;
             if(blueCubes > 3){

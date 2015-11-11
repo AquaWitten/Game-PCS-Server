@@ -14,11 +14,12 @@ public class GameServer {
     static ArrayList<String> currentUsers;
     public static ArrayList<City> allCities;
 //--------------------------------------------------------------
-
+//UPON PLAYER TURN CHANGE RESET CITY VARIABLE recentOutbreak TO FALSE
     public static void main(String[] args) {
         allCities = new ArrayList<>();
-        InstantiateCities();
+        InstantiateCities(); //run the method creating cities and adding them to the allCities array
 
+        //testing city class and methods
         allCities.get(1).redCubes = 3;
         allCities.get(2).redCubes = 2;
         allCities.get(12).redCubes = 2;
@@ -39,7 +40,7 @@ public class GameServer {
 
     }
 
-    public static void InstantiateCities(){ //Method used to instantiate all the cities
+    public static void InstantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
         City sanFrancisco = new City("san francisco", "blue",new ArrayList<>(Arrays.asList("chicago", "los angeles", "tokyo", "manila")));
         allCities.add(sanFrancisco);
