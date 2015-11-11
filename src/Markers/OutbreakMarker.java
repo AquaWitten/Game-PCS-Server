@@ -19,7 +19,7 @@ public class OutbreakMarker {
         if(outbreakCounter < 8) {
             outbreakCounter++;
             System.out.println("OutbreakCounter increased to: " + outbreakCounter);
-            GameBoard.checkLose(this);
+            GameBoard.gameBoard.checkLose(this);
         }
         else
             System.out.println("Outbreak marker tried to go above 8, if game not lost, find the bug");

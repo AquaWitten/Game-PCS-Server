@@ -49,36 +49,40 @@ public class City {
 
         if(color == "blue"){
             blueCubes += numberOfCubesAdded;
-            GameBoard.blueCubesLeft -= numberOfCubesAdded;
+            GameBoard.gameBoard.blueCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
+                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(blueCubes > 3){
                 this.Outbreak("blue");
                 blueCubes = 3;
             }
         } else if(color == "yellow"){
             yellowCubes += numberOfCubesAdded;
-            GameBoard.yellowCubesLeft -= numberOfCubesAdded;
+            GameBoard.gameBoard.yellowCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
+                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(yellowCubes > 3){
                 this.Outbreak("yellow");
                 yellowCubes = 3;
             }
         } else if(color == "black"){
             blackCubes += numberOfCubesAdded;
-            GameBoard.blackCubesLeft -= numberOfCubesAdded;
+            GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
+                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(blackCubes > 3){
                 this.Outbreak("black");
                 blackCubes = 3;
             }
         } else if(color == "red"){
             redCubes += numberOfCubesAdded;
-            GameBoard.redCubesLeft -= numberOfCubesAdded;
+            GameBoard.gameBoard.redCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.checkLose(GameBoard.blueCubesLeft, GameBoard.yellowCubesLeft, GameBoard.blackCubesLeft, GameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
+                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(redCubes > 3){
                 this.Outbreak("red");
                 redCubes = 3;

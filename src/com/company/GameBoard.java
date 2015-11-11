@@ -14,20 +14,22 @@ public class GameBoard {
     int difficulty;
     PlayerCard[] playerDeck;
     InfectionCard[] infectionDeck;
-    static OutbreakMarker outbreakMarker;
-    static InfectionMarker infectionMarker;
-    static int researchStationsLeft = 6;
-    static int blueCubesLeft = 24;
-    static int yellowCubesLeft = 24;
-    static int blackCubesLeft = 24;
-    static int redCubesLeft = 24;
-    static boolean gameWon;
-    static boolean gameLost;
+    OutbreakMarker outbreakMarker;
+    InfectionMarker infectionMarker;
+    int researchStationsLeft = 6;
+    int blueCubesLeft = 24;
+    int yellowCubesLeft = 24;
+    int blackCubesLeft = 24;
+    int redCubesLeft = 24;
+    boolean gameWon;
+    boolean gameLost;
+
+    public static GameBoard gameBoard;
 
 
     GameBoard(){
 
-
+        GameBoard.gameBoard = this;
 
     }
 
@@ -42,7 +44,7 @@ public class GameBoard {
     }
 
 
-    public static void checkWin(CureMarker[] cures){
+    public void checkWin(CureMarker[] cures){
 
         //Check win condition
         if(cures[0].getHasCure() && cures[1].getHasCure() && cures[2].getHasCure() && cures[3].getHasCure()){
@@ -52,16 +54,16 @@ public class GameBoard {
 
     }
 
-    public static void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
+    public void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
 
         //Check lose condition with cubes
         if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
             System.out.println("Game is lost! You ran out of disease cubes");
-            gameLost = true;
+            this.gameLost = true;
         }
     }
 
-    public static void checkLose(OutbreakMarker outbreaks) {
+    public void checkLose(OutbreakMarker outbreaks) {
 
         //Check lose condition with outbreakMarker
         if (outbreaks.getOutbreakCounter() == 8) {
@@ -70,7 +72,7 @@ public class GameBoard {
         }
     }
 
-    public static void checkLose(InfectionMarker infections) {
+    public void checkLose(InfectionMarker infections) {
 
         //Check lose condition with infectionMarker
         if (infections.GetInfectionRate() == 10) {
@@ -79,7 +81,7 @@ public class GameBoard {
         }
     }
 
-    public static void checkLose(int playerCardsLeft){
+    public void checkLose(int playerCardsLeft){
 
         //Check lose condition with player deck
         if(playerCardsLeft == 0){

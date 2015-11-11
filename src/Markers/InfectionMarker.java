@@ -24,7 +24,7 @@ public class InfectionMarker {
         //to avoid going beyond size of the array
         if(infectionDegree < infectionRate.length - 1) {
             infectionDegree++;
-            GameBoard.checkLose(this);
+            GameBoard.gameBoard.checkLose(this);
         }
 
     }
