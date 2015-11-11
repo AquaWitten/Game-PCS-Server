@@ -21,4 +21,8 @@ public class OutbreakMarker {
         else
             System.out.println("Outbreak marker tried to go above 8, if game not lost, find the bug");
     }
+
+    public int getOutbreakCounter() {
+        return outbreakCounter;
+    }
 }

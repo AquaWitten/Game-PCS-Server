@@ -18,6 +18,7 @@ public class City {
     ArrayList<String> playersHere;
 
     City(String name, String color, ArrayList<String> neighborCities){
+
         //Instantiate variable that haven't yet
         this.name = name;
         this.color = color;
@@ -26,6 +27,7 @@ public class City {
 
     }
 
+    //Perform outbreak on a city when called
     public void Outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         recentOutbreak = true;
@@ -42,8 +44,9 @@ public class City {
         }
     }
 
-    public void AddCube(String color, int numberOfCubesAdded){  //Add cube to city after checking color
-                                                                //Also do outbreak when condition is met
+    //Add cube to city after checking color AND call outbreak when condition is met
+    public void AddCube(String color, int numberOfCubesAdded){
+
         if(color == "blue"){
             blueCubes += numberOfCubesAdded;
             if(blueCubes > 3){

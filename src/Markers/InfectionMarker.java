@@ -11,10 +11,10 @@ public class InfectionMarker {
 
     public InfectionMarker(){
 
-        //max value is 6
+        //max value is 7
         infectionDegree = 0;
-
-        infectionRate = new int[]{2,2,2,3,3,4,4};
+        //When infectionRate hits 10 the lose condition is met
+        infectionRate = new int[]{2,2,2,3,3,4,4,10};
     }
 
     public void IncreaseInfectionRate(){
