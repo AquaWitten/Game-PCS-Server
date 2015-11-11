@@ -29,7 +29,7 @@ public class GameServer {
 
         OutbreakMarker out = new OutbreakMarker();
         for(int i=0; i < 10; i++)
-            out.IncreaseOutbreakMarker();
+            out.increaseOutbreakMarker();
     }
 
     public void Receive(){
