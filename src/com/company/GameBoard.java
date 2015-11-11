@@ -14,7 +14,9 @@ public class GameBoard {
     int difficulty;
     PlayerCard[] playerDeck;
     InfectionCard[] infectionDeck;
-    int researchStationsLeft = 6;
+    static OutbreakMarker outbreakMarker;
+    static InfectionMarker infectionMarker;
+    static int researchStationsLeft = 6;
     static int blueCubesLeft = 24;
     static int yellowCubesLeft = 24;
     static int blackCubesLeft = 24;
@@ -29,16 +31,26 @@ public class GameBoard {
 
     }
 
-    //Check win condition and set gameWon to true
+    //Activate upon the draw of an epedemic card
+    public void ActivateEpedemicCard(){
+
+    }
+
+    //Activate upon the draw of an infection card
+    public void ActivateInfectionCard(InfectionCard infectionCard, int numberOfCubes){
+
+    }
+
+
     public static void checkWin(CureMarker[] cures){
 
+        //Check win condition
         if(cures[0].getHasCure() && cures[1].getHasCure() && cures[2].getHasCure() && cures[3].getHasCure()){
             System.out.println("Game is won! Congratulations");
             gameWon = true;
         }
 
     }
-
 
     public static void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
 
@@ -76,13 +88,5 @@ public class GameBoard {
         }
     }
 
-    //Activate upon the draw of an epedemic card
-    public void ActivateEpedemicCard(){
 
-    }
-
-    //Activate upon the draw of an infection card
-    public void ActivateInfectionCard(InfectionCard infectionCard, int numberOfCubes){
-
-    }
 }

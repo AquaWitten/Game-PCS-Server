@@ -19,7 +19,7 @@ public class GameServer {
         allCities = new ArrayList<>();
         InstantiateCities(); //run the method creating cities and adding them to the allCities array
 
-        //testing city class and methods
+        //testing starts here --------------------------------------------
         allCities.get(1).redCubes = 3;
         allCities.get(2).redCubes = 2;
         allCities.get(12).redCubes = 2;
@@ -28,8 +28,13 @@ public class GameServer {
         System.out.println(allCities.get(12).name + allCities.get(12).redCubes);
 
         OutbreakMarker out = new OutbreakMarker();
-        for(int i=0; i < 10; i++)
+        InfectionMarker inf = new InfectionMarker();
+        for(int i=0; i < 10; i++) {
             out.increaseOutbreakMarker();
+            inf.IncreaseInfectionRate();
+            allCities.get(1).AddCube("red", 3);
+        }
+        //testing ends here ---------------------------------------------
     }
 
     public void Receive(){

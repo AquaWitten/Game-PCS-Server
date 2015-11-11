@@ -30,6 +30,7 @@ public class City {
     public void Outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         recentOutbreak = true;
+        GameBoard.outbreakMarker.increaseOutbreakMarker();
         for(int i = 0; i < neighborCities.size(); i++) {
 
             for(int j = 0; j < GameServer.allCities.size(); j++){
@@ -86,8 +87,14 @@ public class City {
 
     }
 
-    public void setResearchStation(boolean researchStation) {
-        this.researchStation = researchStation;
+    //Called upon next player turn
+    public void resetRecentOutbreak(){
+        recentOutbreak = false;
+    }
+
+    //Called when placing a research station on city
+    public void placeResearchStation() {
+        this.researchStation = true;
     }
 
     public void setPlayersHere(ArrayList<String> playersHere) {
