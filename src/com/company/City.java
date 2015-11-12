@@ -11,7 +11,10 @@ public class City {
     int yellowCubes = 0;
     int blackCubes = 0;
     int redCubes = 0;
-    boolean recentOutbreak = false;
+    boolean blueRecentOutbreak = false;
+    boolean yellowRecentOutbreak = false;
+    boolean blackRecentOutbreak = false;
+    boolean redRecentOutbreak = false;
     ArrayList<String> neighborCities;
     String color;
     boolean researchStation;
@@ -29,19 +32,63 @@ public class City {
     //Perform outbreak on a city when called
     public void outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
-        recentOutbreak = true;
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
-        for(int i = 0; i < neighborCities.size(); i++) {
 
-            for(int j = 0; j < GameServer.allCities.size(); j++){
-                if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).recentOutbreak){
-                    GameServer.allCities.get(j).addCube(color, 1);
-                    j = GameServer.allCities.size();
+        if(color == "blue"){
+            blueRecentOutbreak = true;
+
+            for(int i = 0; i < neighborCities.size(); i++) {
+
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blueRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
+                    }
                 }
+            }
 
+        } else if(color == "yellow"){
+            yellowRecentOutbreak = true;
+
+            for(int i = 0; i < neighborCities.size(); i++) {
+
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).yellowRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
+                    }
+                }
+            }
+
+        } else if(color == "black"){
+            blackRecentOutbreak = true;
+
+            for(int i = 0; i < neighborCities.size(); i++) {
+
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blackRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
+                    }
+                }
+            }
+
+        } else if(color == "red"){
+            redRecentOutbreak = true;
+
+            for(int i = 0; i < neighborCities.size(); i++) {
+
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).redRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
+                    }
+                }
             }
 
         }
+
+
     }
 
     //Add cube to city after checking color AND call outbreak when condition is met
@@ -89,7 +136,10 @@ public class City {
 
     //Called upon next player turn
     public void resetRecentOutbreak(){
-        recentOutbreak = false;
+        blueRecentOutbreak = false;
+        yellowRecentOutbreak = false;
+        blackRecentOutbreak = false;
+        redRecentOutbreak = false;
     }
 
     //Called when placing a research station on city

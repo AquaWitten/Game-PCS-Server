@@ -20,7 +20,7 @@ public class GameServer {
         InstantiateCities(); //run the method creating cities and adding them to the allCities array
 
         //testing starts here --------------------------------------------
-        allCities.get(1).redCubes = 3;
+        /*allCities.get(1).redCubes = 3;
         allCities.get(2).redCubes = 2;
         allCities.get(12).redCubes = 2;
         allCities.get(0).outbreak("red");
@@ -33,7 +33,7 @@ public class GameServer {
             out.increaseOutbreakMarker();
             inf.IncreaseInfectionRate();
             allCities.get(1).addCube("red", 3);
-        }
+        }*/
         //testing ends here ---------------------------------------------
     }
 
