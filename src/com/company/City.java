@@ -29,7 +29,7 @@ public class City {
 
     }
 
-    //Perform outbreak on a city when called
+    //Perform an outbreak on city when called
     public void outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
@@ -88,6 +88,37 @@ public class City {
 
         }
 
+
+    }
+
+    //Remove cube from city checking color and if cure is up
+    public void removeCube(String color) {
+
+        if (color == "blue") {
+            if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
+                blueCubes = 0;
+            } else {
+                blueCubes -= 1;
+            }
+        } else if(color == "yellow"){
+            if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
+                yellowCubes = 0;
+            } else {
+                yellowCubes -= 1;
+            }
+        } else if(color == "black"){
+            if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
+                blackCubes = 0;
+            } else {
+                blackCubes -= 1;
+            }
+        } else if(color == "red"){
+            if(GameBoard.gameBoard.redCureMarker.getHasCure()){
+                redCubes = 0;
+            } else {
+                redCubes -= 1;
+            }
+        }
 
     }
 
