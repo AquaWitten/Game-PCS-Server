@@ -7,9 +7,9 @@ public class EventCard implements PlayerCard{
     String name;
     String description;
 
-    public EventCard(String type, String name) {
+    public EventCard(String name) {
 
-        this.type = type;
+        this.type = "event card";
         this.name = name;
     }
 
@@ -49,5 +49,10 @@ public class EventCard implements PlayerCard{
     @Override
     public String GetNameOfCard() {
         return name;
+    }
+
+    @Override
+    public String GetColorOfCard() {
+        return null;
     }
 }

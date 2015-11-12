@@ -4,11 +4,13 @@ public class CityCard implements PlayerCard{
 
     String type;
     String name;
+    String color;
 
-    public CityCard(String type, String info) {
+    public CityCard(String type, String info, String color) {
 
         this.type = type;
         this.name = info;
+        this.color = color;
     }
 
     @Override
@@ -20,4 +22,7 @@ public class CityCard implements PlayerCard{
     public String GetNameOfCard() {
         return name;
     }
+
+    @Override
+    public String GetColorOfCard(){ return color;}
 }
