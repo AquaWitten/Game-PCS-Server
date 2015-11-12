@@ -27,7 +27,7 @@ public class City {
     }
 
     //Perform outbreak on a city when called
-    public void Outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
+    public void outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
         System.out.println("There is a " + color + " outbreak in " + this.name);
         recentOutbreak = true;
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
@@ -35,7 +35,7 @@ public class City {
 
             for(int j = 0; j < GameServer.allCities.size(); j++){
                 if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).recentOutbreak){
-                    GameServer.allCities.get(j).AddCube(color, 1);
+                    GameServer.allCities.get(j).addCube(color, 1);
                     j = GameServer.allCities.size();
                 }
 
@@ -45,7 +45,7 @@ public class City {
     }
 
     //Add cube to city after checking color AND call outbreak when condition is met
-    public void AddCube(String color, int numberOfCubesAdded){
+    public void addCube(String color, int numberOfCubesAdded){
 
         if(color == "blue"){
             blueCubes += numberOfCubesAdded;
@@ -54,7 +54,7 @@ public class City {
             GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
                     GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(blueCubes > 3){
-                this.Outbreak("blue");
+                this.outbreak("blue");
                 blueCubes = 3;
             }
         } else if(color == "yellow"){
@@ -64,7 +64,7 @@ public class City {
             GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
                     GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(yellowCubes > 3){
-                this.Outbreak("yellow");
+                this.outbreak("yellow");
                 yellowCubes = 3;
             }
         } else if(color == "black"){
@@ -74,7 +74,7 @@ public class City {
             GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
                     GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(blackCubes > 3){
-                this.Outbreak("black");
+                this.outbreak("black");
                 blackCubes = 3;
             }
         } else if(color == "red"){
@@ -84,7 +84,7 @@ public class City {
             GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
                     GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
             if(redCubes > 3){
-                this.Outbreak("red");
+                this.outbreak("red");
                 redCubes = 3;
             }
         }
@@ -97,8 +97,8 @@ public class City {
     }
 
     //Called when placing a research station on city
-    public void placeResearchStation() {
-        this.researchStation = true;
+    public void placeResearchStation(boolean newValue) {
+        this.researchStation = newValue;
     }
 
     public void setPlayersHere(ArrayList<String> playersHere) {
