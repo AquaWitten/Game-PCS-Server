@@ -58,7 +58,7 @@ public class GameBoard {
 
     }
 
-    public void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
+    public void checkLose() {
 
         //Check lose condition with cubes
         if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
