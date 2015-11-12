@@ -20,4 +20,9 @@ public class EpidemicCard implements PlayerCard{
     public String GetNameOfCard() {
         return name;
     }
+
+    @Override
+    public String GetColorOfCard() {
+        return null;
+    }
 }
