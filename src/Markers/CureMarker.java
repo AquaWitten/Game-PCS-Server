@@ -30,4 +30,7 @@ public class CureMarker {
         isExterminated = true;
     }
 
+    public boolean getHasCure() {
+        return hasCure;
+    }
 }

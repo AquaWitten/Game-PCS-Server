@@ -1,6 +1,8 @@
 package Markers;
 
 
+import com.company.GameBoard;
+
 public class InfectionMarker {
 
     //Keeps track of how many times has the marker been moved
@@ -11,17 +13,20 @@ public class InfectionMarker {
 
     public InfectionMarker(){
 
-        //max value is 6
+        //max value is 7
         infectionDegree = 0;
-
-        infectionRate = new int[]{2,2,2,3,3,4,4};
+        //When infectionRate hits 10 the lose condition is met
+        infectionRate = new int[]{2,2,2,3,3,4,4,10};
     }
 
     public void IncreaseInfectionRate(){
 
         //to avoid going beyond size of the array
-        if(infectionDegree < infectionRate.length - 1)
+        if(infectionDegree < infectionRate.length - 1) {
             infectionDegree++;
+            GameBoard.gameBoard.checkLose(this);
+        }
+
     }
 
     public int GetInfectionRate(){
