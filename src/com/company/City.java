@@ -51,8 +51,7 @@ public class City {
             blueCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blueCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
-                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose();
             if(blueCubes > 3){
                 this.outbreak("blue");
                 blueCubes = 3;
@@ -61,8 +60,7 @@ public class City {
             yellowCubes += numberOfCubesAdded;
             GameBoard.gameBoard.yellowCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
-                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose();
             if(yellowCubes > 3){
                 this.outbreak("yellow");
                 yellowCubes = 3;
@@ -71,8 +69,7 @@ public class City {
             blackCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
-                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose();
             if(blackCubes > 3){
                 this.outbreak("black");
                 blackCubes = 3;
@@ -81,8 +78,7 @@ public class City {
             redCubes += numberOfCubesAdded;
             GameBoard.gameBoard.redCubesLeft -= numberOfCubesAdded;
             //Check lose condition after cubes are added
-            GameBoard.gameBoard.checkLose(GameBoard.gameBoard.blueCubesLeft, GameBoard.gameBoard.yellowCubesLeft,
-                    GameBoard.gameBoard.blackCubesLeft, GameBoard.gameBoard.redCubesLeft);
+            GameBoard.gameBoard.checkLose();
             if(redCubes > 3){
                 this.outbreak("red");
                 redCubes = 3;
