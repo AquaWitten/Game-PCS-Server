@@ -1,19 +1,22 @@
 package com.company;
 
-
 import Cards.InfectionCard;
 import Cards.PlayerCard;
 import Markers.CureMarker;
 import Markers.InfectionMarker;
 import Markers.OutbreakMarker;
 
+import java.util.ArrayList;
+
 public class GameBoard {
 
     //Create all relevant variables
     Player[] players;
     int difficulty;
-    PlayerCard[] playerDeck;
-    InfectionCard[] infectionDeck;
+    public ArrayList<PlayerCard> playerDeck;
+    public ArrayList<PlayerCard> playerDiscardPile;
+    public ArrayList<InfectionCard> infectionDeck;
+    public ArrayList<InfectionCard> infectionDiscardPile;
     OutbreakMarker outbreakMarker;
     InfectionMarker infectionMarker;
     int researchStationsLeft = 6;
@@ -24,6 +27,7 @@ public class GameBoard {
     boolean gameWon;
     boolean gameLost;
 
+    //Creates a static instance and makes it possible to refer to the variable through: GameBoard.gameBoard
     public static GameBoard gameBoard;
 
 
