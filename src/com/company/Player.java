@@ -121,7 +121,7 @@ public class Player {
                 while (removedCards <= 3) {
 
                     if (cardHand.get(cardCounter).GetColorOfCard().toLowerCase() == "red") {
-                        GameBoard.playerDiscard.add(cardHand.get(cardCounter));
+                        GameBoard.gameBoard.playerDiscard.add(cardHand.get(cardCounter));
                         cardHand.remove(cardCounter);
                         removedCards++;
                     }
@@ -137,7 +137,7 @@ public class Player {
                 while (removedCards <= 4) {
 
                     if (cardHand.get(cardCounter).GetColorOfCard().toLowerCase() == "red") {
-                        GameBoard.playerDiscard.add(cardHand.get(cardCounter));
+                        GameBoard.gameBoard.playerDiscard.add(cardHand.get(cardCounter));
                         cardHand.remove(cardCounter);
                         removedCards++;
                     }
@@ -149,7 +149,7 @@ public class Player {
     }
 
     public void DiscardCard(int i){
-        GameBoard.playerDiscard.add(cardHand.get(i));
+        GameBoard.gameBoard.playerDiscard.add(cardHand.get(i));
     }
 
     public void buildResearchStation(int paymentCard){
@@ -171,7 +171,7 @@ public class Player {
         if (role.getName().toLowerCase() == "operations expert") {
             if (isTurn) {
                 if (currentCity.researchStation == false) {
-                    currentCity.setResearchStation(true);
+                    currentCity.placeResearchStation(true);
                 } else
                     System.out.println("city has a research station");
             } else

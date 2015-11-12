@@ -23,7 +23,7 @@ public class GameServer {
         allCities.get(1).redCubes = 3;
         allCities.get(2).redCubes = 2;
         allCities.get(12).redCubes = 2;
-        allCities.get(0).Outbreak("red");
+        allCities.get(0).outbreak("red");
         System.out.println(allCities.get(1).redCubes);
         System.out.println(allCities.get(12).name + allCities.get(12).redCubes);
 
@@ -32,7 +32,7 @@ public class GameServer {
         for(int i=0; i < 10; i++) {
             out.increaseOutbreakMarker();
             inf.IncreaseInfectionRate();
-            allCities.get(1).AddCube("red", 3);
+            allCities.get(1).addCube("red", 3);
         }
         //testing ends here ---------------------------------------------
     }

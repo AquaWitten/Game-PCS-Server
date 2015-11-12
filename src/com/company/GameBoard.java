@@ -14,9 +14,9 @@ public class GameBoard {
     Player[] players;
     int difficulty;
     public ArrayList<PlayerCard> playerDeck;
-    public ArrayList<PlayerCard> playerDiscardPile;
+    public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
-    public ArrayList<InfectionCard> infectionDiscardPile;
+    public ArrayList<InfectionCard> infectionDiscard;
     OutbreakMarker outbreakMarker;
     InfectionMarker infectionMarker;
     int researchStationsLeft = 6;
@@ -58,7 +58,7 @@ public class GameBoard {
 
     }
 
-    public void checkLose(int blueCubesLeft, int yellowCubesLeft, int blackCubesLeft, int redCubesLeft ) {
+    public void checkLose() {
 
         //Check lose condition with cubes
         if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
