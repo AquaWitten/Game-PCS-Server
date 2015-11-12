@@ -14,9 +14,9 @@ public class GameBoard {
     Player[] players;
     int difficulty;
     public ArrayList<PlayerCard> playerDeck;
-    public ArrayList<PlayerCard> playerDiscardPile;
+    public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
-    public ArrayList<InfectionCard> infectionDiscardPile;
+    public ArrayList<InfectionCard> infectionDiscard;
     OutbreakMarker outbreakMarker;
     InfectionMarker infectionMarker;
     int researchStationsLeft = 6;
