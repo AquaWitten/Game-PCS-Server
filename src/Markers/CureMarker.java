@@ -1,19 +1,18 @@
 package Markers;
 
 
+import com.company.GameBoard;
+
 public class CureMarker {
 
-    //type = color of of the cure, ex blue, yellow
-    String type;
     //has a cure been found?
     boolean hasCure;
     //are all cubes removed from the gameboard and do we have a cure?
     boolean isExterminated;
 
     //Initializing variables
-    public CureMarker(String type){
+    public CureMarker(){
 
-        this.type = type;
         hasCure = false;
         isExterminated = false;
     }
@@ -22,6 +21,7 @@ public class CureMarker {
 
         //Add some if statement here
         hasCure = true;
+        GameBoard.gameBoard.checkWin();
     }
 
     public void SetIsExterminated(){

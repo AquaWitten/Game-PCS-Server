@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GameBoard {
 
     //Create all relevant variables
-    Player[] players;
+    //Player[] players;
     int difficulty;
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
@@ -19,6 +19,10 @@ public class GameBoard {
     public ArrayList<InfectionCard> infectionDiscard;
     OutbreakMarker outbreakMarker;
     InfectionMarker infectionMarker;
+    CureMarker blueCureMarker;
+    CureMarker yellowCureMarker;
+    CureMarker blackCureMarker;
+    CureMarker redCureMarker;
     int researchStationsLeft = 6;
     int blueCubesLeft = 24;
     int yellowCubesLeft = 24;
@@ -48,10 +52,10 @@ public class GameBoard {
     }
 
 
-    public void checkWin(CureMarker[] cures){
+    public void checkWin(){
 
         //Check win condition
-        if(cures[0].getHasCure() && cures[1].getHasCure() && cures[2].getHasCure() && cures[3].getHasCure()){
+        if(blueCureMarker.getHasCure() && yellowCureMarker.getHasCure() && blackCureMarker.getHasCure() && redCureMarker.getHasCure()){
             System.out.println("Game is won! Congratulations");
             gameWon = true;
         }
