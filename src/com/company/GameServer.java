@@ -35,6 +35,8 @@ public class GameServer {
             allCities.get(1).addCube("red", 3);
         }*/
         //testing ends here ---------------------------------------------
+
+        Message message = new Message();
     }
 
     public void Receive(){

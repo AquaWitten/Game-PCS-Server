@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GameBoard {
 
     //Create all relevant variables
-    //Player[] players;
+    Player[] players;
     int difficulty;
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
@@ -30,6 +30,7 @@ public class GameBoard {
     int redCubesLeft = 24;
     boolean gameWon;
     boolean gameLost;
+    public static ArrayList<City> allCities;
 
     //Creates a static instance and makes it possible to refer to the variable through: GameBoard.gameBoard
     public static GameBoard gameBoard;

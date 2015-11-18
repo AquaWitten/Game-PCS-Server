@@ -11,7 +11,7 @@ public class Player {
 
     RoleCard role;
     Color color;
-    String username;
+    int ID;
     City currentCity;
     ArrayList<PlayerCard> cardHand;
     int actionsLeft;
@@ -19,11 +19,11 @@ public class Player {
 
     PlayerCard[] extraHand;
 
-    Player(RoleCard role,Color color, String username, City startCity){
+    Player(RoleCard role,Color color, int ID, City startCity){
 
         this.role = role;
         this.color = color;
-        this.username = username;
+        this.ID = ID;
         this.currentCity = startCity;
 
         cardHand = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Player {
             }
         }
         else
-            System.out.println("Not your turn " + username);
+            System.out.println("Not your turn " + ID);
     }
 
     //move to target city if card is on hand
@@ -69,7 +69,7 @@ public class Player {
                     System.out.println("Payment card is not matching target city");
             }
         else
-            System.out.println("Not your turn " + username);
+            System.out.println("Not your turn " + ID);
     }
 
     //if current city is a card on hand
@@ -84,7 +84,7 @@ public class Player {
                 System.out.println("Payment card is not matching current city");
         }
         else
-            System.out.println("Not your turn " + username);
+            System.out.println("Not your turn " + ID);
     }
 
     //if current city has a research stations and target city has a research station
@@ -98,7 +98,7 @@ public class Player {
                 System.out.println("Payment card is not matching current city");
         }
         else
-            System.out.println("Not your turn " + username);
+            System.out.println("Not your turn " + ID);
     }
 
 
@@ -131,7 +131,7 @@ public class Player {
                     }
                 }
                 else
-                    System.out.println("Player: "+ username+", you do not the right cards to make a cure");
+                    System.out.println("Player: "+ ID+", you do not the right cards to make a cure");
             }
         }
     }
@@ -155,7 +155,7 @@ public class Player {
             System.out.println("city has a research station");
         }
         else
-            System.out.println("Not your turn " + username);
+            System.out.println("Not your turn " + ID);
     }
 
 //    public void buildResearchStationRole() {
@@ -187,5 +187,17 @@ public class Player {
     public void drawCard(){
         cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
         GameBoard.gameBoard.playerDeck.remove(0);
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getCurrentCityName() {
+        return currentCity.getName().toLowerCase();
+    }
+
+    public String getIsTurnString() {
+        return Boolean.toString(isTurn);
     }
 }
