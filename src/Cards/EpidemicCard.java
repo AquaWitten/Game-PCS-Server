@@ -11,6 +11,10 @@ public class EpidemicCard implements PlayerCard{
         description = "Increase, Infect, Intensify";
     }
 
+    @Override
+    public String GetTypeOfCard() {
+        return name;
+    }
 
     @Override
     public String GetNameOfCard() {
