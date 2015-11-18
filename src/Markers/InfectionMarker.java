@@ -33,4 +33,8 @@ public class InfectionMarker {
         //return the current infection rate from the array based on infection degree.
         return infectionRate[infectionDegree];
     }
+
+    public int getInfectionDegree() {
+        return infectionDegree;
+    }
 }
