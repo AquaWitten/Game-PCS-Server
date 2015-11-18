@@ -36,7 +36,9 @@ public class Player {
             extraHand = null;*/
     }
 
-    //move to neighbor city
+    /**
+     * @param targetCity
+     */
     public void moveToNeighbor(City targetCity) {
         if (isTurn == true) {
             for (int i = 0; i < currentCity.getNeighborCities().size(); i++) {
@@ -59,7 +61,7 @@ public class Player {
 
                 if (targetCity.name.toLowerCase() == cardHand.get(paymentCard).GetNameOfCard().toLowerCase()) {
                     currentCity = targetCity;
-                    DiscardCard(paymentCard);
+                    discardCard(paymentCard);
                     actionsLeft--;
                 }
 
@@ -75,7 +77,7 @@ public class Player {
         if (isTurn == true) {
             if (currentCity.name.toLowerCase() == cardHand.get(paymentCard).GetNameOfCard().toLowerCase()) {
                 currentCity = targetCity;
-                DiscardCard(paymentCard);
+                discardCard(paymentCard);
                 actionsLeft--;
             }
             else
@@ -100,61 +102,50 @@ public class Player {
     }
 
 
-    public void CreateCure(String color, int pay1, int pay2, int pay3, int pay4, int pay5){
+    public void CreateCure(CureMarker cureMarker, CityCard[] payCards){
 
         if(isTurn == true) {
-            int numbOfColor = 0;
+            if (currentCity.researchStation) {
+                int numbOfPayCards = 5;
+                ArrayList<PlayerCard> tempCards = new ArrayList<>();
 
-            //counts number of cards on player hand of specific color
-            for (int i = 0; i < cardHand.size(); i++) {
-                if (cardHand.get(i).GetTypeOfCard().toLowerCase() == "citycard") {
-                    if (cardHand.get(i).GetColorOfCard().toLowerCase() == "red")
-                        numbOfRed++;
-                }
-            }
-            if (numbOfRed >= 4 && role.getName().toLowerCase() == "scientist") {
-
-                cureMarker.SetHasCure();
-                int removedCards = 0;
-                int cardCounter = 0;
-
-                while (removedCards <= 3) {
-
-                    if (cardHand.get(cardCounter).GetColorOfCard().toLowerCase() == "red") {
-                        GameBoard.gameBoard.playerDiscard.add(cardHand.get(cardCounter));
-                        cardHand.remove(cardCounter);
-                        removedCards++;
+                for (int i = 0; i < cardHand.size(); i++)
+                {
+                    for(int j = 0; j < payCards.length; j++)
+                    {
+                        if (cardHand.get(i).GetNameOfCard().equals( payCards[j].GetNameOfCard() ))
+                            tempCards.add(cardHand.get(i));
                     }
-                    cardCounter++;
                 }
 
-            } else if (numbOfRed >= 5 && role.getName().toLowerCase() != "scientist") {
+                if (tempCards.size() >= numbOfPayCards)
+                {
+                    cureMarker.SetHasCure();
+                    actionsLeft--;
 
-                GameBoard.redCureMarker.SetHasCure();
-                int removedCards = 0;
-                int cardCounter = 0;
-
-                while (removedCards <= 4) {
-
-                    if (cardHand.get(cardCounter).GetColorOfCard().toLowerCase() == "red") {
-                        GameBoard.gameBoard.playerDiscard.add(cardHand.get(cardCounter));
-                        cardHand.remove(cardCounter);
-                        removedCards++;
+                    for(int i=0; i < cardHand.size(); i++) {
+                        for(int j=0; j < tempCards.size(); j++) {
+                            if (cardHand.get(i).GetNameOfCard().equals( payCards[j].GetNameOfCard() ))
+                                discardCard(i);
+                        }
                     }
-                    cardCounter++;
                 }
-
+                else
+                    System.out.println("Player: "+ username+", you do not the right cards to make a cure");
             }
         }
     }
 
-    public void DiscardCard(int i){
+    public void discardCard(int i)
+    {
         GameBoard.gameBoard.playerDiscard.add(cardHand.get(i));
+        cardHand.remove(i);
     }
 
     public void buildResearchStation(int paymentCard){
         if(isTurn){
-            if(currentCity.researchStation == false) {
+            if(currentCity.researchStation == false)
+            {
                 if (currentCity.getName() == cardHand.get(paymentCard).GetNameOfCard()) ;
 
                 else
@@ -167,23 +158,34 @@ public class Player {
             System.out.println("Not your turn " + username);
     }
 
-    public void buildResearchStationRole() {
-        if (role.getName().toLowerCase() == "operations expert") {
-            if (isTurn) {
-                if (currentCity.researchStation == false) {
-                    currentCity.placeResearchStation(true);
-                } else
-                    System.out.println("city has a research station");
-            } else
-                System.out.println("Not your turn " + username);
-        }
-    }
+//    public void buildResearchStationRole() {
+//        if (role.getName().toLowerCase() == "operations expert") {
+//            if (isTurn) {
+//                if (currentCity.researchStation == false)
+//                {
+//                    currentCity.placeResearchStation(true);
+//                    actionsLeft--;
+//                }
+//                else
+//                    System.out.println("city has a research station");
+//            }
+//            else
+//                System.out.println("Not your turn " + username);
+//        }
+//    }
 
-    public void removeCube(){
-
+    public void removeCube(String color)
+    {
+        if(isTurn)
+            if(actionsLeft > 0)
+            {
+                currentCity.removeCube(color);
+                actionsLeft--;
+            }
     }
 
     public void drawCard(){
-
+        cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
+        GameBoard.gameBoard.playerDeck.remove(0);
     }
 }
