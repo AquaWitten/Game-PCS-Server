@@ -96,26 +96,34 @@ public class City {
 
         if (color == "blue") {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
+                GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
             } else {
+                GameBoard.gameBoard.blueCubesLeft += 1;
                 blueCubes -= 1;
             }
         } else if(color == "yellow"){
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
+                GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
             } else {
+                GameBoard.gameBoard.yellowCubesLeft += 1;
                 yellowCubes -= 1;
             }
         } else if(color == "black"){
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
+                GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
             } else {
+                GameBoard.gameBoard.blackCubesLeft += 1;
                 blackCubes -= 1;
             }
         } else if(color == "red"){
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
+                GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
             } else {
+                GameBoard.gameBoard.redCubesLeft += 1;
                 redCubes -= 1;
             }
         }
