@@ -182,8 +182,9 @@ public class City {
     }
 
     //Called when placing a research station on city
-    public void placeResearchStation(boolean newValue) {
-        this.researchStation = newValue;
+    public void placeResearchStation() {
+        GameBoard.gameBoard.researchStationsLeft -= 1;
+        this.researchStation = true;
     }
 
     public void setPlayersHere(ArrayList<String> playersHere) {
