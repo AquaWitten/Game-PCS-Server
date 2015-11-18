@@ -22,7 +22,7 @@ public class City {
 
     City(String name, String color, ArrayList<String> neighborCities){
 
-        //Instantiate variable that haven't yet
+        //Instantiate variable that haven't been instantiated yet
         this.name = name;
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
@@ -39,10 +39,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameServer.allCities.size(); j++){
-                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blueRecentOutbreak){
-                        GameServer.allCities.get(j).addCube(color, 1);
-                        j = GameServer.allCities.size();
+                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blueRecentOutbreak){
+                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
+                        j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
@@ -52,10 +52,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameServer.allCities.size(); j++){
-                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).yellowRecentOutbreak){
-                        GameServer.allCities.get(j).addCube(color, 1);
-                        j = GameServer.allCities.size();
+                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).yellowRecentOutbreak){
+                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
+                        j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
@@ -65,10 +65,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameServer.allCities.size(); j++){
-                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blackRecentOutbreak){
-                        GameServer.allCities.get(j).addCube(color, 1);
-                        j = GameServer.allCities.size();
+                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blackRecentOutbreak){
+                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
+                        j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
@@ -78,10 +78,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameServer.allCities.size(); j++){
-                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).redRecentOutbreak){
-                        GameServer.allCities.get(j).addCube(color, 1);
-                        j = GameServer.allCities.size();
+                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).redRecentOutbreak){
+                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
+                        j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
@@ -96,26 +96,34 @@ public class City {
 
         if (color == "blue") {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
+                GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
             } else {
+                GameBoard.gameBoard.blueCubesLeft += 1;
                 blueCubes -= 1;
             }
         } else if(color == "yellow"){
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
+                GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
             } else {
+                GameBoard.gameBoard.yellowCubesLeft += 1;
                 yellowCubes -= 1;
             }
         } else if(color == "black"){
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
+                GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
             } else {
+                GameBoard.gameBoard.blackCubesLeft += 1;
                 blackCubes -= 1;
             }
         } else if(color == "red"){
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
+                GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
             } else {
+                GameBoard.gameBoard.redCubesLeft += 1;
                 redCubes -= 1;
             }
         }
