@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Cards/InfectionCard.java" afterPath="$PROJECT_DIR$/src/Cards/InfectionCard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Message.java" afterPath="$PROJECT_DIR$/src/com/company/Message.java" />
     </list>
     <ignored path="Game-PCS-Server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/company/GameServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,15 +60,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InfectionCard.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InfectionCard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cards/InfectionCard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57990116">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
                 <element signature="e#681#682#0" expanded="true" />
                 <element signature="e#708#709#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Message.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Message.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.1482701">
+              <caret line="62" column="80" selection-start-line="62" selection-start-column="80" selection-end-line="62" selection-end-column="80" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -160,6 +171,7 @@
         <option value="$PROJECT_DIR$/src/com/company/City.java" />
         <option value="$PROJECT_DIR$/src/com/company/GameBoard.java" />
         <option value="$PROJECT_DIR$/src/Cards/InfectionCard.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Message.java" />
       </list>
     </option>
   </component>
@@ -595,7 +607,7 @@
       <workItem from="1447332086427" duration="603000" />
       <workItem from="1447333085526" duration="4461000" />
       <workItem from="1447844514545" duration="5444000" />
-      <workItem from="1447851502063" duration="1296000" />
+      <workItem from="1447851502063" duration="1834000" />
     </task>
     <task id="LOCAL-00001" summary="Comment test">
       <created>1444512958527</created>
@@ -655,7 +667,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42103000" />
+    <option name="totallyTimeSpent" value="42641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -715,14 +727,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/company/City.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/GameServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1111,7 +1115,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/company/GameServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1146,12 +1150,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cards/InfectionCard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57990116">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
             <element signature="e#681#682#0" expanded="true" />
             <element signature="e#708#709#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1482701">
+          <caret line="62" column="80" selection-start-line="62" selection-start-column="80" selection-end-line="62" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>
