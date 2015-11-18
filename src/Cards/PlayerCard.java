@@ -3,7 +3,7 @@ package Cards;
 
 public interface PlayerCard {
 
-    public String GetNameOfCard();
+    public String getNameOfCard();
 
-    public String GetColorOfCard();
+    public String getColorOfCard();
 }

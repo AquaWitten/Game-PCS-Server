@@ -9,6 +9,7 @@ import Markers.OutbreakMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GameBoard {
 
@@ -115,11 +116,13 @@ public class GameBoard {
             CityCard temp = new CityCard(allCities.get(i).getName(), allCities.get(i).getColor());
             playerDeck.add(temp);
         }
+        Collections.shuffle(playerDeck);
         //Infection deck
         for(int i = 0; i < allCities.size(); i++){
             InfectionCard temp = new InfectionCard(allCities.get(i).getName(), allCities.get(i).getColor());
             infectionDeck.add(temp);
         }
+        Collections.shuffle(infectionDeck);
     }
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
