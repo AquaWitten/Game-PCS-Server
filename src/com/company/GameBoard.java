@@ -42,7 +42,7 @@ public class GameBoard {
 
     GameBoard(){
 
-        GameBoard.gameBoard = this;
+
 
         allCities = new ArrayList<>();
         instantiateCities(); //run the method creating cities and adding them to the allCities array
@@ -51,6 +51,8 @@ public class GameBoard {
         infectionDeck = new ArrayList<>();
         infectionDiscard = new ArrayList<>();
         instantiateDecks(); //run method creating cards and placing them in the decks
+
+        GameBoard.gameBoard = this;
 
     }
 

@@ -38,6 +38,9 @@ public class GameServer {
         //testing ends here ---------------------------------------------
 
         Message message = new Message();
+        message.setMessageContent();
+        System.out.println(GameBoard.gameBoard.blackCubesLeft);
+        System.out.println(message.blackCubesLeft);
     }
 
     public void Receive(){
