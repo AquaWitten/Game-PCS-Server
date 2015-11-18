@@ -39,10 +39,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blueRecentOutbreak){
-                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blueRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
                     }
                 }
             }
@@ -52,10 +52,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).yellowRecentOutbreak){
-                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).yellowRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
                     }
                 }
             }
@@ -65,10 +65,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blackRecentOutbreak){
-                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).blackRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
                     }
                 }
             }
@@ -78,10 +78,10 @@ public class City {
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
-                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).redRecentOutbreak){
-                        GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                for(int j = 0; j < GameServer.allCities.size(); j++){
+                    if(GameServer.allCities.get(j).getName() == neighborCities.get(i) && !GameServer.allCities.get(j).redRecentOutbreak){
+                        GameServer.allCities.get(j).addCube(color, 1);
+                        j = GameServer.allCities.size();
                     }
                 }
             }
