@@ -57,6 +57,16 @@ public class Message {
         setGameWon();
     }
 
+    //------------------------Setters---------------------------------------------
+
+    /**
+     * For player1, player2, player3 and player4
+     * array space;
+     * 0: String ID of player
+     * 1: String describing if it is the players turn
+     * 2: String name of the city the player is currently on
+     * 3-?: for-loop adds the name of the cards of the players hand
+     */
     public void setPlayer1() {
         player1 = new ArrayList<>();
 
@@ -109,6 +119,13 @@ public class Message {
         }
     }
 
+    /**
+     * Each city on the board is added to the string array with, containing important values
+     * array space;
+     * 0: string name of the city
+     * 1: string describing if the city has a research station
+     * 2-5: string value of the amount of cubes on the city
+     */
     public void setCities() {
         cities = new String[6][48];
 
@@ -123,6 +140,9 @@ public class Message {
         }
     }
 
+    /**
+     * For loop adds the name of each card left in the playerDeck to the array
+     */
     public void setPlayerDeck() {
         playerDeck = new ArrayList<>();
 
@@ -132,6 +152,9 @@ public class Message {
         }
     }
 
+    /**
+     * For loop adds the name of each card in the playerDiscard to the array
+     */
     public void setPlayerDiscard() {
         playerDiscard = new ArrayList<>();
 
@@ -141,6 +164,9 @@ public class Message {
         }
     }
 
+    /**
+     * For loop adds the name of each card left in the infectionDeck to the array
+     */
     public void setInfectionDeck() {
         infectionDeck = new ArrayList<>();
 
@@ -148,6 +174,9 @@ public class Message {
             infectionDeck.set(i, GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
     }
 
+    /**
+     * For loop adds the name of each card in the infectionDiscard to the array
+     */
     public void setInfectionDiscard() {
         infectionDiscard = new ArrayList<>();
 
@@ -155,35 +184,130 @@ public class Message {
             infectionDiscard.set(i, GameBoard.gameBoard.infectionDiscard.get(i).getName());
     }
 
+    /**
+     * copies the amount of blue cubes on the city
+     */
     public void setBlueCubesLeft() {
         blueCubesLeft = GameBoard.gameBoard.blueCubesLeft;
     }
 
+    /**
+     * copies the amount of red cubes on the city
+     */
     public void setRedCubesLeft() {
         redCubesLeft = GameBoard.gameBoard.redCubesLeft;
     }
 
+    /**
+     * copies the amount of yellow cubes on the city
+     */
     public void setYellowCubesLeft() {
         yellowCubesLeft = GameBoard.gameBoard.yellowCubesLeft;
     }
 
+    /**
+     * copies the amount of black cubes on the city
+     */
     public void setBlackCubesLeft() {
         blackCubesLeft = GameBoard.gameBoard.blackCubesLeft;
     }
 
+    /**
+     * copies the value of the outbreak marker
+     */
     public void setOutbreakMarker() {
         outbreakMarker = GameBoard.gameBoard.outbreakMarker.getOutbreakCounter();
     }
 
+    /**
+     * copies the amount of times the infection marker has been moved
+     */
     public void setInfectionMarker() {
         infectionMarker = GameBoard.gameBoard.infectionMarker.getInfectionDegree();
     }
 
+    /**
+     * copies the gamewon boolean from the gameboard
+     */
     public void setGameWon() {
         gameWon = GameBoard.gameBoard.gameWon;
     }
 
+    /**
+     * copies the gamelost boolean from the gameboard
+     */
     public void setGameLost() {
         gameLost = GameBoard.gameBoard.gameLost;
+    }
+
+    //------------------------Getters----------------------------------------------
+
+
+    public ArrayList<String> getPlayer1() {
+        return player1;
+    }
+
+    public ArrayList<String> getPlayer2() {
+        return player2;
+    }
+
+    public ArrayList<String> getPlayer3() {
+        return player3;
+    }
+
+    public ArrayList<String> getPlayer4() {
+        return player4;
+    }
+
+    public String[][] getCities() {
+        return cities;
+    }
+
+    public ArrayList<String> getPlayerDeck() {
+        return playerDeck;
+    }
+
+    public ArrayList<String> getPlayerDiscard() {
+        return playerDiscard;
+    }
+
+    public ArrayList<String> getInfectionDeck() {
+        return infectionDeck;
+    }
+
+    public ArrayList<String> getInfectionDiscard() {
+        return infectionDiscard;
+    }
+
+    public int getBlueCubesLeft() {
+        return blueCubesLeft;
+    }
+
+    public int getRedCubesLeft() {
+        return redCubesLeft;
+    }
+
+    public int getYellowCubesLeft() {
+        return yellowCubesLeft;
+    }
+
+    public int getBlackCubesLeft() {
+        return blackCubesLeft;
+    }
+
+    public int getOutbreakMarker() {
+        return outbreakMarker;
+    }
+
+    public int getInfectionMarker() {
+        return infectionMarker;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
+    public boolean isGameLost() {
+        return gameLost;
     }
 }
