@@ -19,6 +19,9 @@ public class InfectionCard {
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
 
+        //DO INFECTION
+
+        //Move top card in the deck to the discard pile
         GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(0));
         GameBoard.gameBoard.infectionDeck.remove(0);
 

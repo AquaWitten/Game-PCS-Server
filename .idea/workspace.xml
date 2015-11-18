@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93dcf21a-8f6f-42ee-9a18-b47ac16ddfd5" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;src/com/company/GameServer.java&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/GameBoard.java" afterPath="$PROJECT_DIR$/src/com/company/GameBoard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Cards/InfectionCard.java" afterPath="$PROJECT_DIR$/src/Cards/InfectionCard.java" />
     </list>
     <ignored path="Game-PCS-Server.iws" />
@@ -63,11 +62,11 @@
       <file leaf-file-name="InfectionCard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Cards/InfectionCard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6079078">
-              <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.57990116">
+              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding>
-                <element signature="e#601#602#0" expanded="true" />
-                <element signature="e#628#629#0" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
+                <element signature="e#708#709#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -596,7 +595,7 @@
       <workItem from="1447332086427" duration="603000" />
       <workItem from="1447333085526" duration="4461000" />
       <workItem from="1447844514545" duration="5444000" />
-      <workItem from="1447851502063" duration="1084000" />
+      <workItem from="1447851502063" duration="1296000" />
     </task>
     <task id="LOCAL-00001" summary="Comment test">
       <created>1444512958527</created>
@@ -656,7 +655,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41891000" />
+    <option name="totallyTimeSpent" value="42103000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1147,11 +1146,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cards/InfectionCard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6079078">
-          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.57990116">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
           <folding>
-            <element signature="e#601#602#0" expanded="true" />
-            <element signature="e#628#629#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
           </folding>
         </state>
       </provider>
