@@ -1,6 +1,5 @@
 package com.company;
 
-import Cards.CityCard;
 import Cards.InfectionCard;
 import Cards.PlayerCard;
 import Markers.CureMarker;
@@ -40,15 +39,10 @@ public class GameBoard {
 
     GameBoard(){
 
-        GameBoard.gameBoard = this;
-
         allCities = new ArrayList<>();
-        instantiateCities(); //run the method creating cities and adding them to the allCities array
-        playerDeck = new ArrayList<>();
-        playerDiscard = new ArrayList<>();
-        infectionDeck = new ArrayList<>();
-        infectionDiscard = new ArrayList<>();
-        instantiateDecks(); //run method creating cards and placing them in the decks
+        InstantiateCities(); //run the method creating cities and adding them to the allCities array
+
+        GameBoard.gameBoard = this;
 
     }
 
@@ -109,20 +103,7 @@ public class GameBoard {
         }
     }
 
-    public void instantiateDecks(){ //Method used to instantiate the two decks of cards
-        //PlayerDeck without epedemic cards
-        for(int i = 0; i < allCities.size(); i++){
-            CityCard temp = new CityCard(allCities.get(i).getName(), allCities.get(i).getColor());
-            playerDeck.add(temp);
-        }
-        //Infection deck
-        for(int i = 0; i < allCities.size(); i++){
-            InfectionCard temp = new InfectionCard(allCities.get(i).getName(), allCities.get(i).getColor());
-            infectionDeck.add(temp);
-        }
-    }
-
-    public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
+    public static void InstantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
         City sanFrancisco = new City("san francisco", "blue",new ArrayList<>(Arrays.asList("chicago", "los angeles", "tokyo", "manila")));
         allCities.add(sanFrancisco);
