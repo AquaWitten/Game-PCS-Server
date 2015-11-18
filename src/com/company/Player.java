@@ -29,11 +29,11 @@ public class Player {
         cardHand = new ArrayList<>();
         actionsLeft=0;
         isTurn=false;
-
+/*
         if(role.getName().toLowerCase() == "contingency planner")
             extraHand = new PlayerCard[1];
         else
-            extraHand = null;
+            extraHand = null;*/
     }
 
     /**
