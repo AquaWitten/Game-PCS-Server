@@ -33,7 +33,7 @@ public class GameBoard {
     int redCubesLeft = 24;
     boolean gameWon;
     boolean gameLost;
-    public static ArrayList<City> allCities;
+    public ArrayList<City> allCities;
 
     //Creates a static instance and makes it possible to refer to the variable through: GameBoard.gameBoard
     public static GameBoard gameBoard;

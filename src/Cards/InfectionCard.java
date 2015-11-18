@@ -1,6 +1,8 @@
 package Cards;
 
 
+import com.company.GameBoard;
+
 public class InfectionCard {
 
     String name;
@@ -13,6 +15,12 @@ public class InfectionCard {
     }
 
     public void drawInfectionCard(){
+        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
+            GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
+        }
+
+        GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(0));
+        GameBoard.gameBoard.infectionDeck.remove(0);
 
     }
 
