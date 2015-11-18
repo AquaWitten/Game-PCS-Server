@@ -11,16 +11,7 @@ public class InfectionCard {
         this.color = color;
 
     }
-
-    public void drawInfectionCard(){
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    //    public void Infect(City cityToInfect){
+//    public void Infect(City cityToInfect){
 //
 //
 //    }

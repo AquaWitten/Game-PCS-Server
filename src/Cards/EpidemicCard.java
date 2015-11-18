@@ -13,12 +13,12 @@ public class EpidemicCard implements PlayerCard{
 
 
     @Override
-    public String getNameOfCard() {
+    public String GetNameOfCard() {
         return name;
     }
 
     @Override
-    public String getColorOfCard() {
+    public String GetColorOfCard() {
         return null;
     }
 }

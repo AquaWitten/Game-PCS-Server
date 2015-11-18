@@ -12,13 +12,11 @@ public class GameServer {
     int port;
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
-    static GameBoard test1;
 
 //--------------------------------------------------------------
 //UPON DRAW OF NEW INFECTION CARD RESET CITY VARIABLE recentOutbreak TO FALSE
     public static void main(String[] args) {
 
-        test1 = new GameBoard();
 
         //testing starts here --------------------------------------------
         /*allCities.get(1).redCubes = 3;

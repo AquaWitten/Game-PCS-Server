@@ -13,10 +13,10 @@ public class CityCard implements PlayerCard{
 
 
     @Override
-    public String getNameOfCard() {
+    public String GetNameOfCard() {
         return name.toLowerCase();
     }
 
     @Override
-    public String getColorOfCard(){ return color.toLowerCase();}
+    public String GetColorOfCard(){ return color.toLowerCase();}
 }

@@ -59,7 +59,7 @@ public class Player {
     public void moveToCardOnHand(City targetCity, int paymentCard){
         if (isTurn == true) {
 
-                if (targetCity.name.toLowerCase() == cardHand.get(paymentCard).getNameOfCard().toLowerCase()) {
+                if (targetCity.name.toLowerCase() == cardHand.get(paymentCard).GetNameOfCard().toLowerCase()) {
                     currentCity = targetCity;
                     discardCard(paymentCard);
                     actionsLeft--;
@@ -75,7 +75,7 @@ public class Player {
     //if current city is a card on hand
     public void moveUsingCurrentCityCard(City targetCity, int paymentCard){
         if (isTurn == true) {
-            if (currentCity.name.toLowerCase() == cardHand.get(paymentCard).getNameOfCard().toLowerCase()) {
+            if (currentCity.name.toLowerCase() == cardHand.get(paymentCard).GetNameOfCard().toLowerCase()) {
                 currentCity = targetCity;
                 discardCard(paymentCard);
                 actionsLeft--;
@@ -113,7 +113,7 @@ public class Player {
                 {
                     for(int j = 0; j < payCards.length; j++)
                     {
-                        if (cardHand.get(i).getNameOfCard().equals( payCards[j].getNameOfCard() ))
+                        if (cardHand.get(i).GetNameOfCard().equals( payCards[j].GetNameOfCard() ))
                             tempCards.add(cardHand.get(i));
                     }
                 }
@@ -125,7 +125,7 @@ public class Player {
 
                     for(int i=0; i < cardHand.size(); i++) {
                         for(int j=0; j < tempCards.size(); j++) {
-                            if (cardHand.get(i).getNameOfCard().equals( payCards[j].getNameOfCard() ))
+                            if (cardHand.get(i).GetNameOfCard().equals( payCards[j].GetNameOfCard() ))
                                 discardCard(i);
                         }
                     }
@@ -146,7 +146,7 @@ public class Player {
         if(isTurn){
             if(currentCity.researchStation == false)
             {
-                if (currentCity.getName() == cardHand.get(paymentCard).getNameOfCard()) ;
+                if (currentCity.getName() == cardHand.get(paymentCard).GetNameOfCard()) ;
 
                 else
                     System.out.println("current city:"+currentCity.getName()+ " does not match paymentcard");
