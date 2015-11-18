@@ -35,4 +35,9 @@ public class InfectionCard {
 //
 //
 //    }
+
+
+    public String getName() {
+        return name;
+    }
 }

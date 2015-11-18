@@ -35,7 +35,9 @@ public class GameServer {
             inf.IncreaseInfectionRate();
             allCities.get(1).addCube("red", 3);
         }*/
-        //testing ends here ----------------------------------------------
+        //testing ends here ---------------------------------------------
+
+        Message message = new Message();
     }
 
     public void Receive(){
