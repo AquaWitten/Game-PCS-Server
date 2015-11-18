@@ -40,11 +40,7 @@ public class EventCard implements PlayerCard{
         //Code here
     }
 
-
-    @Override
-    public String GetTypeOfCard() {
-        return type;
-    }
+    
 
     @Override
     public String GetNameOfCard() {
