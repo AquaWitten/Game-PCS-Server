@@ -22,7 +22,7 @@ public class City {
 
     City(String name, String color, ArrayList<String> neighborCities){
 
-        //Instantiate variable that haven't yet
+        //Instantiate variable that haven't been instantiated yet
         this.name = name;
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
