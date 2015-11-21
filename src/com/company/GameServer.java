@@ -8,10 +8,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class GameServer {
 
     //Global variables
+    static ArrayList<RoleCard> roles;
     static LobbyStatus lobbyStatus;
     static int port;
     static int playerIDs;
@@ -32,6 +34,7 @@ public class GameServer {
     {
         port = 2555;
 
+        instantiateRoleCards();
         InLobby();
 
     }
@@ -51,6 +54,11 @@ public class GameServer {
 
                     System.out.println("Client has connected to server");
 
+                    int randomIndex = new Random().nextInt(roles.size());
+                    RoleCard tempRole = roles.get(randomIndex);
+                    roles.remove(randomIndex);
+                    Player tempPlayer = new Player(tempRole,playerIDs, test1.);
+
                     ClientConnection clientConnect = new ClientConnection(newPlayerSocket, playerIDs, lobbyStatus);
                     Thread newClient = new Thread(clientConnect);
                     newClient.start();
@@ -65,5 +73,17 @@ public class GameServer {
             System.out.println("failed to sleep while waiting for all players to press ready");
         }
 
+    }
+
+    public static void instantiateRoleCards()
+    {
+        RoleCard operationsExpert = new RoleCard("operations expert");
+        roles.add(operationsExpert);
+        RoleCard quarantineSpecialist  = new RoleCard("quarantine specialist");
+        roles.add(quarantineSpecialist);
+        RoleCard medic  = new RoleCard("medic");
+        roles.add(medic);
+        RoleCard scientist  = new RoleCard("scientist");
+        roles.add(scientist);
     }
 }

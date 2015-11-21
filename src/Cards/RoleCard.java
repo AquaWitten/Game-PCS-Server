@@ -3,13 +3,13 @@ package Cards;
 public class RoleCard{
 
     String name;
-    String description;
 
-    public RoleCard(String name, String description) {
+
+    public RoleCard(String name) {
 
 
         this.name = name;
-        this.description = description;
+
     }
 
     public String getName() {

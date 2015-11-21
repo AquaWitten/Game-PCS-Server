@@ -14,7 +14,7 @@ import java.util.Collections;
 public class GameBoard {
 
     //Create all relevant variables
-    Player[] players;
+    public ArrayList<Player> players;
     int difficulty;
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
@@ -126,6 +126,17 @@ public class GameBoard {
             infectionDeck.add(temp);
         }
         Collections.shuffle(infectionDeck);
+    }
+
+    public City getCity(String city)
+    {
+        City returnCity = new City();
+        for(int i = 0; i< allCities.size(); i++) {
+            if (allCities.get(i).getName().equals(city)) {
+                returnCity = allCities.get(i);
+            }
+        }
+        return returnCity;
     }
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array

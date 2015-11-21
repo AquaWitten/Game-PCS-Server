@@ -14,30 +14,15 @@ public class ClientConnection implements Runnable {
     PrintWriter output;
     Socket sock;
     LobbyStatus lobbyStatus;
-    int playerID;
+    Player clientPlayer;
     boolean clientConnected;
 
-    ClientConnection(Socket sock, int ID,  LobbyStatus lobbyStatus)
+    ClientConnection(Socket sock, Player clientsPlayer,  LobbyStatus lobbyStatus)
     {
         this.sock = sock;
-        playerID = ID;
+        this.clientPlayer = clientsPlayer;
         this.lobbyStatus = lobbyStatus;
         clientConnected = true;
-    }
-
-    public void isConnected()
-    {
-        if(!sock.isConnected())
-        {
-            for(int i = 0; i < GameServer.connectionArray.size(); i++)
-            {
-                if(GameServer.connectionArray.get(i) == sock)
-                {
-                    GameServer.connectionArray.remove(i);
-                    clientConnected = false;
-                }
-            }
-        }
     }
 
     @Override
@@ -72,5 +57,25 @@ public class ClientConnection implements Runnable {
             }
 
         }
+    }
+
+    public void isConnected()
+    {
+        if(!sock.isConnected())
+        {
+            for(int i = 0; i < GameServer.connectionArray.size(); i++)
+            {
+                if(GameServer.connectionArray.get(i) == sock)
+                {
+                    GameServer.connectionArray.remove(i);
+                    clientConnected = false;
+                }
+            }
+        }
+    }
+
+    public void inLobby()
+    {
+
     }
 }
