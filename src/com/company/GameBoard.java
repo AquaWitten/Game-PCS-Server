@@ -20,8 +20,8 @@ public class GameBoard {
     public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
     public ArrayList<InfectionCard> infectionDiscard;
-    OutbreakMarker outbreakMarker;
-    InfectionMarker infectionMarker;
+    public OutbreakMarker outbreakMarker = new OutbreakMarker();
+    public InfectionMarker infectionMarker = new InfectionMarker();
     CureMarker blueCureMarker;
     CureMarker yellowCureMarker;
     CureMarker blackCureMarker;

@@ -11,6 +11,10 @@ public class CityCard implements PlayerCard{
         this.color = color;
     }
 
+    @Override
+    public void drawPlayerCard(){
+
+    }
 
     @Override
     public String getNameOfCard() {

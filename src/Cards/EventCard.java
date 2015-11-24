@@ -40,7 +40,10 @@ public class EventCard implements PlayerCard{
         //Code here
     }
 
+    @Override
+    public void drawPlayerCard(){
 
+    }
 
     @Override
     public String getNameOfCard() {
