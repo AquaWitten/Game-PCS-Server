@@ -3,6 +3,7 @@ package com.company;
 import Cards.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class GameServer {
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
     static GameBoard test1;
+    static PrintWriter output;
 
     //--------------------------------------------------------------
 
@@ -77,6 +79,8 @@ public class GameServer {
         if(lobbyStatus.changeInStatus == true)
         {
                 //FOR LOOP THAT RUNS THROUGH ALL SOCKETS AND SENDS THE READY STATUS OF ALL PLAYERS
+
+            lobbyStatus.changeInStatus = false;
         }
     }
 

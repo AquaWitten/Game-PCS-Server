@@ -35,6 +35,8 @@ public class ClientConnection implements Runnable {
         }
 
         //SEND PLAYER ID TO CLIENT
+        output.println(""+clientPlayer.getID()+"");
+        output.flush();
 
         while(clientConnected){
 
