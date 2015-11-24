@@ -1,13 +1,11 @@
 package com.company;
 
 import Cards.*;
-import Markers.*;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class GameServer {
@@ -46,7 +44,7 @@ public class GameServer {
             ServerSocket serverSocket = new ServerSocket(port);
 
             //as long as all players are not ready (true) stay in loop
-            while (!lobbyStatus.p1 && !lobbyStatus.p2 && !lobbyStatus.p3 && !lobbyStatus.p4) {
+            while (!lobbyStatus.allReady) {
                 //as long as there is less than 4 players connected stay in loop
                 while (connectionArray.size() <= 3) {
                     Socket newPlayerSocket = serverSocket.accept();
@@ -57,9 +55,9 @@ public class GameServer {
                     int randomIndex = new Random().nextInt(roles.size());
                     RoleCard tempRole = roles.get(randomIndex);
                     roles.remove(randomIndex);
-                    Player tempPlayer = new Player(tempRole,playerIDs, test1.);
+                    Player tempPlayer = new Player(tempRole,playerIDs, GameBoard.gameBoard.getCity("atlanta"));
 
-                    ClientConnection clientConnect = new ClientConnection(newPlayerSocket, playerIDs, lobbyStatus);
+                    ClientConnection clientConnect = new ClientConnection(newPlayerSocket, tempPlayer, lobbyStatus);
                     Thread newClient = new Thread(clientConnect);
                     newClient.start();
                     playerIDs++;
@@ -72,8 +70,16 @@ public class GameServer {
         } catch (InterruptedException e) {
             System.out.println("failed to sleep while waiting for all players to press ready");
         }
-
     }
+
+    public static void sendLobbyChanges()
+    {
+        if(lobbyStatus.changeInStatus == true)
+        {
+                //FOR LOOP THAT RUNS THROUGH ALL SOCKETS AND SENDS THE READY STATUS OF ALL PLAYERS
+        }
+    }
+
 
     public static void instantiateRoleCards()
     {
@@ -85,5 +91,10 @@ public class GameServer {
         roles.add(medic);
         RoleCard scientist  = new RoleCard("scientist");
         roles.add(scientist);
+    }
+
+    public static void gameRunning()
+    {
+        //code to check if win or lose by looking in gameboard class
     }
 }

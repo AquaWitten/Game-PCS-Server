@@ -34,26 +34,28 @@ public class ClientConnection implements Runnable {
             e.printStackTrace();
         }
 
+        //SEND PLAYER ID TO CLIENT
+
         while(clientConnected){
 
             isConnected();
             try {
                 clientCommand = input.readLine();
-                System.out.println("Client ID: "+playerID+" says: "+clientCommand);
+                System.out.println("Client ID: "+clientPlayer.getID()+" says: "+clientCommand);
 
             } catch (IOException e) {
-                System.out.println("failed to read message from client ID: "+playerID);
+                System.out.println("failed to read message from client ID: "+clientPlayer.getID());
             }
 
             //Set the status of the player
             if(clientCommand.equals("READY"))
             {
-                lobbyStatus.changePlayerStatus(playerID+"_true");
+                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_true");
             }
 
             else if(clientCommand.equals("UNREADY"))
             {
-                lobbyStatus.changePlayerStatus(playerID+"_false");
+                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_false");
             }
 
         }

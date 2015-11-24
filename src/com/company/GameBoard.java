@@ -128,15 +128,15 @@ public class GameBoard {
         Collections.shuffle(infectionDeck);
     }
 
-    public City getCity(String city)
-    {
-        City returnCity = new City();
-        for(int i = 0; i< allCities.size(); i++) {
+    public City getCity(String city) {
+        City returnCity;
+        for (int i = 0; i < allCities.size(); i++) {
             if (allCities.get(i).getName().equals(city)) {
                 returnCity = allCities.get(i);
+                return returnCity;
             }
         }
-        return returnCity;
+        return null;
     }
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array

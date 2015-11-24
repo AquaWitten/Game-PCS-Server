@@ -5,6 +5,7 @@ public class LobbyStatus {
 
     boolean p1, p2, p3, p4;
     boolean changeInStatus;
+    boolean allReady;
 
     LobbyStatus()
     {
@@ -52,5 +53,11 @@ public class LobbyStatus {
             p4 = false;
             changeInStatus = true;
         }
+
+        //Check if all players are ready
+        if(p1 && p2 && p3 && p4)
+            allReady=true;
+        else
+            allReady = false;
     }
 }
