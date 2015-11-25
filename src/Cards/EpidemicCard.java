@@ -6,15 +6,16 @@ import java.util.Collections;
 
 public class EpidemicCard implements PlayerCard{
 
+    //variables created
     String name;
-    String description;
 
     public EpidemicCard(){
 
+        //when instance is created give correct values to variables
         this.name = "epidemic";
-        description = "Increase, Infect, Intensify";
     }
 
+    //getters
     @Override
     public String getNameOfCard() {
         return name;

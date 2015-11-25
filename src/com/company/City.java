@@ -22,15 +22,15 @@ public class City {
 
     City(String name, String color, ArrayList<String> neighborCities){
 
-        //Instantiate variable that haven't been instantiated yet
+        //Assign inserted values to this instance of city
         this.name = name;
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
 
     }
 
-    //Perform an outbreak on city when called
-    public void outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
+    //Perform an outbreak on city when called based on color
+    public void outbreak(String color){
         System.out.println("There is a " + color + " outbreak in " + this.name);
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
 
@@ -91,7 +91,7 @@ public class City {
 
     }
 
-    //Remove cube from city checking color and if cure is up
+    //Remove cube from city checking color and if cure complete
     public void removeCube(String color) {
 
         if (color.equals("blue")) {
@@ -186,7 +186,7 @@ public class City {
 
     }
 
-    //Called upon next player turn
+    //resets RecentOutbreak values
     public void resetRecentOutbreak(){
         blueRecentOutbreak = false;
         yellowRecentOutbreak = false;
@@ -200,6 +200,7 @@ public class City {
         this.researchStation = true;
     }
 
+    //getters and setters
     public void setPlayersHere(ArrayList<String> playersHere) {
         this.playersHere = playersHere;
     }

@@ -16,7 +16,6 @@ public class GameBoard {
 
     //Create all relevant variables
     public ArrayList<Player> players;
-    int difficulty;
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
@@ -44,7 +43,7 @@ public class GameBoard {
     GameBoard(){
 
 
-
+        //Instantiate different arrays
         allCities = new ArrayList<>();
         instantiateCities(); //run the method creating cities and adding them to the allCities array
         playerDeck = new ArrayList<>();
@@ -169,6 +168,7 @@ public class GameBoard {
         Collections.shuffle(infectionDeck);
     }
 
+    //Returns a city variable with the inserted name
     public City getCity(String city) {
         City returnCity;
         for (int i = 0; i < allCities.size(); i++) {
