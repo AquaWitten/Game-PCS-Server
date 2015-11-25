@@ -42,9 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.xml
-*.xml
-*.xml
-*.xml
-*.xml
 *.class
-
+*.class
+/out
