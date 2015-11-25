@@ -133,7 +133,8 @@ public class City {
     //Add cube to city after checking color AND call outbreak when condition is met
     public void addCube(String color, int numberOfCubesAdded){
 
-        if(color == "blue" && !GameBoard.gameBoard.blueCureMarker.isExterminated()){
+        if(color.equals("blue") && !GameBoard.gameBoard.blueCureMarker.getIsExterminated())
+        {
             blueCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blueCubesLeft -= numberOfCubesAdded;
             if(blueCubes > 3){
@@ -145,7 +146,8 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "yellow" && !GameBoard.gameBoard.yellowCureMarker.isExterminated()){
+        }
+        else if(color.equals("yellow") && !GameBoard.gameBoard.yellowCureMarker.getIsExterminated()){
             yellowCubes += numberOfCubesAdded;
             GameBoard.gameBoard.yellowCubesLeft -= numberOfCubesAdded;
 
@@ -158,7 +160,7 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "black" && !GameBoard.gameBoard.blackCureMarker.isExterminated()){
+        } else if(color.equals("black") && !GameBoard.gameBoard.blackCureMarker.getIsExterminated()){
             blackCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
             if(blackCubes > 3){
@@ -170,7 +172,9 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "red" && !GameBoard.gameBoard.redCureMarker.isExterminated()){
+        }
+        else if(color.equals("red") && !GameBoard.gameBoard.redCureMarker.getIsExterminated())
+        {
             redCubes += numberOfCubesAdded;
             GameBoard.gameBoard.redCubesLeft -= numberOfCubesAdded;
             if(redCubes > 3){
@@ -183,7 +187,6 @@ public class City {
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
         }
-
     }
 
     //Called upon next player turn

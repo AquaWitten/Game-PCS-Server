@@ -17,6 +17,12 @@ public class ClientConnection implements Runnable {
     Player clientPlayer;
     boolean clientConnected;
 
+    /**
+     * Assigns arguments to global class variables
+     * @param sock socket used to exchange data with client
+     * @param clientsPlayer local variable of the Player class
+     * @param lobbyStatus status of the lobby
+     */
     ClientConnection(Socket sock, Player clientsPlayer,  LobbyStatus lobbyStatus)
     {
         this.sock = sock;
@@ -26,6 +32,9 @@ public class ClientConnection implements Runnable {
         GameBoard.gameBoard.players.add(clientsPlayer);
     }
 
+    /**
+     * "main" method that all communication with the client goes through
+     */
     @Override
     public void run() {
         try {
@@ -50,7 +59,7 @@ public class ClientConnection implements Runnable {
                 System.out.println("failed to read message from client ID: "+clientPlayer.getID());
             }
 
-            //Set the status of the player
+            //Set the status of the player in LobbyStatus based on command from client
             if(clientCommand.equals("READY"))
             {
                 lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_true");
@@ -64,6 +73,10 @@ public class ClientConnection implements Runnable {
         }
     }
 
+    /**
+     * checks if the socket is connected, if it is not, removes the socket from the array of sockets
+     * and sets the clientConnected boolean to false which causes the while loop to break
+     */
     public void isConnected()
     {
         if(!sock.isConnected())

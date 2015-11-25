@@ -1,6 +1,8 @@
 package com.company;
 
-
+/**
+ * Used to keep track of the clients ready status during the lobby fase
+ */
 public class LobbyStatus {
 
     boolean p1, p2, p3, p4;
@@ -12,6 +14,10 @@ public class LobbyStatus {
 
     }
 
+    /**
+     * Depending on the message string, sets the players status to true or false
+     * @param message string comprised of player ID and string from client
+     */
     public void changePlayerStatus(String message)
     {
         if(message.equals("1_True")){
@@ -61,6 +67,11 @@ public class LobbyStatus {
             allReady = false;
     }
 
+    /**
+     * Get the status of a player
+     * @param player name of the local variable for the player
+     * @return returns a string of the boolean value
+     */
     public String getPlayerStatus(String player)
     {
         if(player.equals("p1"))

@@ -1,13 +1,14 @@
 package Markers;
 
-
 import com.company.GameBoard;
 
+/**
+ * Class to track if cure for specific color has been found
+ */
 public class CureMarker {
 
-    //has a cure been found?
+    //Global class variables
     boolean hasCure;
-    //are all cubes removed from the gameboard and do we have a cure?
     boolean isExterminated;
 
     //Initializing variables
@@ -17,23 +18,32 @@ public class CureMarker {
         isExterminated = false;
     }
 
+    /**
+     * Used in the Player class when creating cure for a color
+     * Checks if the game is won
+     */
     public void SetHasCure(){
-
-        //Add some if statement here
         hasCure = true;
         GameBoard.gameBoard.checkWin();
     }
 
+    /**
+     * Sets isExterminated to true if there are no more cubes of a color and if the cure is made
+     */
     public void SetIsExterminated(){
-
-        //Add some if statement here
         isExterminated = true;
     }
 
-    public boolean isExterminated() {
+    /**
+     * @return the state of the isExterminated boolean
+     */
+    public boolean getIsExterminated() {
         return isExterminated;
     }
 
+    /**
+     * @return the state of the hasCure boolean
+     */
     public boolean getHasCure() {
         return hasCure;
     }
