@@ -60,4 +60,25 @@ public class LobbyStatus {
         else
             allReady = false;
     }
+
+    public String getPlayerStatus(String player)
+    {
+        if(player.equals("p1"))
+            return String.valueOf(p1);
+
+        else if(player.equals("p2"))
+            return String.valueOf(p2);
+
+        else if(player.equals("p3"))
+            return String.valueOf(p1);
+
+        else if(player.equals("p4"))
+            return String.valueOf(p1);
+
+        else
+        {
+            System.out.println("no player match the requested string in getPlayerStatus");
+            return "null";
+        }
+    }
 }

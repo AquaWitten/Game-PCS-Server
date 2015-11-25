@@ -3,6 +3,7 @@ package com.company;
 import Cards.*;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,6 +33,7 @@ public class GameServer {
 
     public static void main(String[] args)
     {
+        connectionArray = new ArrayList<>();
         port = 2555;
 
         instantiateRoleCards();
@@ -41,6 +43,7 @@ public class GameServer {
 
     public static void InLobby()
     {
+        lobbyStatus = new LobbyStatus();
         playerIDs = 1;
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -51,12 +54,12 @@ public class GameServer {
                 while (connectionArray.size() <= 3) {
                     Socket newPlayerSocket = serverSocket.accept();
                     connectionArray.add(newPlayerSocket);
-
                     System.out.println("Client has connected to server");
 
                     int randomIndex = new Random().nextInt(roles.size());
                     RoleCard tempRole = roles.get(randomIndex);
                     roles.remove(randomIndex);
+
                     Player tempPlayer = new Player(tempRole,playerIDs, GameBoard.gameBoard.getCity("atlanta"));
 
                     ClientConnection clientConnect = new ClientConnection(newPlayerSocket, tempPlayer, lobbyStatus);
@@ -64,6 +67,7 @@ public class GameServer {
                     newClient.start();
                     playerIDs++;
                 }
+                sendLobbyChanges();
                 Thread.sleep(100);
             }
         }
@@ -72,14 +76,33 @@ public class GameServer {
         } catch (InterruptedException e) {
             System.out.println("failed to sleep while waiting for all players to press ready");
         }
+
+        System.out.println("all players have connected at pressed ready");
+        //Main game running code here
     }
 
     public static void sendLobbyChanges()
     {
-        if(lobbyStatus.changeInStatus == true)
+        if(lobbyStatus.changeInStatus)
         {
                 //FOR LOOP THAT RUNS THROUGH ALL SOCKETS AND SENDS THE READY STATUS OF ALL PLAYERS
-
+            for(int i = 0; i < connectionArray.size(); i++)
+            {
+                Socket tempSock = (Socket) connectionArray.get(i);
+                try {
+                    PrintWriter tempOut = new PrintWriter(tempSock.getOutputStream());
+                    tempOut.println(lobbyStatus.getPlayerStatus("p1"));
+                    tempOut.flush();
+                    tempOut.println(lobbyStatus.getPlayerStatus("p2"));
+                    tempOut.flush();
+                    tempOut.println(lobbyStatus.getPlayerStatus("p3"));
+                    tempOut.flush();
+                    tempOut.println(lobbyStatus.getPlayerStatus("p4"));
+                    tempOut.flush();
+                } catch (IOException e) {
+                    System.out.println("Could not create Printerwriter for sending player lobby status");
+                }
+            }
             lobbyStatus.changeInStatus = false;
         }
     }
@@ -87,6 +110,7 @@ public class GameServer {
 
     public static void instantiateRoleCards()
     {
+        roles = new ArrayList<>();
         RoleCard operationsExpert = new RoleCard("operations expert");
         roles.add(operationsExpert);
         RoleCard quarantineSpecialist  = new RoleCard("quarantine specialist");

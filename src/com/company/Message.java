@@ -70,52 +70,52 @@ public class Message {
     public void setPlayer1() {
         player1 = new ArrayList<>();
 
-        player1.set(0,Integer.toString(GameBoard.gameBoard.players[0].getID()));
-        player1.set(1,GameBoard.gameBoard.players[0].getIsTurnString());
-        player1.set(2,GameBoard.gameBoard.players[0].getCurrentCityName());
+        player1.set(0, Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
+        player1.set(1,GameBoard.gameBoard.players.get(0).getIsTurnString());
+        player1.set(2,GameBoard.gameBoard.players.get(0).getCurrentCityName());
 
-        for(int i = 0; i < GameBoard.gameBoard.players[0].cardHand.size(); i++)
+        for(int i = 0; i < GameBoard.gameBoard.players.get(0).cardHand.size(); i++)
         {
-            player1.set(3+i,GameBoard.gameBoard.players[0].cardHand.get(i).getNameOfCard().toLowerCase());
+            player1.set(3+i,GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void setPlayer2() {
         player2 = new ArrayList<>();
 
-        player2.set(0,Integer.toString(GameBoard.gameBoard.players[1].getID()));
-        player2.set(1,GameBoard.gameBoard.players[1].getIsTurnString());
-        player2.set(2,GameBoard.gameBoard.players[1].getCurrentCityName());
+        player2.set(0,Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
+        player2.set(1,GameBoard.gameBoard.players.get(1).getIsTurnString());
+        player2.set(2,GameBoard.gameBoard.players.get(1).getCurrentCityName());
 
-        for(int i = 0; i < GameBoard.gameBoard.players[1].cardHand.size(); i++)
+        for(int i = 0; i < GameBoard.gameBoard.players.get(1).cardHand.size(); i++)
         {
-            player2.set(3+i,GameBoard.gameBoard.players[1].cardHand.get(i).getNameOfCard().toLowerCase());
+            player2.set(3+i,GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void setPlayer3() {
         player3 = new ArrayList<>();
 
-        player3.set(0,Integer.toString(GameBoard.gameBoard.players[2].getID()));
-        player3.set(1,GameBoard.gameBoard.players[2].getIsTurnString());
-        player3.set(2,GameBoard.gameBoard.players[2].getCurrentCityName());
+        player3.set(0,Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
+        player3.set(1,GameBoard.gameBoard.players.get(2).getIsTurnString());
+        player3.set(2,GameBoard.gameBoard.players.get(2).getCurrentCityName());
 
-        for(int i = 0; i < GameBoard.gameBoard.players[2].cardHand.size(); i++)
+        for(int i = 0; i < GameBoard.gameBoard.players.get(2).cardHand.size(); i++)
         {
-            player3.set(3+i,GameBoard.gameBoard.players[2].cardHand.get(i).getNameOfCard().toLowerCase());
+            player3.set(3+i,GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void setPlayer4() {
         player4 = new ArrayList<>();
 
-        player4.set(0,Integer.toString(GameBoard.gameBoard.players[3].getID()));
-        player4.set(1,GameBoard.gameBoard.players[3].getIsTurnString());
-        player4.set(2,GameBoard.gameBoard.players[3].getCurrentCityName());
+        player4.set(0,Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
+        player4.set(1,GameBoard.gameBoard.players.get(3).getIsTurnString());
+        player4.set(2,GameBoard.gameBoard.players.get(3).getCurrentCityName());
 
-        for(int i = 0; i < GameBoard.gameBoard.players[3].cardHand.size(); i++)
+        for(int i = 0; i < GameBoard.gameBoard.players.get(3).cardHand.size(); i++)
         {
-            player4.set(3+i,GameBoard.gameBoard.players[3].cardHand.get(i).getNameOfCard().toLowerCase());
+            player4.set(3+i,GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
