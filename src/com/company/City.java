@@ -92,12 +92,16 @@ public class City {
     }
 
     //Remove cube from city checking color and if cure complete
+    //If cure has been made and you remove all cubes, set cureMarker to exterminated
     public void removeCube(String color) {
 
         if (color.equals("blue")) {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
                 GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
+                if(GameBoard.gameBoard.blueCubesLeft == 24){
+                    GameBoard.gameBoard.blueCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.blueCubesLeft += 1;
                 blueCubes -= 1;
@@ -106,6 +110,9 @@ public class City {
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
                 GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
+                if(GameBoard.gameBoard.yellowCubesLeft == 24){
+                    GameBoard.gameBoard.yellowCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.yellowCubesLeft += 1;
                 yellowCubes -= 1;
@@ -114,6 +121,9 @@ public class City {
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
                 GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
+                if(GameBoard.gameBoard.blackCubesLeft == 24){
+                    GameBoard.gameBoard.blackCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.blackCubesLeft += 1;
                 blackCubes -= 1;
@@ -122,6 +132,9 @@ public class City {
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
                 GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
+                if(GameBoard.gameBoard.redCubesLeft == 24){
+                    GameBoard.gameBoard.redCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.redCubesLeft += 1;
                 redCubes -= 1;
