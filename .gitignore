@@ -43,5 +43,5 @@ Temporary Items
 .apdisk
 *.xml
 *.class
-
 *.class
+/out
