@@ -2,19 +2,20 @@ package Cards;
 
 public class EventCard implements PlayerCard{
 
-
+    //create variable to hold information
     String type;
     String name;
     String description;
 
     public EventCard(String name) {
 
+        //set type of card and assign a name
         this.type = "event card";
         this.name = name;
     }
 
 
-
+    //set description based on method, which represents the different cards in the game
     private void GovernmentGrant() {
         description = "Add 1 Research Station to any City (No City Card needed)";
         //Code here
@@ -40,6 +41,7 @@ public class EventCard implements PlayerCard{
         //Code here
     }
 
+    //getters
     @Override
     public String getNameOfCard() {
         return name;

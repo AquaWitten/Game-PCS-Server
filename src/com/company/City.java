@@ -18,68 +18,68 @@ public class City {
     ArrayList<String> neighborCities;
     String color;
     boolean researchStation;
-    ArrayList<String> playersHere;
+    //ArrayList<String> playersHere;
 
     City(String name, String color, ArrayList<String> neighborCities){
 
-        //Instantiate variable that haven't been instantiated yet
+        //Assign inserted values to this instance of city
         this.name = name;
         this.color = color;
         this.neighborCities = new ArrayList<>(neighborCities);
 
     }
 
-    //Perform an outbreak on city when called
-    public void outbreak(String color){ //RESET recentOutbreak UPON PLAYER TURN CHANGE
+    //Perform an outbreak on city when called based on color
+    public void outbreak(String color){
         System.out.println("There is a " + color + " outbreak in " + this.name);
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
 
-        if(color == "blue"){
+        if(color.equals("blue")){
             blueRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "yellow"){
+        } else if(color.equals("yellow")){
             yellowRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "black"){
+        } else if(color.equals("black")){
             blackRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "red"){
+        } else if(color.equals("red")){
             redRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -91,37 +91,50 @@ public class City {
 
     }
 
-    //Remove cube from city checking color and if cure is up
+    //Remove cube from city checking color and if cure complete
+    //If cure has been made and you remove all cubes, set cureMarker to exterminated
     public void removeCube(String color) {
 
-        if (color == "blue") {
+        if (color.equals("blue")) {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
                 GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
+                if(GameBoard.gameBoard.blueCubesLeft == 24){
+                    GameBoard.gameBoard.blueCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.blueCubesLeft += 1;
                 blueCubes -= 1;
             }
-        } else if(color == "yellow"){
+        } else if(color.equals("yellow")){
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
                 GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
+                if(GameBoard.gameBoard.yellowCubesLeft == 24){
+                    GameBoard.gameBoard.yellowCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.yellowCubesLeft += 1;
                 yellowCubes -= 1;
             }
-        } else if(color == "black"){
+        } else if(color.equals("black")){
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
                 GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
+                if(GameBoard.gameBoard.blackCubesLeft == 24){
+                    GameBoard.gameBoard.blackCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.blackCubesLeft += 1;
                 blackCubes -= 1;
             }
-        } else if(color == "red"){
+        } else if(color.equals("red")){
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
                 GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
+                if(GameBoard.gameBoard.redCubesLeft == 24){
+                    GameBoard.gameBoard.redCureMarker.SetIsExterminated();
+                }
             } else {
                 GameBoard.gameBoard.redCubesLeft += 1;
                 redCubes -= 1;
@@ -160,6 +173,7 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
+
         } else if(color.equals("black") && !GameBoard.gameBoard.blackCureMarker.getIsExterminated()){
             blackCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
@@ -189,7 +203,7 @@ public class City {
         }
     }
 
-    //Called upon next player turn
+    //resets RecentOutbreak values
     public void resetRecentOutbreak(){
         blueRecentOutbreak = false;
         yellowRecentOutbreak = false;
@@ -203,10 +217,7 @@ public class City {
         this.researchStation = true;
     }
 
-    public void setPlayersHere(ArrayList<String> playersHere) {
-        this.playersHere = playersHere;
-    }
-
+    //getters and setters
     public String getName() {
         return name;
     }
@@ -238,8 +249,5 @@ public class City {
     public boolean isResearchStation() {
         return researchStation;
     }
-
-    public ArrayList<String> getPlayersHere() {
-        return playersHere;
-    }
+    
 }
