@@ -41,11 +41,6 @@ public class EventCard implements PlayerCard{
     }
 
     @Override
-    public void drawPlayerCard(){
-
-    }
-
-    @Override
     public String getNameOfCard() {
         return name;
     }
