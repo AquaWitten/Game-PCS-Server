@@ -18,7 +18,7 @@ public class City {
     ArrayList<String> neighborCities;
     String color;
     boolean researchStation;
-    ArrayList<String> playersHere;
+    //ArrayList<String> playersHere;
 
     City(String name, String color, ArrayList<String> neighborCities){
 
@@ -214,10 +214,6 @@ public class City {
     }
 
     //getters and setters
-    public void setPlayersHere(ArrayList<String> playersHere) {
-        this.playersHere = playersHere;
-    }
-
     public String getName() {
         return name;
     }
@@ -249,8 +245,5 @@ public class City {
     public boolean isResearchStation() {
         return researchStation;
     }
-
-    public ArrayList<String> getPlayersHere() {
-        return playersHere;
-    }
+    
 }
