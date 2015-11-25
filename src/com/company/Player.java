@@ -19,16 +19,17 @@ public class Player {
 
     PlayerCard[] extraHand;
 
-    Player(RoleCard role,Color color, int ID, City startCity){
+    Player(RoleCard role, int ID, City startCity){
 
         this.role = role;
-        this.color = color;
         this.ID = ID;
         this.currentCity = startCity;
 
         cardHand = new ArrayList<>();
         actionsLeft=0;
         isTurn=false;
+
+        //COLOR IS DETERMINDED BY ROLE CARD: INSERT CODE
 /*
         if(role.getName().toLowerCase() == "contingency planner")
             extraHand = new PlayerCard[1];
