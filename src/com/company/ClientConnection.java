@@ -29,7 +29,7 @@ public class ClientConnection implements Runnable {
         this.clientPlayer = clientsPlayer;
         this.lobbyStatus = lobbyStatus;
         clientConnected = true;
-        GameBoard.gameBoard.players.add(clientsPlayer);
+        GameServer.gameBoard.players.add(clientsPlayer);
     }
 
     /**
@@ -57,17 +57,20 @@ public class ClientConnection implements Runnable {
 
             } catch (IOException e) {
                 System.out.println("failed to read message from client ID: "+clientPlayer.getID());
+                clientConnected = false;
             }
 
             //Set the status of the player in LobbyStatus based on command from client
             if(clientCommand.equals("READY"))
             {
-                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_true");
+                System.out.println(clientPlayer.getID()+": is ready");
+                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_True");
             }
 
             else if(clientCommand.equals("UNREADY"))
             {
-                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_false");
+                System.out.println(clientPlayer.getID()+": is not ready");
+                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_False");
             }
 
         }

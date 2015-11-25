@@ -19,7 +19,7 @@ public class GameServer {
     static int playerIDs;
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
-    static GameBoard test1;
+    static GameBoard gameBoard;
     static PrintWriter output;
 
     //--------------------------------------------------------------
@@ -36,6 +36,8 @@ public class GameServer {
         connectionArray = new ArrayList<>();
         port = 2555;
 
+        gameBoard = new GameBoard();
+        lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
         InLobby();
 
@@ -43,7 +45,8 @@ public class GameServer {
 
     public static void InLobby()
     {
-        lobbyStatus = new LobbyStatus();
+        boolean messageSend = false;
+
         playerIDs = 1;
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -60,16 +63,22 @@ public class GameServer {
                     RoleCard tempRole = roles.get(randomIndex);
                     roles.remove(randomIndex);
 
-                    Player tempPlayer = new Player(tempRole,playerIDs, GameBoard.gameBoard.getCity("atlanta"));
+                    Player tempPlayer = new Player(tempRole,playerIDs, gameBoard.getCity("atlanta"));
 
                     ClientConnection clientConnect = new ClientConnection(newPlayerSocket, tempPlayer, lobbyStatus);
                     Thread newClient = new Thread(clientConnect);
                     newClient.start();
                     playerIDs++;
                 }
+                if(!messageSend){
+                    messageSend = true;
+                    System.out.println("all have connected");
+                }
                 sendLobbyChanges();
-                Thread.sleep(100);
+                lobbyStatus.setAllReady();
+                Thread.sleep(1000);
             }
+            System.out.println("out of lobby");
         }
         catch (IOException e) {
             System.out.println("Failed to make server socket");
@@ -77,7 +86,7 @@ public class GameServer {
             System.out.println("failed to sleep while waiting for all players to press ready");
         }
 
-        System.out.println("all players have connected at pressed ready");
+        System.out.println("all players have connected and pressed ready");
         //Main game running code here
     }
 
@@ -88,16 +97,16 @@ public class GameServer {
                 //FOR LOOP THAT RUNS THROUGH ALL SOCKETS AND SENDS THE READY STATUS OF ALL PLAYERS
             for(int i = 0; i < connectionArray.size(); i++)
             {
-                Socket tempSock = (Socket) connectionArray.get(i);
+                Socket tempSock = connectionArray.get(i);
                 try {
                     PrintWriter tempOut = new PrintWriter(tempSock.getOutputStream());
-                    tempOut.println(lobbyStatus.getPlayerStatus("p1"));
+                    tempOut.println("Player 1 is: "+lobbyStatus.getPlayerStatus("p1"));
                     tempOut.flush();
-                    tempOut.println(lobbyStatus.getPlayerStatus("p2"));
+                    tempOut.println("Player 2 is: "+lobbyStatus.getPlayerStatus("p2"));
                     tempOut.flush();
-                    tempOut.println(lobbyStatus.getPlayerStatus("p3"));
+                    tempOut.println("Player 3 is: "+lobbyStatus.getPlayerStatus("p3"));
                     tempOut.flush();
-                    tempOut.println(lobbyStatus.getPlayerStatus("p4"));
+                    tempOut.println("Player 4 is: "+lobbyStatus.getPlayerStatus("p4"));
                     tempOut.flush();
                 } catch (IOException e) {
                     System.out.println("Could not create Printerwriter for sending player lobby status");

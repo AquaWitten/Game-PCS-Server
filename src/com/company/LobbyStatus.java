@@ -59,12 +59,12 @@ public class LobbyStatus {
             p4 = false;
             changeInStatus = true;
         }
+    }
 
-        //Check if all players are ready
+    public void setAllReady()
+    {
         if(p1 && p2 && p3 && p4)
-            allReady=true;
-        else
-            allReady = false;
+            allReady = true;
     }
 
     /**
@@ -81,10 +81,10 @@ public class LobbyStatus {
             return String.valueOf(p2);
 
         else if(player.equals("p3"))
-            return String.valueOf(p1);
+            return String.valueOf(p3);
 
         else if(player.equals("p4"))
-            return String.valueOf(p1);
+            return String.valueOf(p4);
 
         else
         {
