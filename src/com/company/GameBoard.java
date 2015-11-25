@@ -20,8 +20,8 @@ public class GameBoard {
     public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
     public ArrayList<InfectionCard> infectionDiscard;
-    OutbreakMarker outbreakMarker;
-    InfectionMarker infectionMarker;
+    public OutbreakMarker outbreakMarker = new OutbreakMarker();
+    public InfectionMarker infectionMarker = new InfectionMarker();
     CureMarker blueCureMarker;
     CureMarker yellowCureMarker;
     CureMarker blackCureMarker;
@@ -33,7 +33,7 @@ public class GameBoard {
     int redCubesLeft = 24;
     boolean gameWon;
     boolean gameLost;
-    public static ArrayList<City> allCities;
+    public ArrayList<City> allCities;
 
 
     //Creates a static instance and makes it possible to refer to the variable through: GameBoard.gameBoard
@@ -55,12 +55,36 @@ public class GameBoard {
     }
 
     //Activate upon the draw of an epedemic card
-    public void ActivateEpedemicCard(){
+    public void activateEpedemicCard(){
+        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
+            GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
+        }
 
+        //Increase
+        GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
+
+        //Infect
+        int lastCardNumber = GameBoard.gameBoard.infectionDeck.size();
+        String targetName = GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getName();
+        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
+            if(targetName == GameBoard.gameBoard.allCities.get(i).getName()){
+                GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
+                i = GameBoard.gameBoard.allCities.size();
+            }
+        }
+        GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(lastCardNumber));
+        GameBoard.gameBoard.infectionDeck.remove(lastCardNumber);
+
+        //Intensify
+        Collections.shuffle(GameBoard.gameBoard.infectionDiscard);
+        for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++){
+            GameBoard.gameBoard.infectionDeck.add(GameBoard.gameBoard.infectionDiscard.get(0));
+            GameBoard.gameBoard.infectionDiscard.remove(0);
+        }
     }
 
     //Activate upon the draw of an infection card
-    public void ActivateInfectionCard(InfectionCard infectionCard, int numberOfCubes){
+    public void activateInfectionCard(InfectionCard infectionCard, int numberOfCubes){
 
     }
 
@@ -227,6 +251,10 @@ public class GameBoard {
         allCities.add(tokyo);
         City osaka = new City("osaka", "red",new ArrayList<>(Arrays.asList("taipei", "tokyo")));
         allCities.add(osaka);
+
+    }
+
+    public void setupPhase(){
 
     }
 

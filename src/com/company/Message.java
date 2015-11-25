@@ -66,7 +66,7 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.players[0].cardHand.size(); i++)
         {
-            player1.set(3+i,GameBoard.gameBoard.players[0].cardHand.get(i).GetNameOfCard().toLowerCase());
+            player1.set(3+i,GameBoard.gameBoard.players[0].cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -79,7 +79,7 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.players[1].cardHand.size(); i++)
         {
-            player2.set(3+i,GameBoard.gameBoard.players[1].cardHand.get(i).GetNameOfCard().toLowerCase());
+            player2.set(3+i,GameBoard.gameBoard.players[1].cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -92,7 +92,7 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.players[2].cardHand.size(); i++)
         {
-            player3.set(3+i,GameBoard.gameBoard.players[2].cardHand.get(i).GetNameOfCard().toLowerCase());
+            player3.set(3+i,GameBoard.gameBoard.players[2].cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -105,21 +105,21 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.players[3].cardHand.size(); i++)
         {
-            player4.set(3+i,GameBoard.gameBoard.players[3].cardHand.get(i).GetNameOfCard().toLowerCase());
+            player4.set(3+i,GameBoard.gameBoard.players[3].cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void setCities() {
         cities = new String[6][48];
 
-        for(int i=0; i < GameBoard.allCities.size(); i++)
+        for(int i=0; i < GameBoard.gameBoard.allCities.size(); i++)
         {
-            cities[0][i] = GameBoard.allCities.get(i).getName().toLowerCase();
-            cities[1][i] = Boolean.toString(GameBoard.allCities.get(i).researchStation);
-            cities[2][i] = Integer.toString(GameBoard.allCities.get(i).getBlueCubes());
-            cities[3][i] = Integer.toString(GameBoard.allCities.get(i).getYellowCubes());
-            cities[4][i] = Integer.toString(GameBoard.allCities.get(i).getBlackCubes());
-            cities[5][i] = Integer.toString(GameBoard.allCities.get(i).getRedCubes());
+            cities[0][i] = GameBoard.gameBoard.allCities.get(i).getName().toLowerCase();
+            cities[1][i] = Boolean.toString(GameBoard.gameBoard.allCities.get(i).researchStation);
+            cities[2][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlueCubes());
+            cities[3][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getYellowCubes());
+            cities[4][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlackCubes());
+            cities[5][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getRedCubes());
         }
     }
 
@@ -128,7 +128,7 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDeck.size(); i++)
         {
-            playerDeck.set(i, GameBoard.gameBoard.playerDeck.get(i).GetNameOfCard().toLowerCase());
+            playerDeck.set(i, GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -137,7 +137,7 @@ public class Message {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDiscard.size(); i++)
         {
-            playerDiscard.set(i,GameBoard.gameBoard.playerDiscard.get(i).GetNameOfCard().toLowerCase());
+            playerDiscard.set(i,GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
         }
     }
 

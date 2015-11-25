@@ -1,5 +1,7 @@
 package Cards;
 
+import com.company.Player;
+
 public class CityCard implements PlayerCard{
 
     String name;
@@ -10,7 +12,6 @@ public class CityCard implements PlayerCard{
         this.name = name;
         this.color = color;
     }
-
 
     @Override
     public String getNameOfCard() {

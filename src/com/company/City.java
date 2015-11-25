@@ -40,7 +40,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blueRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -53,7 +53,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).yellowRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -66,7 +66,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blackRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -79,7 +79,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).redRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -133,42 +133,55 @@ public class City {
     //Add cube to city after checking color AND call outbreak when condition is met
     public void addCube(String color, int numberOfCubesAdded){
 
-        if(color == "blue"){
+        if(color == "blue" && !GameBoard.gameBoard.blueCureMarker.isExterminated()){
             blueCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blueCubesLeft -= numberOfCubesAdded;
+            if(blueCubes > 3){
+                GameBoard.gameBoard.blueCubesLeft += (blueCubes - 3);
+                blueCubes = 3;
+                if(!this.blueRecentOutbreak) {
+                    this.outbreak("blue");
+                }
+            }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-            if(blueCubes > 3){
-                this.outbreak("blue");
-                blueCubes = 3;
-            }
-        } else if(color == "yellow"){
+        } else if(color == "yellow" && !GameBoard.gameBoard.yellowCureMarker.isExterminated()){
             yellowCubes += numberOfCubesAdded;
             GameBoard.gameBoard.yellowCubesLeft -= numberOfCubesAdded;
+
+            if(yellowCubes > 3){
+                GameBoard.gameBoard.yellowCubesLeft += (yellowCubes - 3);
+                yellowCubes = 3;
+                if(!this.yellowRecentOutbreak) {
+                    this.outbreak("yellow");
+                }
+            }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-            if(yellowCubes > 3){
-                this.outbreak("yellow");
-                yellowCubes = 3;
-            }
-        } else if(color == "black"){
+        } else if(color == "black" && !GameBoard.gameBoard.blackCureMarker.isExterminated()){
             blackCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
+            if(blackCubes > 3){
+                GameBoard.gameBoard.blackCubesLeft += (blackCubes - 3);
+                blackCubes = 3;
+                if(!this.blackRecentOutbreak) {
+                    this.outbreak("black");
+                }
+            }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-            if(blackCubes > 3){
-                this.outbreak("black");
-                blackCubes = 3;
-            }
-        } else if(color == "red"){
+        } else if(color == "red" && !GameBoard.gameBoard.redCureMarker.isExterminated()){
             redCubes += numberOfCubesAdded;
             GameBoard.gameBoard.redCubesLeft -= numberOfCubesAdded;
+            if(redCubes > 3){
+                GameBoard.gameBoard.redCubesLeft += (redCubes - 3);
+                redCubes = 3;
+                if(!this.redRecentOutbreak) {
+                    this.outbreak("red");
+                }
+            }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-            if(redCubes > 3){
-                this.outbreak("red");
-                redCubes = 3;
-            }
         }
 
     }
@@ -182,8 +195,9 @@ public class City {
     }
 
     //Called when placing a research station on city
-    public void placeResearchStation(boolean newValue) {
-        this.researchStation = newValue;
+    public void placeResearchStation() {
+        GameBoard.gameBoard.researchStationsLeft -= 1;
+        this.researchStation = true;
     }
 
     public void setPlayersHere(ArrayList<String> playersHere) {
