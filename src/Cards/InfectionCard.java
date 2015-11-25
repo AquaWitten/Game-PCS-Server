@@ -33,7 +33,10 @@ public class InfectionCard {
         GameBoard.gameBoard.infectionDeck.remove(0);
 
     }
-    
+
+    public String getName() {
+        return name;
+    }
 
     public String getColor() {
         return color;

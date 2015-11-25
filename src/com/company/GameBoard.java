@@ -66,10 +66,10 @@ public class GameBoard {
         GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
 
         //Infect
-        int lastCardNumber = GameBoard.gameBoard.infectionDeck.size();
+        int lastCardNumber = GameBoard.gameBoard.infectionDeck.size() - 1;
         String targetName = GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
-            if(targetName == GameBoard.gameBoard.allCities.get(i).getName()){
+            if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
                 i = GameBoard.gameBoard.allCities.size();
             }
@@ -94,7 +94,7 @@ public class GameBoard {
     public void checkWin(){
 
         //Check win condition
-        if(blueCureMarker.getHasCure() == true && yellowCureMarker.getHasCure() == true && blackCureMarker.getHasCure() == true && redCureMarker.getHasCure() == true){
+        if(blueCureMarker.getHasCure() && yellowCureMarker.getHasCure() && blackCureMarker.getHasCure() && redCureMarker.getHasCure()){
             System.out.println("Game is won! Congratulations");
             gameWon = true;
         }
@@ -268,7 +268,7 @@ public class GameBoard {
     }
 
     public void setupPhase(){
-
+        
     }
 
 }

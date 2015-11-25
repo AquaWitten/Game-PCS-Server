@@ -34,52 +34,52 @@ public class City {
         System.out.println("There is a " + color + " outbreak in " + this.name);
         GameBoard.gameBoard.outbreakMarker.increaseOutbreakMarker();
 
-        if(color == "blue"){
+        if(color.equals("blue")){
             blueRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "yellow"){
+        } else if(color.equals("yellow")){
             yellowRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "black"){
+        } else if(color.equals("black")){
             blackRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
                 }
             }
 
-        } else if(color == "red"){
+        } else if(color.equals("red")){
             redRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -94,7 +94,7 @@ public class City {
     //Remove cube from city checking color and if cure is up
     public void removeCube(String color) {
 
-        if (color == "blue") {
+        if (color.equals("blue")) {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
                 GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
@@ -102,7 +102,7 @@ public class City {
                 GameBoard.gameBoard.blueCubesLeft += 1;
                 blueCubes -= 1;
             }
-        } else if(color == "yellow"){
+        } else if(color.equals("yellow")){
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
                 GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
@@ -110,7 +110,7 @@ public class City {
                 GameBoard.gameBoard.yellowCubesLeft += 1;
                 yellowCubes -= 1;
             }
-        } else if(color == "black"){
+        } else if(color.equals("black")){
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
                 GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
@@ -118,7 +118,7 @@ public class City {
                 GameBoard.gameBoard.blackCubesLeft += 1;
                 blackCubes -= 1;
             }
-        } else if(color == "red"){
+        } else if(color.equals("red")){
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
                 GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
@@ -133,7 +133,7 @@ public class City {
     //Add cube to city after checking color AND call outbreak when condition is met
     public void addCube(String color, int numberOfCubesAdded){
 
-        if(color == "blue" && !GameBoard.gameBoard.blueCureMarker.isExterminated()){
+        if(color.equals("blue") && !GameBoard.gameBoard.blueCureMarker.isExterminated()){
             blueCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blueCubesLeft -= numberOfCubesAdded;
             if(blueCubes > 3){
@@ -145,7 +145,7 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "yellow" && !GameBoard.gameBoard.yellowCureMarker.isExterminated()){
+        } else if(color.equals("yellow") && !GameBoard.gameBoard.yellowCureMarker.isExterminated()){
             yellowCubes += numberOfCubesAdded;
             GameBoard.gameBoard.yellowCubesLeft -= numberOfCubesAdded;
 
@@ -158,7 +158,7 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "black" && !GameBoard.gameBoard.blackCureMarker.isExterminated()){
+        } else if(color.equals("black") && !GameBoard.gameBoard.blackCureMarker.isExterminated()){
             blackCubes += numberOfCubesAdded;
             GameBoard.gameBoard.blackCubesLeft -= numberOfCubesAdded;
             if(blackCubes > 3){
@@ -170,7 +170,7 @@ public class City {
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
-        } else if(color == "red" && !GameBoard.gameBoard.redCureMarker.isExterminated()){
+        } else if(color.equals("red") && !GameBoard.gameBoard.redCureMarker.isExterminated()){
             redCubes += numberOfCubesAdded;
             GameBoard.gameBoard.redCubesLeft -= numberOfCubesAdded;
             if(redCubes > 3){
