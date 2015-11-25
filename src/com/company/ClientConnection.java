@@ -23,6 +23,7 @@ public class ClientConnection implements Runnable {
         this.clientPlayer = clientsPlayer;
         this.lobbyStatus = lobbyStatus;
         clientConnected = true;
+        GameBoard.gameBoard.players.add(clientsPlayer);
     }
 
     @Override

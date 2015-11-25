@@ -56,8 +56,8 @@ public class GameBoard {
 
     }
 
-    //Activate upon the draw of an epedemic card
-    public void activateEpedemicCard(){
+    //Activate upon the draw of an epidemic card
+    public void activateEpidemicCard(){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
@@ -66,10 +66,10 @@ public class GameBoard {
         GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
 
         //Infect
-        int lastCardNumber = GameBoard.gameBoard.infectionDeck.size();
+        int lastCardNumber = GameBoard.gameBoard.infectionDeck.size()-1;
         String targetName = GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
-            if(targetName == GameBoard.gameBoard.allCities.get(i).getName()){
+            if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
                 i = GameBoard.gameBoard.allCities.size();
             }
