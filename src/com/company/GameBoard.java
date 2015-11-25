@@ -254,4 +254,8 @@ public class GameBoard {
 
     }
 
+    public void setupPhase(){
+
+    }
+
 }

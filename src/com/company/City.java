@@ -40,7 +40,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blueRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -53,7 +53,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).yellowRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -66,7 +66,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).blackRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -79,7 +79,7 @@ public class City {
             for(int i = 0; i < neighborCities.size(); i++) {
 
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i) && !GameBoard.gameBoard.allCities.get(j).redRecentOutbreak){
+                    if(GameBoard.gameBoard.allCities.get(j).getName() == neighborCities.get(i)){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
                         j = GameBoard.gameBoard.allCities.size();
                     }
@@ -139,7 +139,9 @@ public class City {
             if(blueCubes > 3){
                 GameBoard.gameBoard.blueCubesLeft += (blueCubes - 3);
                 blueCubes = 3;
-                this.outbreak("blue");
+                if(!this.blueRecentOutbreak) {
+                    this.outbreak("blue");
+                }
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
@@ -150,7 +152,9 @@ public class City {
             if(yellowCubes > 3){
                 GameBoard.gameBoard.yellowCubesLeft += (yellowCubes - 3);
                 yellowCubes = 3;
-                this.outbreak("yellow");
+                if(!this.yellowRecentOutbreak) {
+                    this.outbreak("yellow");
+                }
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
@@ -160,7 +164,9 @@ public class City {
             if(blackCubes > 3){
                 GameBoard.gameBoard.blackCubesLeft += (blackCubes - 3);
                 blackCubes = 3;
-                this.outbreak("black");
+                if(!this.blackRecentOutbreak) {
+                    this.outbreak("black");
+                }
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
@@ -170,7 +176,9 @@ public class City {
             if(redCubes > 3){
                 GameBoard.gameBoard.redCubesLeft += (redCubes - 3);
                 redCubes = 3;
-                this.outbreak("red");
+                if(!this.redRecentOutbreak) {
+                    this.outbreak("red");
+                }
             }
             //Check lose condition after cubes are added
             GameBoard.gameBoard.checkLose();
