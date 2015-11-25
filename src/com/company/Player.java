@@ -186,8 +186,8 @@ public class Player {
     }
 
     public void drawCard(){
-        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard() == "epedemic"){
-            GameBoard.gameBoard.activateEpedemicCard();
+        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
+            GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         } else {

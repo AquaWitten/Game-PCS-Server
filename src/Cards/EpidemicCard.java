@@ -11,7 +11,7 @@ public class EpidemicCard implements PlayerCard{
 
     public EpidemicCard(){
 
-        this.name = "epedemic";
+        this.name = "epidemic";
         description = "Increase, Infect, Intensify";
     }
 
