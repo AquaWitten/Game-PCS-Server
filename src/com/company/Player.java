@@ -238,7 +238,7 @@ public class Player {
      * Check if there are more cards in player deck
      */
     public void drawCard(){
-        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epedemic")){
+        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
             GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
