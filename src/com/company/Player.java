@@ -132,7 +132,7 @@ public class Player {
                     }
                 }
                 else
-                    System.out.println("Player: "+ ID+", you do not the right cards to make a cure");
+                    System.out.println("Player: "+ ID+", you do not have the correct cards to make a cure");
             }
         }
     }
@@ -186,8 +186,17 @@ public class Player {
     }
 
     public void drawCard(){
-        cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
-        GameBoard.gameBoard.playerDeck.remove(0);
+        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard() == "epedemic"){
+            GameBoard.gameBoard.activateEpedemicCard();
+            GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
+            GameBoard.gameBoard.playerDeck.remove(0);
+        } else {
+            cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
+            GameBoard.gameBoard.playerDeck.remove(0);
+        }
+
+        //Check Lose
+        GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
     }
 
     public int getID() {

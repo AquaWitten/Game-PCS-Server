@@ -1,16 +1,19 @@
 package Cards;
 
+import com.company.GameBoard;
+
+import java.util.Collections;
+
 public class EpidemicCard implements PlayerCard{
 
     String name;
     String description;
 
-    public EpidemicCard(String name){
+    public EpidemicCard(){
 
-        this.name = name;
+        this.name = "epedemic";
         description = "Increase, Infect, Intensify";
     }
-
 
     @Override
     public String getNameOfCard() {

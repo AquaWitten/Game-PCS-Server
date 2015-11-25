@@ -129,14 +129,14 @@ public class Message {
     public void setCities() {
         cities = new String[6][48];
 
-        for(int i=0; i < GameBoard.allCities.size(); i++)
+        for(int i=0; i < GameBoard.gameBoard.allCities.size(); i++)
         {
-            cities[0][i] = GameBoard.allCities.get(i).getName().toLowerCase();
-            cities[1][i] = Boolean.toString(GameBoard.allCities.get(i).researchStation);
-            cities[2][i] = Integer.toString(GameBoard.allCities.get(i).getBlueCubes());
-            cities[3][i] = Integer.toString(GameBoard.allCities.get(i).getYellowCubes());
-            cities[4][i] = Integer.toString(GameBoard.allCities.get(i).getBlackCubes());
-            cities[5][i] = Integer.toString(GameBoard.allCities.get(i).getRedCubes());
+            cities[0][i] = GameBoard.gameBoard.allCities.get(i).getName().toLowerCase();
+            cities[1][i] = Boolean.toString(GameBoard.gameBoard.allCities.get(i).researchStation);
+            cities[2][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlueCubes());
+            cities[3][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getYellowCubes());
+            cities[4][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlackCubes());
+            cities[5][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getRedCubes());
         }
     }
 
