@@ -278,4 +278,9 @@ public class Player {
     {
         return role.getRoleID();
     }
+
+    public void setCurrentCity(City newCity)
+    {
+        currentCity = newCity;
+    }
 }

@@ -219,7 +219,7 @@ public class City {
 
     //getters and setters
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     public int getBlueCubes() {

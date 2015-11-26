@@ -54,7 +54,7 @@ public class ClientConnection implements Runnable {
             isConnected();
             try {
                 clientCommand = input.readLine();
-                System.out.println("Client ID: "+clientPlayer.getID()+" says: "+clientCommand);
+                System.out.println("Client ID: "+playerID+" says: "+clientCommand);
 
             } catch (IOException e)
             {
@@ -62,7 +62,11 @@ public class ClientConnection implements Runnable {
                 clientConnected = false;
             }
             data = clientCommand.split("@");
-            inLobby();
+
+            if(!lobbyStatus.animation)
+                inLobby();
+            else
+                inGame();
 
         }
     }
@@ -88,8 +92,30 @@ public class ClientConnection implements Runnable {
 
     public void inGame()
     {
-        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD",
+        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH";
+        String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE";
 
+        //Player moves to neighbor city
+        //NO return message.
+        if(data[0].equals(moveToNeighbor))
+        {
+            for(int i=0; i<GameBoard.gameBoard.allCities.size(); i++)
+            {
+                //data[1] is name of the city
+                if(data[1].toLowerCase().equals(GameBoard.gameBoard.allCities.get(i).getName()))
+                {
+                    clientPlayer.setCurrentCity(GameBoard.gameBoard.allCities.get(i));
+                    System.out.println("Player "+playerID+": Moved to "+clientPlayer.getCurrentCityName());
+                }
+                else
+                    System.out.println("no city with that name");
+            }
+        }
+
+        else if(data[0].equals(moveToCityCard))
+        {
+            
+        }
 
     }
 

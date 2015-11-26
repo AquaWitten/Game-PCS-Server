@@ -72,7 +72,9 @@ public class GameServer {
 
                     Player tempPlayer = new Player(tempRole,playerIDs, gameBoard.getCity("atlanta"));
 
+                    GameBoard.gameBoard.players.add(tempPlayer);
                     ClientConnection clientConnect = new ClientConnection(newPlayerSocket, tempPlayer, lobbyStatus);
+
                     Thread newClient = new Thread(clientConnect);
                     newClient.start();
                     playerIDs++;
