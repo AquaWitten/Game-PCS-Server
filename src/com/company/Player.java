@@ -273,4 +273,9 @@ public class Player {
     public String getIsTurnString() {
         return Boolean.toString(isTurn);
     }
+
+    public int getRoleID()
+    {
+        return role.getRoleID();
+    }
 }

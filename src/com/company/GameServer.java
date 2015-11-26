@@ -5,8 +5,10 @@ import Cards.*;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,6 +35,11 @@ public class GameServer {
 
     public static void main(String[] args)
     {
+        try {
+            System.out.println(InetAddress.getLocalHost());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         connectionArray = new ArrayList<>();
         port = 2555;
 
@@ -47,7 +54,7 @@ public class GameServer {
     {
         boolean messageSend = false;
 
-        playerIDs = 1;
+        playerIDs = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(port);
 
@@ -74,7 +81,7 @@ public class GameServer {
                     messageSend = true;
                     System.out.println("all have connected");
                 }
-                sendLobbyChanges();
+                //sendLobbyChanges();
                 lobbyStatus.setAllReady();
                 Thread.sleep(1000);
             }
@@ -100,13 +107,13 @@ public class GameServer {
                 Socket tempSock = connectionArray.get(i);
                 try {
                     PrintWriter tempOut = new PrintWriter(tempSock.getOutputStream());
-                    tempOut.println("Player 1 is: "+lobbyStatus.getPlayerStatus("p1"));
+                    tempOut.println("Player 1 is: "+lobbyStatus.getPlayerStatus("p1")+" Role ID: "+ lobbyStatus.p1Role);
                     tempOut.flush();
-                    tempOut.println("Player 2 is: "+lobbyStatus.getPlayerStatus("p2"));
+                    tempOut.println("Player 2 is: "+lobbyStatus.getPlayerStatus("p2")+" Role ID: "+ lobbyStatus.p2Role);
                     tempOut.flush();
-                    tempOut.println("Player 3 is: "+lobbyStatus.getPlayerStatus("p3"));
+                    tempOut.println("Player 3 is: "+lobbyStatus.getPlayerStatus("p3")+" Role ID: "+ lobbyStatus.p3Role);
                     tempOut.flush();
-                    tempOut.println("Player 4 is: "+lobbyStatus.getPlayerStatus("p4"));
+                    tempOut.println("Player 4 is: "+lobbyStatus.getPlayerStatus("p4")+" Role ID: "+ lobbyStatus.p4Role);
                     tempOut.flush();
                 } catch (IOException e) {
                     System.out.println("Could not create Printerwriter for sending player lobby status");
@@ -120,13 +127,13 @@ public class GameServer {
     public static void instantiateRoleCards()
     {
         roles = new ArrayList<>();
-        RoleCard operationsExpert = new RoleCard("operations expert");
+        RoleCard operationsExpert = new RoleCard("operations expert",0);
         roles.add(operationsExpert);
-        RoleCard quarantineSpecialist  = new RoleCard("quarantine specialist");
+        RoleCard quarantineSpecialist  = new RoleCard("quarantine specialist",1);
         roles.add(quarantineSpecialist);
-        RoleCard medic  = new RoleCard("medic");
+        RoleCard medic  = new RoleCard("medic",2);
         roles.add(medic);
-        RoleCard scientist  = new RoleCard("scientist");
+        RoleCard scientist  = new RoleCard("scientist",3);
         roles.add(scientist);
     }
 

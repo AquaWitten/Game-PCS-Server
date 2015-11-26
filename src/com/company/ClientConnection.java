@@ -9,12 +9,14 @@ import java.net.Socket;
 
 public class ClientConnection implements Runnable {
 
-    String clientCommand;
     BufferedReader input;
     PrintWriter output;
     Socket sock;
+
+    String clientCommand;
     LobbyStatus lobbyStatus;
     Player clientPlayer;
+    int playerID;
     boolean clientConnected;
 
     /**
@@ -30,6 +32,8 @@ public class ClientConnection implements Runnable {
         this.lobbyStatus = lobbyStatus;
         clientConnected = true;
         GameServer.gameBoard.players.add(clientsPlayer);
+        lobbyStatus.setPlayerRole(clientPlayer.getID(), clientPlayer.getRoleID());
+        playerID = this.clientPlayer.getID();
     }
 
     /**
@@ -44,9 +48,11 @@ public class ClientConnection implements Runnable {
             e.printStackTrace();
         }
 
-        //SEND PLAYER ID TO CLIENT
-        output.println(""+clientPlayer.getID()+"");
-        output.flush();
+        String[]data;
+        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
+
+
+
 
         while(clientConnected){
 
@@ -55,24 +61,70 @@ public class ClientConnection implements Runnable {
                 clientCommand = input.readLine();
                 System.out.println("Client ID: "+clientPlayer.getID()+" says: "+clientCommand);
 
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 System.out.println("failed to read message from client ID: "+clientPlayer.getID());
                 clientConnected = false;
             }
+            data = clientCommand.split("@");
 
-            //Set the status of the player in LobbyStatus based on command from client
-            if(clientCommand.equals("READY"))
+            //
+            //Determining the command from client
+            //
+
+            //SEND PLAYER ID TO CLIENT
+            if(data[0].equals(getPlayerID))
             {
-                System.out.println(clientPlayer.getID()+": is ready");
-                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_True");
+                System.out.println("Sending player ID to player: "+playerID);
+                output.println("GET_PLAYER_ID@"+playerID);
+                output.flush();
+            }
+            //SEND PLAYER STATUS
+            else if(data[0].equals(getPlayerStatus))
+            {
+                if(data[1].equals("0"))
+                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
+
+                else if(data[1].equals("1"))
+                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
+
+                else if(data[1].equals("2"))
+                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
+
+                else if(data[1].equals("3"))
+                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
+
+                output.flush();
+            }
+            //Set the status of the player
+            else if(data[0].equals(setPlayerStatus))
+            {
+                if(data[1].equals("true"))
+                {
+                    lobbyStatus.changePlayerStatus(data[2]+"_True");
+                    System.out.println("Player "+data[2]+": is ready");
+                }
+
+                else if(data[1].equals("false"))
+                {
+                    lobbyStatus.changePlayerStatus(data[2]+"_False");
+                    System.out.println("Player "+data[2]+": is not ready");
+                }
+            }
+            //Send player role
+            else if(data[0].equals(getPlayerRole))
+            {
+                //GET_PLAYER_ROLE @ playerID @ roleID
+                output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
+                output.flush();
             }
 
-            else if(clientCommand.equals("UNREADY"))
+            else if(data[0].equals(setAnimationTrue))
             {
-                System.out.println(clientPlayer.getID()+": is not ready");
-                lobbyStatus.changePlayerStatus(clientPlayer.getID()+"_False");
+                lobbyStatus.setAnimation();
+                output.println("GET_ANIMATION_STATUS@true");
+                output.flush();
             }
-
         }
     }
 
