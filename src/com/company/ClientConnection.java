@@ -14,6 +14,7 @@ public class ClientConnection implements Runnable {
     Socket sock;
 
     String clientCommand;
+    String[]data;
     LobbyStatus lobbyStatus;
     Player clientPlayer;
     int playerID;
@@ -48,12 +49,6 @@ public class ClientConnection implements Runnable {
             e.printStackTrace();
         }
 
-        String[]data;
-        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
-
-
-
-
         while(clientConnected){
 
             isConnected();
@@ -67,64 +62,8 @@ public class ClientConnection implements Runnable {
                 clientConnected = false;
             }
             data = clientCommand.split("@");
+            inLobby();
 
-            //
-            //Determining the command from client
-            //
-
-            //SEND PLAYER ID TO CLIENT
-            if(data[0].equals(getPlayerID))
-            {
-                System.out.println("Sending player ID to player: "+playerID);
-                output.println("GET_PLAYER_ID@"+playerID);
-                output.flush();
-            }
-            //SEND PLAYER STATUS
-            else if(data[0].equals(getPlayerStatus))
-            {
-                if(data[1].equals("0"))
-                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
-
-                else if(data[1].equals("1"))
-                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
-
-                else if(data[1].equals("2"))
-                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
-
-                else if(data[1].equals("3"))
-                    output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
-
-                output.flush();
-            }
-            //Set the status of the player
-            else if(data[0].equals(setPlayerStatus))
-            {
-                if(data[1].equals("true"))
-                {
-                    lobbyStatus.changePlayerStatus(data[2]+"_True");
-                    System.out.println("Player "+data[2]+": is ready");
-                }
-
-                else if(data[1].equals("false"))
-                {
-                    lobbyStatus.changePlayerStatus(data[2]+"_False");
-                    System.out.println("Player "+data[2]+": is not ready");
-                }
-            }
-            //Send player role
-            else if(data[0].equals(getPlayerRole))
-            {
-                //GET_PLAYER_ROLE @ playerID @ roleID
-                output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
-                output.flush();
-            }
-
-            else if(data[0].equals(setAnimationTrue))
-            {
-                lobbyStatus.setAnimation();
-                output.println("GET_ANIMATION_STATUS@true");
-                output.flush();
-            }
         }
     }
 
@@ -147,8 +86,74 @@ public class ClientConnection implements Runnable {
         }
     }
 
+    public void inGame()
+    {
+        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD",
+
+
+    }
+
     public void inLobby()
     {
 
+        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
+
+        //
+        //Determining the command from client
+        //
+
+        //SEND PLAYER ID TO CLIENT
+        if(data[0].equals(getPlayerID))
+        {
+            System.out.println("Sending player ID to player: "+playerID);
+            output.println("GET_PLAYER_ID@"+playerID);
+            output.flush();
+        }
+        //SEND PLAYER STATUS
+        else if(data[0].equals(getPlayerStatus))
+        {
+            if(data[1].equals("0"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
+
+            else if(data[1].equals("1"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
+
+            else if(data[1].equals("2"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
+
+            else if(data[1].equals("3"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
+
+            output.flush();
+        }
+        //Set the status of the player
+        else if(data[0].equals(setPlayerStatus))
+        {
+            if(data[1].equals("true"))
+            {
+                lobbyStatus.changePlayerStatus(data[2]+"_True");
+                System.out.println("Player "+data[2]+": is ready");
+            }
+
+            else if(data[1].equals("false"))
+            {
+                lobbyStatus.changePlayerStatus(data[2]+"_False");
+                System.out.println("Player "+data[2]+": is not ready");
+            }
+        }
+        //Send player role
+        else if(data[0].equals(getPlayerRole))
+        {
+            //GET_PLAYER_ROLE @ playerID @ roleID
+            output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
+            output.flush();
+        }
+
+        else if(data[0].equals(setAnimationTrue))
+        {
+            lobbyStatus.setAnimation();
+            output.println("GET_ANIMATION_STATUS@true");
+            output.flush();
+        }
     }
 }
