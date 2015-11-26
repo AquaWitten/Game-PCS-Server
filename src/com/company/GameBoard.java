@@ -45,6 +45,7 @@ public class GameBoard {
 
         //Instantiate different arrays
         allCities = new ArrayList<>();
+        players = new ArrayList<>();
         instantiateCities(); //run the method creating cities and adding them to the allCities array
         playerDeck = new ArrayList<>();
         playerDiscard = new ArrayList<>();
