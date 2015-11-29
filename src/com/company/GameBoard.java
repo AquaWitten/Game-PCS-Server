@@ -30,7 +30,7 @@ public class GameBoard {
     CureMarker blackCureMarker;
     CureMarker redCureMarker;
 
-    Message gameboardContent;
+    Message gameBoardContent;
 
     int researchStationsLeft;
     int blueCubesLeft;
@@ -62,7 +62,7 @@ public class GameBoard {
         infectionDeck    = new ArrayList<>();
         infectionDiscard = new ArrayList<>();
 
-        gameboardContent = new Message();
+        gameBoardContent = new Message();
 
         researchStationsLeft = 6;
         blueCubesLeft = 24;
@@ -311,7 +311,7 @@ public class GameBoard {
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(GameBoard.gameBoard.allCities.get(i).getName().equals("atlanta")){
                 GameBoard.gameBoard.allCities.get(i).placeResearchStation();
-                i = GameBoard.gameBoard.allCities.size();
+               return;
             }
         }
 
@@ -340,5 +340,209 @@ public class GameBoard {
         }
 
     }
+//-----------------------------Setter methods for Message class------------------------------------
 
+    /**
+     * For player1, player2, player3 and player4
+     * array space;
+     * 0: String ID of player
+     * 1: String describing if it is the players turn
+     * 2: String name of the city the player is currently on
+     * 3-?: for-loop adds the name of the cards of the players hand
+     */
+    public void messageSetPlayer1() {
+        gameBoardContent.player1 = new ArrayList<>();
+
+        gameBoardContent.player1.set(0, Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
+        gameBoardContent.player1.set(1,GameBoard.gameBoard.players.get(0).getIsTurnString());
+        gameBoardContent.player1.set(2,GameBoard.gameBoard.players.get(0).getCurrentCityName());
+
+        for(int i = 0; i < GameBoard.gameBoard.players.get(0).cardHand.size(); i++)
+        {
+            gameBoardContent.player1.set(3+i,GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    public void messageSetPlayer2() {
+        gameBoardContent.player2 = new ArrayList<>();
+
+        gameBoardContent.player2.set(0,Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
+        gameBoardContent.player2.set(1,GameBoard.gameBoard.players.get(1).getIsTurnString());
+        gameBoardContent.player2.set(2,GameBoard.gameBoard.players.get(1).getCurrentCityName());
+
+        for(int i = 0; i < GameBoard.gameBoard.players.get(1).cardHand.size(); i++)
+        {
+            gameBoardContent.player2.set(3+i,GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    public void messageSetPlayer3() {
+        gameBoardContent.player3 = new ArrayList<>();
+
+        gameBoardContent.player3.set(0,Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
+        gameBoardContent.player3.set(1,GameBoard.gameBoard.players.get(2).getIsTurnString());
+        gameBoardContent.player3.set(2,GameBoard.gameBoard.players.get(2).getCurrentCityName());
+
+        for(int i = 0; i < GameBoard.gameBoard.players.get(2).cardHand.size(); i++)
+        {
+            gameBoardContent.player3.set(3+i,GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    public void messageSetPlayer4() {
+        gameBoardContent.player4 = new ArrayList<>();
+
+        gameBoardContent.player4.set(0,Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
+        gameBoardContent.player4.set(1,GameBoard.gameBoard.players.get(3).getIsTurnString());
+        gameBoardContent.player4.set(2,GameBoard.gameBoard.players.get(3).getCurrentCityName());
+
+        for(int i = 0; i < GameBoard.gameBoard.players.get(3).cardHand.size(); i++)
+        {
+            gameBoardContent.player4.set(3+i,GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    /**
+     * Each city on the board is added to the string array with, containing important values
+     * array space;
+     * 0: string name of the city
+     * 1: string describing if the city has a research station
+     * 2-5: string value of the amount of cubes on the city
+     */
+    public void messageSetCities() {
+        gameBoardContent.cities = new String[6][48];
+
+        for(int i=0; i < GameBoard.gameBoard.allCities.size(); i++)
+        {
+            gameBoardContent.cities[0][i] = GameBoard.gameBoard.allCities.get(i).getName().toLowerCase();
+            gameBoardContent.cities[1][i] = Boolean.toString(GameBoard.gameBoard.allCities.get(i).researchStation);
+            gameBoardContent.cities[2][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlueCubes());
+            gameBoardContent.cities[3][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getYellowCubes());
+            gameBoardContent.cities[4][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getBlackCubes());
+            gameBoardContent.cities[5][i] = Integer.toString(GameBoard.gameBoard.allCities.get(i).getRedCubes());
+        }
+    }
+
+    /**
+     * For loop adds the name of each card left in the playerDeck to the array
+     */
+    public void messageSetPlayerDeck() {
+        gameBoardContent.playerDeck = new ArrayList<>();
+
+        for(int i = 0; i < GameBoard.gameBoard.playerDeck.size(); i++)
+        {
+            gameBoardContent.playerDeck.set(i, GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    /**
+     * For loop adds the name of each card in the playerDiscard to the array
+     */
+    public void messageSetPlayerDiscard() {
+        gameBoardContent.playerDiscard = new ArrayList<>();
+
+        for(int i = 0; i < GameBoard.gameBoard.playerDiscard.size(); i++)
+        {
+            gameBoardContent.playerDiscard.set(i,GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
+        }
+    }
+
+    /**
+     * For loop adds the name of each card left in the infectionDeck to the array
+     */
+    public void messageSetInfectionDeck() {
+        gameBoardContent.infectionDeck = new ArrayList<>();
+
+        for(int i = 0; i < GameBoard.gameBoard.infectionDeck.size(); i++)
+            gameBoardContent.infectionDeck.set(i, GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
+    }
+
+    /**
+     * For loop adds the name of each card in the infectionDiscard to the array
+     */
+    public void messageSetInfectionDiscard() {
+        gameBoardContent.infectionDiscard = new ArrayList<>();
+
+        for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++)
+            gameBoardContent.infectionDiscard.set(i, GameBoard.gameBoard.infectionDiscard.get(i).getName());
+    }
+
+    /**
+     * copies the amount of blue cubes on the city
+     */
+    public void messageSetBlueCubesLeft() {
+        gameBoardContent.blueCubesLeft = GameBoard.gameBoard.blueCubesLeft;
+    }
+
+    /**
+     * copies the amount of red cubes on the city
+     */
+    public void messageSetRedCubesLeft() {
+        redCubesLeft = GameBoard.gameBoard.redCubesLeft;
+    }
+
+    /**
+     * copies the amount of yellow cubes on the city
+     */
+    public void messageSetYellowCubesLeft() {
+        gameBoardContent.yellowCubesLeft = GameBoard.gameBoard.yellowCubesLeft;
+    }
+
+    /**
+     * copies the amount of black cubes on the city
+     */
+    public void messageSetBlackCubesLeft() {
+        gameBoardContent.blackCubesLeft = GameBoard.gameBoard.blackCubesLeft;
+    }
+
+    /**
+     * copies the value of the outbreak marker
+     */
+    public void messageSetOutbreakMarker() {
+        gameBoardContent.outbreakMarker = GameBoard.gameBoard.outbreakMarker.getOutbreakCounter();
+    }
+
+    /**
+     * copies the amount of times the infection marker has been moved
+     */
+    public void messageSetInfectionMarker() {
+        gameBoardContent.infectionMarker = GameBoard.gameBoard.infectionMarker.getInfectionDegree();
+    }
+
+    /**
+     * copies the gamewon boolean from the gameboard
+     */
+    public void messageSetGameWon() {
+        gameBoardContent.gameWon = GameBoard.gameBoard.gameWon;
+    }
+
+    /**
+     * copies the gamelost boolean from the gameboard
+     */
+    public void messageSetGameLost() {
+        gameBoardContent.gameLost = GameBoard.gameBoard.gameLost;
+    }
+
+    public void setMessageContent(){
+        messageSetPlayer1();
+        messageSetPlayer2();
+        messageSetPlayer3();
+        messageSetPlayer4();
+
+        messageSetCities();
+        messageSetPlayerDeck();
+        messageSetPlayerDiscard();
+        messageSetInfectionDeck();
+        messageSetInfectionDiscard();
+
+        messageSetBlackCubesLeft();
+        messageSetBlueCubesLeft();
+        messageSetYellowCubesLeft();
+        messageSetRedCubesLeft();
+
+        messageSetInfectionMarker();
+        messageSetOutbreakMarker();
+        messageSetGameLost();
+        messageSetGameWon();
+    }
 }
