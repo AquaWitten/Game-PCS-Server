@@ -278,13 +278,21 @@ public class Player {
         return Boolean.toString(isTurn);
     }
 
+    public boolean getIsTurn(){return isTurn;}
+
     public int getRoleID()
     {
         return role.getRoleID();
     }
 
+    public int getActionsLeft(){return actionsLeft;}
+
     public void setCurrentCity(City newCity)
     {
         currentCity = newCity;
+    }
+
+    public void setIsTurn(boolean isTurn) {
+        this.isTurn = isTurn;
     }
 }

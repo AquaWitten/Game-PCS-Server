@@ -37,6 +37,9 @@ public class GameBoard {
     int yellowCubesLeft;
     int blackCubesLeft;
     int redCubesLeft;
+
+    int playerWithIDsTurn;
+
     boolean gameWon;
     boolean gameLost;
 
@@ -200,6 +203,21 @@ public class GameBoard {
         return null;
     }
 
+    public void increasePlayerWithIDsTurn() {
+        this.playerWithIDsTurn += 1;
+    }
+
+    public int getPlayerWithIDsTurn() {
+        return playerWithIDsTurn;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
+    public boolean isGameLost() {
+        return gameLost;
+    }
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
