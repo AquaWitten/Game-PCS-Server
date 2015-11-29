@@ -242,12 +242,16 @@ public class Player {
             GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
-        } else {
+        }
+        else if(!GameBoard.gameBoard.playerDeck.isEmpty())
+        {
             cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         }
+        else{
         //Check Lose
         GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
+        }
     }
 
     /**

@@ -15,26 +15,30 @@ import java.util.Collections;
 public class GameBoard {
 
     //Create all relevant variables
+    public ArrayList<City> allCities;
     public ArrayList<Player> players;
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
     public ArrayList<InfectionCard> infectionDeck;
     public ArrayList<InfectionCard> infectionDiscard;
-    public OutbreakMarker outbreakMarker = new OutbreakMarker();
-    public InfectionMarker infectionMarker = new InfectionMarker();
-    CureMarker blueCureMarker = new CureMarker();
-    CureMarker yellowCureMarker = new CureMarker();
-    CureMarker blackCureMarker = new CureMarker();
-    CureMarker redCureMarker = new CureMarker();
-    int researchStationsLeft = 6;
-    int blueCubesLeft = 24;
-    int yellowCubesLeft = 24;
-    int blackCubesLeft = 24;
-    int redCubesLeft = 24;
+
+    public OutbreakMarker outbreakMarker;
+    public InfectionMarker infectionMarker;
+
+    CureMarker blueCureMarker;
+    CureMarker yellowCureMarker;
+    CureMarker blackCureMarker;
+    CureMarker redCureMarker;
+
+    Message gameboardContent;
+
+    int researchStationsLeft;
+    int blueCubesLeft;
+    int yellowCubesLeft;
+    int blackCubesLeft;
+    int redCubesLeft;
     boolean gameWon;
     boolean gameLost;
-    public ArrayList<City> allCities;
-
 
     //Creates a static instance and makes it possible to refer to the variable through: GameBoard.gameBoard
     public static GameBoard gameBoard;
@@ -42,15 +46,30 @@ public class GameBoard {
 
     GameBoard(){
 
+        //Instantiate different variables
+        outbreakMarker   = new OutbreakMarker();
+        infectionMarker  = new InfectionMarker();
 
-        //Instantiate different arrays
-        allCities = new ArrayList<>();
-        players = new ArrayList<>();
-        instantiateCities(); //run the method creating cities and adding them to the allCities array
-        playerDeck = new ArrayList<>();
-        playerDiscard = new ArrayList<>();
-        infectionDeck = new ArrayList<>();
+        blueCureMarker   = new CureMarker();
+        yellowCureMarker = new CureMarker();
+        blackCureMarker  = new CureMarker();
+        redCureMarker    = new CureMarker();
+
+        allCities        = new ArrayList<>();
+        players          = new ArrayList<>();
+        playerDeck       = new ArrayList<>();
+        playerDiscard    = new ArrayList<>();
+        infectionDeck    = new ArrayList<>();
         infectionDiscard = new ArrayList<>();
+
+        gameboardContent = new Message();
+
+        researchStationsLeft = 6;
+        blueCubesLeft = 24;
+        yellowCubesLeft = 24;
+        blackCubesLeft = 24;
+        redCubesLeft = 24;
+        instantiateCities(); //run the method creating cities and adding them to the allCities array
         instantiateDecks(); //run method creating cards and placing them in the decks
 
         GameBoard.gameBoard = this;
@@ -95,7 +114,7 @@ public class GameBoard {
         //DO INFECTION
         String target = GameBoard.gameBoard.infectionDeck.get(0).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
-            if(target == GameBoard.gameBoard.allCities.get(i).getName()){
+            if(target.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(0).getColor(), amount);
                 i = GameBoard.gameBoard.allCities.size();
             }
@@ -155,7 +174,7 @@ public class GameBoard {
     }
 
     public void instantiateDecks(){ //Method used to instantiate the two decks of cards
-        //PlayerDeck without epedemic cards
+        //PlayerDeck without epidemic cards
         for(int i = 0; i < allCities.size(); i++){
             CityCard temp = new CityCard(allCities.get(i).getName(), allCities.get(i).getColor());
             playerDeck.add(temp);
