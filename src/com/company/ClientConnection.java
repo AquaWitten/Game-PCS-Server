@@ -160,21 +160,47 @@ public class ClientConnection implements Runnable {
 
                     for(int i=0; i<tmpCards.length; i++)
                     {
-                        
-                        tmpCards[i] = ;
+                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
                     }
 
-                    clientPlayer.CreateCure(GameBoard.gameBoard.getRedCureMarker(),);
+                    clientPlayer.CreateCure(GameBoard.gameBoard.getRedCureMarker(),tmpCards);
                 }
 
-                else if(data[1].equals("YELLOW")){}
+                else if(data[1].equals("YELLOW"))
+                {
+                    CityCard[] tmpCards = new CityCard[5];
 
-                else if(data[1].equals("BLUE")){}
+                    for(int i=0; i<tmpCards.length; i++)
+                    {
+                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
+                    }
 
-                else if(data[1].equals("BLACK")){}
+                    clientPlayer.CreateCure(GameBoard.gameBoard.getYellowCureMarker(),tmpCards);
+                }
 
+                else if(data[1].equals("BLUE"))
+                {
+                    CityCard[] tmpCards = new CityCard[5];
 
+                    for(int i=0; i<tmpCards.length; i++)
+                    {
+                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
+                    }
 
+                    clientPlayer.CreateCure(GameBoard.gameBoard.getBlueCureMarker(),tmpCards);
+                }
+
+                else if(data[1].equals("BLACK"))
+                {
+                    CityCard[] tmpCards = new CityCard[5];
+
+                    for(int i=0; i<tmpCards.length; i++)
+                    {
+                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
+                    }
+
+                    clientPlayer.CreateCure(GameBoard.gameBoard.getBlackCureMarker(),tmpCards);
+                }
             }
         }
 

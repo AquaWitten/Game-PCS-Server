@@ -197,6 +197,7 @@ public class GameBoard {
         for (int i = 0; i < allCities.size(); i++) {
             if (allCities.get(i).getName().equals(city)) {
                 returnCity = allCities.get(i);
+                break;
             }
         }
         return returnCity;

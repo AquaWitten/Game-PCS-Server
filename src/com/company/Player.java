@@ -197,24 +197,6 @@ public class Player {
             System.out.println("Not your turn " + ID);
     }
 
-
-    //only useful if Role "Operations Expert" is active
-//    public void buildResearchStationRole() {
-//        if (role.getName().toLowerCase() == "operations expert") {
-//            if (isTurn) {
-//                if (currentCity.researchStation == false)
-//                {
-//                    currentCity.placeResearchStation(true);
-//                    actionsLeft--;
-//                }
-//                else
-//                    System.out.println("city has a research station");
-//            }
-//            else
-//                System.out.println("Not your turn " + username);
-//        }
-//    }
-
     /**
      * If its the players turn
      * if player has actions left, remove cube from current city
@@ -265,6 +247,21 @@ public class Player {
             }
         }
         return returnIndex;
+    }
+
+    public CityCard getCityCardFromHand(String cityName)
+    {
+        CityCard tmpCard = null;
+
+        for(int i=0; i<cardHand.size(); i++)
+        {
+            if(cardHand.get(i).getNameOfCard().equals(cityName.toLowerCase())){
+                tmpCard = (CityCard) cardHand.get(i);
+                break;
+            }
+        }
+
+        return tmpCard;
     }
 
     /**
