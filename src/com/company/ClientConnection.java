@@ -1,6 +1,8 @@
 package com.company;
 
 
+import Cards.CityCard;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -99,16 +101,79 @@ public class ClientConnection implements Runnable {
         while(clientPlayer.getIsTurn()) {
             //Player moves to neighbor city
             //NO return message.
-            if (data[0].equals(moveToNeighbor)) {
-                for (int i = 0; i < GameBoard.gameBoard.allCities.size(); i++) {
-                    //data[1] is name of the city
-                    if (data[1].toLowerCase().equals(GameBoard.gameBoard.allCities.get(i).getName())) {
-                        clientPlayer.setCurrentCity(GameBoard.gameBoard.allCities.get(i));
-                        System.out.println("Player " + playerID + ": Moved to " + clientPlayer.getCurrentCityName());
-                    } else
-                        System.out.println("no city with that name");
+            if (data[0].equals(moveToNeighbor))
+            {
+                City tmpCity;
+                tmpCity = GameBoard.gameBoard.getCity(data[1]);
+
+                clientPlayer.moveToNeighbor(tmpCity);
+            }
+
+            else if (data[0].equals(moveToCityCard))
+            {
+                City tmpCity;
+                int tmpIndex;
+
+                tmpCity = GameBoard.gameBoard.getCity(data[1]);
+                tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
+
+                clientPlayer.moveToCardOnHand(tmpCity,tmpIndex);
+            }
+
+            else if(data[0].equals(moveFromCityCard))
+            {
+                City tmpCity;
+                int tmpIndex;
+
+                tmpCity = GameBoard.gameBoard.getCity(data[1]);
+                tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
+
+                clientPlayer.moveUsingCurrentCityCard(tmpCity, tmpIndex);
+            }
+
+            else if(data[0].equals(moveBetweenStations))
+            {
+                City tmpCity;
+                tmpCity = GameBoard.gameBoard.getCity(data[1]);
+
+                clientPlayer.moveBetweenResearchStations(tmpCity);
+            }
+
+            else if(data[0].equals(buildStation))
+            {
+                int tmpIndex;
+                tmpIndex = clientPlayer.getCardOnHandIndex(clientPlayer.getCurrentCityName());
+
+                clientPlayer.buildResearchStation(tmpIndex);
+            }
+
+            else if(data[0].equals(treatDisease))
+            {
+                clientPlayer.removeCube(data[1]);
+            }
+
+            else if(data[0].equals(createCure))
+            {
+                if(data[1].equals("RED"))
+                {
+                    CityCard[] tmpCards = new CityCard[5];
+
+                    for(int i=0; i<tmpCards.length; i++)
+                    {
+                        
+                        tmpCards[i] = ;
+                    }
+
+                    clientPlayer.CreateCure(GameBoard.gameBoard.getRedCureMarker(),);
                 }
-            } else if (data[0].equals(moveToCityCard)) {
+
+                else if(data[1].equals("YELLOW")){}
+
+                else if(data[1].equals("BLUE")){}
+
+                else if(data[1].equals("BLACK")){}
+
+
 
             }
         }
@@ -180,8 +245,23 @@ public class ClientConnection implements Runnable {
         else if(data[0].equals(setAnimationTrue))
         {
             lobbyStatus.setAnimation();
-            output.println("GET_ANIMATION_STATUS@true");
-            output.flush();
+
+            for (int i=0; i<GameServer.connectionArray.size(); i++)
+            {
+                Socket tmpSocket = GameServer.connectionArray.get(i);
+
+                try {
+                    PrintWriter tmpOut = new PrintWriter(tmpSocket.getOutputStream());
+                    tmpOut.println("GET_ANIMATION_STATUS@true");
+                    tmpOut.flush();
+                    System.out.println("Animation true sent to player: "+i);
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Could not create PrintWriter for sending animation set to true");
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

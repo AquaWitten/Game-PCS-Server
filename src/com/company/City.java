@@ -99,7 +99,7 @@ public class City {
             if (GameBoard.gameBoard.blueCureMarker.getHasCure()) {
                 GameBoard.gameBoard.blueCubesLeft += blueCubes;
                 blueCubes = 0;
-                if(GameBoard.gameBoard.blueCubesLeft == 24){
+                if(GameBoard.gameBoard.blueCubesLeft == 24 && GameBoard.gameBoard.blueCureMarker.getHasCure()){
                     GameBoard.gameBoard.blueCureMarker.SetIsExterminated();
                 }
             } else {
@@ -110,7 +110,7 @@ public class City {
             if(GameBoard.gameBoard.yellowCureMarker.getHasCure()){
                 GameBoard.gameBoard.yellowCubesLeft += yellowCubes;
                 yellowCubes = 0;
-                if(GameBoard.gameBoard.yellowCubesLeft == 24){
+                if(GameBoard.gameBoard.yellowCubesLeft == 24 && GameBoard.gameBoard.yellowCureMarker.getHasCure()){
                     GameBoard.gameBoard.yellowCureMarker.SetIsExterminated();
                 }
             } else {
@@ -121,7 +121,7 @@ public class City {
             if(GameBoard.gameBoard.blackCureMarker.getHasCure()){
                 GameBoard.gameBoard.blackCubesLeft += blackCubes;
                 blackCubes = 0;
-                if(GameBoard.gameBoard.blackCubesLeft == 24){
+                if(GameBoard.gameBoard.blackCubesLeft == 24 && GameBoard.gameBoard.blackCureMarker.getHasCure()){
                     GameBoard.gameBoard.blackCureMarker.SetIsExterminated();
                 }
             } else {
@@ -132,7 +132,7 @@ public class City {
             if(GameBoard.gameBoard.redCureMarker.getHasCure()){
                 GameBoard.gameBoard.redCubesLeft += redCubes;
                 redCubes = 0;
-                if(GameBoard.gameBoard.redCubesLeft == 24){
+                if(GameBoard.gameBoard.redCubesLeft == 24 && GameBoard.gameBoard.redCureMarker.getHasCure()){
                     GameBoard.gameBoard.redCureMarker.SetIsExterminated();
                 }
             } else {
@@ -221,6 +221,8 @@ public class City {
     public String getName() {
         return name.toLowerCase();
     }
+
+    public boolean getResearchStation(){return researchStation;}
 
     public int getBlueCubes() {
         return blueCubes;

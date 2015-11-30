@@ -107,7 +107,7 @@ public class Player {
      */
     public void moveBetweenResearchStations(City targetCity){
         if (isTurn) {
-            if (currentCity.researchStation && targetCity.researchStation) {
+            if (currentCity.getResearchStation() && targetCity.getResearchStation()) {
                 currentCity = targetCity;
                 actionsLeft--;
             }
@@ -156,7 +156,7 @@ public class Player {
                     }
                 }
                 else
-                    System.out.println("Player: "+ ID+", you do not have the correct cards to make a cure");
+                    System.out.println("Player: "+ID+", you do not have the correct cards to make a cure");
             }
         }
     }
@@ -252,6 +252,19 @@ public class Player {
         //Check Lose
         GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
         }
+    }
+
+    public int getCardOnHandIndex(String cityName)
+    {
+        int returnIndex = 0;
+        for(int i=0; i<cardHand.size(); i++)
+        {
+            if(cardHand.get(i).getNameOfCard().equals(cityName)) {
+                returnIndex = i;
+                break;
+            }
+        }
+        return returnIndex;
     }
 
     /**

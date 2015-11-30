@@ -193,14 +193,13 @@ public class GameBoard {
 
     //Returns a city variable with the inserted name
     public City getCity(String city) {
-        City returnCity;
+        City returnCity = null;
         for (int i = 0; i < allCities.size(); i++) {
             if (allCities.get(i).getName().equals(city)) {
                 returnCity = allCities.get(i);
-                return returnCity;
             }
         }
-        return null;
+        return returnCity;
     }
 
     public void increasePlayerWithIDsTurn() {
@@ -209,6 +208,22 @@ public class GameBoard {
 
     public int getPlayerWithIDsTurn() {
         return playerWithIDsTurn;
+    }
+
+    public CureMarker getBlueCureMarker() {
+        return blueCureMarker;
+    }
+
+    public CureMarker getYellowCureMarker() {
+        return yellowCureMarker;
+    }
+
+    public CureMarker getBlackCureMarker() {
+        return blackCureMarker;
+    }
+
+    public CureMarker getRedCureMarker() {
+        return redCureMarker;
     }
 
     public boolean isGameWon() {

@@ -51,6 +51,7 @@ public class GameServer {
         lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
         InLobby();
+        gameRunning();
 
     }
 
@@ -63,7 +64,8 @@ public class GameServer {
             ServerSocket serverSocket = new ServerSocket(port);
 
             //as long as all players are not ready (true) stay in loop
-            while (!lobbyStatus.animation) {
+            //while (!lobbyStatus.animation) {
+            while (!lobbyStatus.ani1 || !lobbyStatus.ani2 || !lobbyStatus.ani3 || !lobbyStatus.ani4) {
                 //as long as there is less than 4 players connected stay in loop
                 while (connectionArray.size() <= 3) {
                     Socket newPlayerSocket = serverSocket.accept();
@@ -100,13 +102,6 @@ public class GameServer {
         }
 
         System.out.println("all players have connected and pressed start game");
-
-        //Main game running code here
-        //player with ID 0 is first player
-        GameBoard.gameBoard.playerWithIDsTurn = 0;
-
-        gameRunning();
-
     }
 
     public static void sendLobbyChanges()
@@ -150,6 +145,8 @@ public class GameServer {
     }
 
     public static void gameRunning() {
+        //player with ID 0 is first player
+        GameBoard.gameBoard.playerWithIDsTurn = 0;
 
         while (!GameBoard.gameBoard.isGameLost() && !GameBoard.gameBoard.isGameWon()) {
             //player with the ID = playerWithIDsTurn has isTurn set to true
