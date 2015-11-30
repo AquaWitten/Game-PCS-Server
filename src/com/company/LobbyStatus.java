@@ -10,7 +10,7 @@ public class LobbyStatus {
     boolean p1, p2, p3, p4;
     int p1Role, p2Role, p3Role, p4Role;
     boolean changeInStatus;
-    boolean allReady;
+    boolean ani1, ani2, ani3, ani4;
     boolean animation;
 
     LobbyStatus()
@@ -65,11 +65,11 @@ public class LobbyStatus {
         }
     }
 
-    public void setAllReady()
-    {
-        if(p1 && p2 && p3 && p4)
-            allReady = true;
-    }
+//    public void setAllReady()
+//    {
+//        if(p1 && p2 && p3 && p4)
+//            allReady = true;
+//    }
 
     /**
      * Get the status of a player

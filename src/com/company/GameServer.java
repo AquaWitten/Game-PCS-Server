@@ -16,11 +16,15 @@ public class GameServer {
 
     //Global variables
     static ArrayList<RoleCard> roles;
+
     static LobbyStatus lobbyStatus;
+
     static int port;
     static int playerIDs;
+
     static ArrayList<Socket> connectionArray;
     static ArrayList<String> currentUsers;
+
     static GameBoard gameBoard;
     static PrintWriter output;
 
@@ -47,6 +51,7 @@ public class GameServer {
         lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
         InLobby();
+        gameRunning();
 
     }
 
@@ -59,7 +64,8 @@ public class GameServer {
             ServerSocket serverSocket = new ServerSocket(port);
 
             //as long as all players are not ready (true) stay in loop
-            while (!lobbyStatus.allReady) {
+            //while (!lobbyStatus.animation) {
+            while (!lobbyStatus.ani1 || !lobbyStatus.ani2 || !lobbyStatus.ani3 || !lobbyStatus.ani4) {
                 //as long as there is less than 4 players connected stay in loop
                 while (connectionArray.size() <= 3) {
                     Socket newPlayerSocket = serverSocket.accept();
@@ -72,7 +78,9 @@ public class GameServer {
 
                     Player tempPlayer = new Player(tempRole,playerIDs, gameBoard.getCity("atlanta"));
 
+                    GameBoard.gameBoard.players.add(tempPlayer);
                     ClientConnection clientConnect = new ClientConnection(newPlayerSocket, tempPlayer, lobbyStatus);
+
                     Thread newClient = new Thread(clientConnect);
                     newClient.start();
                     playerIDs++;
@@ -82,7 +90,7 @@ public class GameServer {
                     System.out.println("all have connected");
                 }
                 //sendLobbyChanges();
-                lobbyStatus.setAllReady();
+                //lobbyStatus.setAllReady();
                 Thread.sleep(1000);
             }
             System.out.println("out of lobby");
@@ -93,8 +101,7 @@ public class GameServer {
             System.out.println("failed to sleep while waiting for all players to press ready");
         }
 
-        System.out.println("all players have connected and pressed ready");
-        //Main game running code here
+        System.out.println("all players have connected and pressed start game");
     }
 
     public static void sendLobbyChanges()
@@ -137,8 +144,19 @@ public class GameServer {
         roles.add(scientist);
     }
 
-    public static void gameRunning()
-    {
-        //code to check if win or lose by looking in gameboard class
+    public static void gameRunning() {
+        //player with ID 0 is first player
+        GameBoard.gameBoard.playerWithIDsTurn = 0;
+
+        while (!GameBoard.gameBoard.isGameLost() && !GameBoard.gameBoard.isGameWon()) {
+            //player with the ID = playerWithIDsTurn has isTurn set to true
+            GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(true);
+
+            //if the player has used all his moves set his turn to false and increase playerWithIDsTurn by 1
+            if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getActionsLeft() <= 0) {
+                GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(false);
+                GameBoard.gameBoard.increasePlayerWithIDsTurn();
+            }
+        }
     }
 }

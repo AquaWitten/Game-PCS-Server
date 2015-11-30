@@ -107,7 +107,7 @@ public class Player {
      */
     public void moveBetweenResearchStations(City targetCity){
         if (isTurn) {
-            if (currentCity.researchStation && targetCity.researchStation) {
+            if (currentCity.getResearchStation() && targetCity.getResearchStation()) {
                 currentCity = targetCity;
                 actionsLeft--;
             }
@@ -156,7 +156,7 @@ public class Player {
                     }
                 }
                 else
-                    System.out.println("Player: "+ ID+", you do not have the correct cards to make a cure");
+                    System.out.println("Player: "+ID+", you do not have the correct cards to make a cure");
             }
         }
     }
@@ -197,24 +197,6 @@ public class Player {
             System.out.println("Not your turn " + ID);
     }
 
-
-    //only useful if Role "Operations Expert" is active
-//    public void buildResearchStationRole() {
-//        if (role.getName().toLowerCase() == "operations expert") {
-//            if (isTurn) {
-//                if (currentCity.researchStation == false)
-//                {
-//                    currentCity.placeResearchStation(true);
-//                    actionsLeft--;
-//                }
-//                else
-//                    System.out.println("city has a research station");
-//            }
-//            else
-//                System.out.println("Not your turn " + username);
-//        }
-//    }
-
     /**
      * If its the players turn
      * if player has actions left, remove cube from current city
@@ -242,12 +224,44 @@ public class Player {
             GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
-        } else {
+        }
+        else if(!GameBoard.gameBoard.playerDeck.isEmpty())
+        {
             cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         }
+        else{
         //Check Lose
         GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
+        }
+    }
+
+    public int getCardOnHandIndex(String cityName)
+    {
+        int returnIndex = 0;
+        for(int i=0; i<cardHand.size(); i++)
+        {
+            if(cardHand.get(i).getNameOfCard().equals(cityName)) {
+                returnIndex = i;
+                break;
+            }
+        }
+        return returnIndex;
+    }
+
+    public CityCard getCityCardFromHand(String cityName)
+    {
+        CityCard tmpCard = null;
+
+        for(int i=0; i<cardHand.size(); i++)
+        {
+            if(cardHand.get(i).getNameOfCard().equals(cityName.toLowerCase())){
+                tmpCard = (CityCard) cardHand.get(i);
+                break;
+            }
+        }
+
+        return tmpCard;
     }
 
     /**
@@ -274,8 +288,21 @@ public class Player {
         return Boolean.toString(isTurn);
     }
 
+    public boolean getIsTurn(){return isTurn;}
+
     public int getRoleID()
     {
         return role.getRoleID();
+    }
+
+    public int getActionsLeft(){return actionsLeft;}
+
+    public void setCurrentCity(City newCity)
+    {
+        currentCity = newCity;
+    }
+
+    public void setIsTurn(boolean isTurn) {
+        this.isTurn = isTurn;
     }
 }
