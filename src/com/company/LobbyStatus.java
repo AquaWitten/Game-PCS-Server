@@ -131,4 +131,8 @@ public class LobbyStatus {
     {
         animation = true;
     }
+
+    public boolean isAnimation() {
+        return animation;
+    }
 }
