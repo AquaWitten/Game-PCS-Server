@@ -1,9 +1,10 @@
 package com.company;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Message {
+public class Message implements Serializable{
 
     ArrayList<String> player1;
     ArrayList<String> player2;
