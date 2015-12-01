@@ -158,5 +158,6 @@ public class GameServer {
                 GameBoard.gameBoard.increasePlayerWithIDsTurn();
             }
         }
+        System.out.println("game has ended, conditions are: is the Game won? "+GameBoard.gameBoard.isGameWon()+" and is the game lost? "+GameBoard.gameBoard.isGameLost());
     }
 }

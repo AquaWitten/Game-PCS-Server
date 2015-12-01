@@ -3,16 +3,16 @@ package com.company;
 
 import Cards.CityCard;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientConnection implements Runnable {
 
     BufferedReader input;
     PrintWriter output;
+
+    ObjectOutputStream messageOut;
+
     Socket sock;
 
     String clientCommand;
@@ -20,7 +20,6 @@ public class ClientConnection implements Runnable {
     LobbyStatus lobbyStatus;
     Player clientPlayer;
     int playerID;
-    boolean clientConnected;
 
     /**
      * Assigns arguments to global class variables
@@ -33,7 +32,6 @@ public class ClientConnection implements Runnable {
         this.sock = sock;
         this.clientPlayer = clientsPlayer;
         this.lobbyStatus = lobbyStatus;
-        clientConnected = true;
         GameServer.gameBoard.players.add(clientsPlayer);
         lobbyStatus.setPlayerRole(clientPlayer.getID(), clientPlayer.getRoleID());
         playerID = this.clientPlayer.getID();
@@ -45,15 +43,15 @@ public class ClientConnection implements Runnable {
     @Override
     public void run() {
         try {
+            messageOut = new ObjectOutputStream(sock.getOutputStream());
             output = new PrintWriter(sock.getOutputStream());
             input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        while(clientConnected){
+        while(sock.isConnected()){
 
-            isConnected();
             try {
                 clientCommand = input.readLine();
                 System.out.println("Client ID: "+playerID+" says: "+clientCommand);
@@ -61,15 +59,13 @@ public class ClientConnection implements Runnable {
             } catch (IOException e)
             {
                 System.out.println("failed to read message from client ID: "+clientPlayer.getID());
-                clientConnected = false;
             }
             data = clientCommand.split("@");
 
-            if(!lobbyStatus.animation)
+            if(!lobbyStatus.isAnimation())
                 inLobby();
             else
                 inGame();
-
         }
     }
 
@@ -77,17 +73,13 @@ public class ClientConnection implements Runnable {
      * checks if the socket is connected, if it is not, removes the socket from the array of sockets
      * and sets the clientConnected boolean to false which causes the while loop to break
      */
-    public void isConnected()
+    public void disconnectSocket()
     {
-        if(!sock.isConnected())
+        for(int i = 0; i < GameServer.connectionArray.size(); i++)
         {
-            for(int i = 0; i < GameServer.connectionArray.size(); i++)
+            if(GameServer.connectionArray.get(i) == sock)
             {
-                if(GameServer.connectionArray.get(i) == sock)
-                {
-                    GameServer.connectionArray.remove(i);
-                    clientConnected = false;
-                }
+                GameServer.connectionArray.remove(i);
             }
         }
     }
@@ -97,119 +89,123 @@ public class ClientConnection implements Runnable {
         String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH";
         String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE";
 
-        //while its the players turn, wait for commands from the client
-        while(clientPlayer.getIsTurn()) {
-            //Player moves to neighbor city
-            //NO return message.
-            if (data[0].equals(moveToNeighbor))
-            {
-                City tmpCity;
-                tmpCity = GameBoard.gameBoard.getCity(data[1]);
-
-                clientPlayer.moveToNeighbor(tmpCity);
-            }
-
-            else if (data[0].equals(moveToCityCard))
-            {
-                City tmpCity;
-                int tmpIndex;
-
-                tmpCity = GameBoard.gameBoard.getCity(data[1]);
-                tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
-
-                clientPlayer.moveToCardOnHand(tmpCity,tmpIndex);
-            }
-
-            else if(data[0].equals(moveFromCityCard))
-            {
-                City tmpCity;
-                int tmpIndex;
-
-                tmpCity = GameBoard.gameBoard.getCity(data[1]);
-                tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
-
-                clientPlayer.moveUsingCurrentCityCard(tmpCity, tmpIndex);
-            }
-
-            else if(data[0].equals(moveBetweenStations))
-            {
-                City tmpCity;
-                tmpCity = GameBoard.gameBoard.getCity(data[1]);
-
-                clientPlayer.moveBetweenResearchStations(tmpCity);
-            }
-
-            else if(data[0].equals(buildStation))
-            {
-                int tmpIndex;
-                tmpIndex = clientPlayer.getCardOnHandIndex(clientPlayer.getCurrentCityName());
-
-                clientPlayer.buildResearchStation(tmpIndex);
-            }
-
-            else if(data[0].equals(treatDisease))
-            {
-                clientPlayer.removeCube(data[1]);
-            }
-
-            else if(data[0].equals(createCure))
-            {
-                if(data[1].equals("RED"))
-                {
-                    CityCard[] tmpCards = new CityCard[5];
-
-                    for(int i=0; i<tmpCards.length; i++)
-                    {
-                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
-                    }
-
-                    clientPlayer.CreateCure(GameBoard.gameBoard.getRedCureMarker(),tmpCards);
-                }
-
-                else if(data[1].equals("YELLOW"))
-                {
-                    CityCard[] tmpCards = new CityCard[5];
-
-                    for(int i=0; i<tmpCards.length; i++)
-                    {
-                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
-                    }
-
-                    clientPlayer.CreateCure(GameBoard.gameBoard.getYellowCureMarker(),tmpCards);
-                }
-
-                else if(data[1].equals("BLUE"))
-                {
-                    CityCard[] tmpCards = new CityCard[5];
-
-                    for(int i=0; i<tmpCards.length; i++)
-                    {
-                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
-                    }
-
-                    clientPlayer.CreateCure(GameBoard.gameBoard.getBlueCureMarker(),tmpCards);
-                }
-
-                else if(data[1].equals("BLACK"))
-                {
-                    CityCard[] tmpCards = new CityCard[5];
-
-                    for(int i=0; i<tmpCards.length; i++)
-                    {
-                        tmpCards[i] = clientPlayer.getCityCardFromHand(data[i+2]);
-                    }
-
-                    clientPlayer.CreateCure(GameBoard.gameBoard.getBlackCureMarker(),tmpCards);
-                }
-            }
-        }
-
-        //while its NOT the players turn send status of the gameboard using message class
-        while(!clientPlayer.getIsTurn())
+        while(sock.isConnected())
         {
+        //while its the players turn, wait for commands from the client
+            while(clientPlayer.getIsTurn()) {
+                //Player moves to neighbor city
+                //NO return message.
+                if (data[0].equals(moveToNeighbor)) {
+                    City tmpCity;
+                    tmpCity = GameBoard.gameBoard.getCity(data[1]);
 
+                    clientPlayer.moveToNeighbor(tmpCity);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(moveToCityCard)) {
+                    City tmpCity;
+                    int tmpIndex;
+
+                    tmpCity = GameBoard.gameBoard.getCity(data[1]);
+                    tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
+
+                    clientPlayer.moveToCardOnHand(tmpCity, tmpIndex);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(moveFromCityCard)) {
+                    City tmpCity;
+                    int tmpIndex;
+
+                    tmpCity = GameBoard.gameBoard.getCity(data[1]);
+                    tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
+
+                    clientPlayer.moveUsingCurrentCityCard(tmpCity, tmpIndex);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(moveBetweenStations)) {
+                    City tmpCity;
+                    tmpCity = GameBoard.gameBoard.getCity(data[1]);
+
+                    clientPlayer.moveBetweenResearchStations(tmpCity);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(buildStation)) {
+                    int tmpIndex;
+                    tmpIndex = clientPlayer.getCardOnHandIndex(clientPlayer.getCurrentCityName());
+
+                    clientPlayer.buildResearchStation(tmpIndex);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(treatDisease)) {
+                    clientPlayer.removeCube(data[1]);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data[0].equals(createCure)) {
+                    if (data[1].equals("RED")) {
+                        CityCard[] tmpCards = new CityCard[5];
+
+                        for (int i = 0; i < tmpCards.length; i++) {
+                            tmpCards[i] = clientPlayer.getCityCardFromHand(data[i + 2]);
+                        }
+
+                        clientPlayer.CreateCure(GameBoard.gameBoard.getRedCureMarker(), tmpCards);
+                    } else if (data[1].equals("YELLOW")) {
+                        CityCard[] tmpCards = new CityCard[5];
+
+                        for (int i = 0; i < tmpCards.length; i++) {
+                            tmpCards[i] = clientPlayer.getCityCardFromHand(data[i + 2]);
+                        }
+
+                        clientPlayer.CreateCure(GameBoard.gameBoard.getYellowCureMarker(), tmpCards);
+                    } else if (data[1].equals("BLUE")) {
+                        CityCard[] tmpCards = new CityCard[5];
+
+                        for (int i = 0; i < tmpCards.length; i++) {
+                            tmpCards[i] = clientPlayer.getCityCardFromHand(data[i + 2]);
+                        }
+
+                        clientPlayer.CreateCure(GameBoard.gameBoard.getBlueCureMarker(), tmpCards);
+                    } else if (data[1].equals("BLACK")) {
+                        CityCard[] tmpCards = new CityCard[5];
+
+                        for (int i = 0; i < tmpCards.length; i++) {
+                            tmpCards[i] = clientPlayer.getCityCardFromHand(data[i + 2]);
+                        }
+
+                        clientPlayer.CreateCure(GameBoard.gameBoard.getBlackCureMarker(), tmpCards);
+                    }
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                } else if (data == null) {
+                    try {
+                        output.close();
+                        input.close();
+                        messageOut.close();
+                        sock.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("could not close output, input or socket after client returning null");
+                    }
+                }
+            }
         }
+        //This should be on client side
+//        //while its NOT the players turn receive status of the gameboard using message class
+//        while(!clientPlayer.getIsTurn())
+//        {
+//
+//        }
+    }
 
+    public void sendMessageToOtherClients(Message messageToClients)
+    {
+        for(int i=0; i< GameServer.connectionArray.size(); i++)
+        {
+            if(sock != GameServer.connectionArray.get(i))
+            {
+                try
+                {
+                    messageOut.writeObject(messageToClients);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Could not send Message Class to client");
+                }
+            }
+        }
     }
 
     public void inLobby()
@@ -287,6 +283,19 @@ public class ClientConnection implements Runnable {
                     System.out.println("Could not create PrintWriter for sending animation set to true");
                     e.printStackTrace();
                 }
+            }
+        }
+
+        else if(data == null)
+        {
+            try {
+                output.close();
+                input.close();
+                messageOut.close();
+                sock.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("could not close output, input or socket after client returning null");
             }
         }
     }

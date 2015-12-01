@@ -203,8 +203,12 @@ public class GameBoard {
         return returnCity;
     }
 
-    public void increasePlayerWithIDsTurn() {
-        this.playerWithIDsTurn += 1;
+    public void increasePlayerWithIDsTurn()
+    {
+        if(this.playerWithIDsTurn < 3)
+            this.playerWithIDsTurn += 1;
+        else
+            this.playerWithIDsTurn = 0;
     }
 
     public int getPlayerWithIDsTurn() {
@@ -557,7 +561,7 @@ public class GameBoard {
         gameBoardContent.gameLost = GameBoard.gameBoard.gameLost;
     }
 
-    public void setMessageContent(){
+    public Message setMessageContent(){
         messageSetPlayer1();
         messageSetPlayer2();
         messageSetPlayer3();
@@ -578,5 +582,7 @@ public class GameBoard {
         messageSetOutbreakMarker();
         messageSetGameLost();
         messageSetGameWon();
+
+        return gameBoardContent;
     }
 }
