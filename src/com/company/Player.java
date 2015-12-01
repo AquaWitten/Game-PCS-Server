@@ -3,8 +3,6 @@ package com.company;
 
 import Cards.*;
 import Markers.CureMarker;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Player {

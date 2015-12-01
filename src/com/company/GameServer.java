@@ -3,8 +3,6 @@ package com.company;
 import Cards.*;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,10 +21,9 @@ public class GameServer {
     static int playerIDs;
 
     static ArrayList<Socket> connectionArray;
-    static ArrayList<String> currentUsers;
 
     static GameBoard gameBoard;
-    static PrintWriter output;
+
 
     //--------------------------------------------------------------
 
@@ -51,6 +48,7 @@ public class GameServer {
         lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
         InLobby();
+        gameBoard.setupPhase();
         gameRunning();
 
     }
@@ -103,33 +101,6 @@ public class GameServer {
 
         System.out.println("all players have connected and pressed start game");
     }
-
-    public static void sendLobbyChanges()
-    {
-        if(lobbyStatus.changeInStatus)
-        {
-                //FOR LOOP THAT RUNS THROUGH ALL SOCKETS AND SENDS THE READY STATUS OF ALL PLAYERS
-            for(int i = 0; i < connectionArray.size(); i++)
-            {
-                Socket tempSock = connectionArray.get(i);
-                try {
-                    PrintWriter tempOut = new PrintWriter(tempSock.getOutputStream());
-                    tempOut.println("Player 1 is: "+lobbyStatus.getPlayerStatus("p1")+" Role ID: "+ lobbyStatus.p1Role);
-                    tempOut.flush();
-                    tempOut.println("Player 2 is: "+lobbyStatus.getPlayerStatus("p2")+" Role ID: "+ lobbyStatus.p2Role);
-                    tempOut.flush();
-                    tempOut.println("Player 3 is: "+lobbyStatus.getPlayerStatus("p3")+" Role ID: "+ lobbyStatus.p3Role);
-                    tempOut.flush();
-                    tempOut.println("Player 4 is: "+lobbyStatus.getPlayerStatus("p4")+" Role ID: "+ lobbyStatus.p4Role);
-                    tempOut.flush();
-                } catch (IOException e) {
-                    System.out.println("Could not create Printerwriter for sending player lobby status");
-                }
-            }
-            lobbyStatus.changeInStatus = false;
-        }
-    }
-
 
     public static void instantiateRoleCards()
     {

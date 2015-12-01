@@ -32,6 +32,7 @@ public class ClientConnection implements Runnable {
         this.sock = sock;
         this.clientPlayer = clientsPlayer;
         this.lobbyStatus = lobbyStatus;
+
         GameServer.gameBoard.players.add(clientsPlayer);
         lobbyStatus.setPlayerRole(clientPlayer.getID(), clientPlayer.getRoleID());
         playerID = this.clientPlayer.getID();
@@ -66,21 +67,6 @@ public class ClientConnection implements Runnable {
                 inLobby();
             else
                 inGame();
-        }
-    }
-
-    /**
-     * checks if the socket is connected, if it is not, removes the socket from the array of sockets
-     * and sets the clientConnected boolean to false which causes the while loop to break
-     */
-    public void disconnectSocket()
-    {
-        for(int i = 0; i < GameServer.connectionArray.size(); i++)
-        {
-            if(GameServer.connectionArray.get(i) == sock)
-            {
-                GameServer.connectionArray.remove(i);
-            }
         }
     }
 
@@ -289,6 +275,7 @@ public class ClientConnection implements Runnable {
         else if(data == null)
         {
             try {
+                disconnectSocket();
                 output.close();
                 input.close();
                 messageOut.close();
@@ -296,6 +283,21 @@ public class ClientConnection implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("could not close output, input or socket after client returning null");
+            }
+        }
+    }
+
+    /**
+     * checks if the socket is connected, if it is not, removes the socket from the array of sockets
+     * and sets the clientConnected boolean to false which causes the while loop to break
+     */
+    public void disconnectSocket()
+    {
+        for(int i = 0; i < GameServer.connectionArray.size(); i++)
+        {
+            if(GameServer.connectionArray.get(i) == sock)
+            {
+                GameServer.connectionArray.remove(i);
             }
         }
     }

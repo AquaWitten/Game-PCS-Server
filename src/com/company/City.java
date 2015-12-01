@@ -247,9 +247,5 @@ public class City {
     public String getColor() {
         return color;
     }
-
-    public boolean isResearchStation() {
-        return researchStation;
-    }
     
 }

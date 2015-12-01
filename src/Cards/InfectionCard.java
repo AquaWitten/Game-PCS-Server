@@ -1,8 +1,6 @@
 package Cards;
 
 
-import com.company.GameBoard;
-
 public class InfectionCard {
 
     //variables created
