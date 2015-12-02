@@ -86,7 +86,7 @@ public class GameBoard {
         }
 
         //Increase
-        GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
+        GameBoard.gameBoard.infectionMarker.increaseInfectionRate();
 
         //Infect
         int lastCardNumber = GameBoard.gameBoard.infectionDeck.size() - 1;
@@ -94,7 +94,7 @@ public class GameBoard {
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
-                i = GameBoard.gameBoard.allCities.size();
+                break;
             }
         }
         GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(lastCardNumber));
@@ -103,13 +103,13 @@ public class GameBoard {
         //Intensify
         Collections.shuffle(GameBoard.gameBoard.infectionDiscard);
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++){
-            GameBoard.gameBoard.infectionDeck.add(GameBoard.gameBoard.infectionDiscard.get(0));
+            GameBoard.gameBoard.infectionDeck.add(0,GameBoard.gameBoard.infectionDiscard.get(0));
             GameBoard.gameBoard.infectionDiscard.remove(0);
         }
     }
 
     //Activate upon the draw of an infection card
-    public void drawInfectionCard(int amount){
+    public void drawInfectionCard(int cubeAmount){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
@@ -118,8 +118,8 @@ public class GameBoard {
         String target = GameBoard.gameBoard.infectionDeck.get(0).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(target.equals(GameBoard.gameBoard.allCities.get(i).getName())){
-                GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(0).getColor(), amount);
-                i = GameBoard.gameBoard.allCities.size();
+                GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(0).getColor(), cubeAmount);
+                break;
             }
         }
 
@@ -143,7 +143,7 @@ public class GameBoard {
     public void checkLose() {
 
         //Check lose condition with cubes
-        if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
+        if (blueCubesLeft <= 0 || yellowCubesLeft <= 0 || blackCubesLeft <= 0 || redCubesLeft <= 0) {
             System.out.println("Game is lost! You ran out of disease cubes");
             this.gameLost = true;
         }
@@ -152,7 +152,7 @@ public class GameBoard {
     public void checkLose(OutbreakMarker outbreaks) {
 
         //Check lose condition with outbreakMarker
-        if (outbreaks.getOutbreakCounter() == 8) {
+        if (outbreaks.getOutbreakCounter() >= 8) {
             System.out.println("Game is lost! There have been too many outbreaks");
             gameLost = true;
         }
@@ -161,19 +161,24 @@ public class GameBoard {
     public void checkLose(InfectionMarker infections) {
 
         //Check lose condition with infectionMarker
-        if (infections.GetInfectionRate() == 10) {
+        if (infections.getInfectionRate() >= 10) {
             System.out.println("Game is lost! The infection rate of the disease is too high");
             gameLost = true;
         }
     }
 
-    public void checkLose(int playerCardsLeft){
+    public void checkLose(ArrayList<PlayerCard> playerDeckCardsLeft){
 
         //Check lose condition with player deck
-        if(playerCardsLeft == 0){
+        if(playerDeckCardsLeft.isEmpty()){
             System.out.println("Game is lost! There are no more cards in the player deck");
             gameLost = true;
         }
+    }
+
+    public void setLose()
+    {
+        gameLost = true;
     }
 
     public void instantiateDecks(){ //Method used to instantiate the two decks of cards
@@ -391,61 +396,66 @@ public class GameBoard {
     public void messageSetPlayer1() {
         gameBoardContent.player1 = new ArrayList<>();
 
-        gameBoardContent.player1.set(0, Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
-        gameBoardContent.player1.set(1,GameBoard.gameBoard.players.get(0).getIsTurnString());
-        gameBoardContent.player1.set(2,GameBoard.gameBoard.players.get(0).getCurrentCityName());
+        gameBoardContent.player1.add(Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
+        gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).getIsTurnString());
+        gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(0).cardHand.size(); i++)
         {
-            gameBoardContent.player1.set(3+i,GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer2() {
         gameBoardContent.player2 = new ArrayList<>();
 
-        gameBoardContent.player2.set(0,Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
-        gameBoardContent.player2.set(1,GameBoard.gameBoard.players.get(1).getIsTurnString());
-        gameBoardContent.player2.set(2,GameBoard.gameBoard.players.get(1).getCurrentCityName());
+        gameBoardContent.player2.add(Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
+        gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).getIsTurnString());
+        gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(1).cardHand.size(); i++)
         {
-            gameBoardContent.player2.set(3+i,GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer3() {
         gameBoardContent.player3 = new ArrayList<>();
 
-        gameBoardContent.player3.set(0,Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
-        gameBoardContent.player3.set(1,GameBoard.gameBoard.players.get(2).getIsTurnString());
-        gameBoardContent.player3.set(2,GameBoard.gameBoard.players.get(2).getCurrentCityName());
+        gameBoardContent.player3.add(Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
+        gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).getIsTurnString());
+        gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(2).cardHand.size(); i++)
         {
-            gameBoardContent.player3.set(3+i,GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer4() {
         gameBoardContent.player4 = new ArrayList<>();
 
-        gameBoardContent.player4.set(0,Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
-        gameBoardContent.player4.set(1,GameBoard.gameBoard.players.get(3).getIsTurnString());
-        gameBoardContent.player4.set(2,GameBoard.gameBoard.players.get(3).getCurrentCityName());
+        gameBoardContent.player4.add(Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
+        gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).getIsTurnString());
+        gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(3).cardHand.size(); i++)
         {
-            gameBoardContent.player4.set(3+i,GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     /**
      * Each city on the board is added to the string array with, containing important values
-     * array space;
-     * 0: string name of the city
-     * 1: string describing if the city has a research station
-     * 2-5: string value of the amount of cubes on the city
+     * size of array [6][48]
+     * [6] is the number of different kinds of information
+     * [48] si the number of different cities on the gameboard
+     * [0][i]: string name of the city
+     * [1][i]: string describing if the city has a research station
+     * [2][i]: string value of the amount of BLUE cubes on the city
+     * [3][i]: string value of the amount of YELLOW cubes on the city
+     * [4][i]: string value of the amount of BLACK cubes on the city
+     * [5][i]: string value of the amount of RED cubes on the city
      */
     public void messageSetCities() {
         gameBoardContent.cities = new String[6][48];
@@ -469,7 +479,7 @@ public class GameBoard {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDeck.size(); i++)
         {
-            gameBoardContent.playerDeck.set(i, GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.playerDeck.add(GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -481,7 +491,7 @@ public class GameBoard {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDiscard.size(); i++)
         {
-            gameBoardContent.playerDiscard.set(i,GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.playerDiscard.add(GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -492,7 +502,7 @@ public class GameBoard {
         gameBoardContent.infectionDeck = new ArrayList<>();
 
         for(int i = 0; i < GameBoard.gameBoard.infectionDeck.size(); i++)
-            gameBoardContent.infectionDeck.set(i, GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
+            gameBoardContent.infectionDeck.add(GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
     }
 
     /**
@@ -502,7 +512,7 @@ public class GameBoard {
         gameBoardContent.infectionDiscard = new ArrayList<>();
 
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++)
-            gameBoardContent.infectionDiscard.set(i, GameBoard.gameBoard.infectionDiscard.get(i).getName());
+            gameBoardContent.infectionDiscard.add(GameBoard.gameBoard.infectionDiscard.get(i).getName());
     }
 
     /**

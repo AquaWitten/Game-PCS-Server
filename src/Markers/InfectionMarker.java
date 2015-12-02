@@ -16,21 +16,21 @@ public class InfectionMarker {
         //max value is 7
         infectionDegree = 0;
         //When infectionRate hits 10 the lose condition is met
-        infectionRate = new int[]{2,2,2,3,3,4,4,10};
+        infectionRate = new int[]{2,2,2,3,3,4,4};
     }
 
-    public void IncreaseInfectionRate(){
+    public void increaseInfectionRate(){
 
         //to avoid going beyond size of the array
         if(infectionDegree < infectionRate.length - 1) {
             infectionDegree++;
-            GameBoard.gameBoard.checkLose(this);
         }
-
+        else
+            GameBoard.gameBoard.setLose();
     }
 
     //getters
-    public int GetInfectionRate(){
+    public int getInfectionRate(){
         //return the current infection rate from the array based on infection degree.
         return infectionRate[infectionDegree];
     }

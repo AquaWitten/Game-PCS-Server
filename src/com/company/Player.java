@@ -3,8 +3,6 @@ package com.company;
 
 import Cards.*;
 import Markers.CureMarker;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Player {
@@ -16,6 +14,8 @@ public class Player {
     ArrayList<PlayerCard> cardHand;
     int actionsLeft;
     Boolean isTurn;
+    Boolean startOfTurn;
+    Boolean turnIsDone;
 
     //Only useful if Role "Contingency Planner" is active
     //PlayerCard[] extraHand;
@@ -29,6 +29,9 @@ public class Player {
         cardHand = new ArrayList<>();
         actionsLeft=0;
         isTurn=false;
+
+        startOfTurn = true;
+        turnIsDone = false;
 
         //Only useful if Role "Contingency Planner" is active
 /*        if(role.getName().toLowerCase() == "contingency planner")
@@ -220,19 +223,24 @@ public class Player {
      * Check if there are more cards in player deck
      */
     public void drawCard(){
-        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
+
+        //Checks if the deck is empty
+        if(GameBoard.gameBoard.playerDeck.isEmpty())
+        {
+            GameBoard.gameBoard.setLose();
+        }
+
+        //If first card is an epidemic card
+        else if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
             GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         }
+        //If the card is normal player card
         else if(!GameBoard.gameBoard.playerDeck.isEmpty())
         {
             cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
-        }
-        else{
-        //Check Lose
-        GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
         }
     }
 
@@ -302,7 +310,33 @@ public class Player {
         currentCity = newCity;
     }
 
-    public void setIsTurn(boolean isTurn) {
-        this.isTurn = isTurn;
+    public void setIsTurn(boolean stateOfTurn) {
+
+        if(stateOfTurn){
+            isTurn = true;
+            turnIsDone = false;
+            if(startOfTurn)
+            {
+                actionsLeft = 4;
+
+                startOfTurn=false;
+            }
+        }
+
+        else if(!stateOfTurn)
+        {
+            isTurn = false;
+            startOfTurn = true;
+        }
+    }
+
+    public void setTurnIsDone()
+    {
+        turnIsDone = true;
+    }
+
+    public boolean getTurnIsDone()
+    {
+        return turnIsDone;
     }
 }

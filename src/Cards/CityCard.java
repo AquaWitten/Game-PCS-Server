@@ -1,6 +1,5 @@
 package Cards;
 
-import com.company.Player;
 
 public class CityCard implements PlayerCard{
 
