@@ -316,7 +316,7 @@ public class GameBoard {
         City chennai = new City("chennai", "black",new ArrayList<>(Arrays.asList("kolkata", "bangkok", "jakarta", "mumbai", "delhi")));
         allCities.add(chennai);
         //All red cities
-        City bangkok = new City("bangkok", "red",new ArrayList<>(Arrays.asList("kolkata", "hong kong", "hochiminhcity", "jakarta", "chennai")));
+        City bangkok = new City("bangkok", "red",new ArrayList<>(Arrays.asList("kolkata", "hongkong", "hochiminhcity", "jakarta", "chennai")));
         allCities.add(bangkok);
         City jakarta = new City("jakarta", "red",new ArrayList<>(Arrays.asList("chennai", "bangkok", "hochiminhcity", "sydney")));
         allCities.add(jakarta);
