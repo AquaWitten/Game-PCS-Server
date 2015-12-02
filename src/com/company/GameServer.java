@@ -1,6 +1,7 @@
 package com.company;
 
 import Cards.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -87,8 +88,7 @@ public class GameServer {
                     messageSend = true;
                     System.out.println("all have connected");
                 }
-                //sendLobbyChanges();
-                //lobbyStatus.setAllReady();
+
                 Thread.sleep(1000);
             }
             System.out.println("out of lobby");
@@ -118,16 +118,20 @@ public class GameServer {
     public static void gameRunning() {
         //player with ID 0 is first player
         GameBoard.gameBoard.playerWithIDsTurn = 0;
+        System.out.println("Game is now running and is in gameRunning loop");
+        System.out.println("Start player is player with ID: "+GameBoard.gameBoard.playerWithIDsTurn);
 
         while (!GameBoard.gameBoard.isGameLost() && !GameBoard.gameBoard.isGameWon()) {
             //player with the ID = playerWithIDsTurn has isTurn set to true
             GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(true);
 
             //if the player has used all his moves set his turn to false and increase playerWithIDsTurn by 1
-            if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getIsTurn()) {
+            if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getTurnIsDone()) {
                 GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(false);
+                System.out.println("Player "+GameBoard.gameBoard.getPlayerWithIDsTurn()+"'s turn is done");
 
                 GameBoard.gameBoard.increasePlayerWithIDsTurn();
+                System.out.println("It is now Player "+GameBoard.gameBoard.getPlayerWithIDsTurn()+"'s turn is now beginning");
             }
         }
         System.out.println("game has ended, conditions are: is the Game won? "+GameBoard.gameBoard.isGameWon()+" and is the game lost? "+GameBoard.gameBoard.isGameLost());

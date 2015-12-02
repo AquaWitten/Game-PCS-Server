@@ -305,6 +305,11 @@ public class ClientConnection implements Runnable {
                     e.printStackTrace();
                 }
             }
+            lobbyStatus.ani1 = true;
+            lobbyStatus.ani2 = true;
+            lobbyStatus.ani3 = true;
+            lobbyStatus.ani4 = true;
+
         }
 
         else if(data == null)
