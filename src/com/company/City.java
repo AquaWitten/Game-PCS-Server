@@ -38,11 +38,12 @@ public class City {
             blueRecentOutbreak = true;
 
             for(int i = 0; i < neighborCities.size(); i++) {
-
-                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
-                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
+                for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++)
+                {
+                    if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i)))
+                    {
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                        break;
                     }
                 }
             }
@@ -55,7 +56,7 @@ public class City {
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
                     if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                        break;
                     }
                 }
             }
@@ -68,7 +69,7 @@ public class City {
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
                     if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                        break;
                     }
                 }
             }
@@ -81,14 +82,11 @@ public class City {
                 for(int j = 0; j < GameBoard.gameBoard.allCities.size(); j++){
                     if(GameBoard.gameBoard.allCities.get(j).getName().equals(neighborCities.get(i))){
                         GameBoard.gameBoard.allCities.get(j).addCube(color, 1);
-                        j = GameBoard.gameBoard.allCities.size();
+                        break;
                     }
                 }
             }
-
         }
-
-
     }
 
     //Remove cube from city checking color and if cure complete

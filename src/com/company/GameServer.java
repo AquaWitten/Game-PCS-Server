@@ -126,6 +126,7 @@ public class GameServer {
             //if the player has used all his moves set his turn to false and increase playerWithIDsTurn by 1
             if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getActionsLeft() <= 0) {
                 GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(false);
+                //ADD CODE TO DRAW CARDS!!!!
                 GameBoard.gameBoard.increasePlayerWithIDsTurn();
             }
         }

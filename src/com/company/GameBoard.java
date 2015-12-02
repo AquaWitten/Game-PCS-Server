@@ -86,7 +86,7 @@ public class GameBoard {
         }
 
         //Increase
-        GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
+        GameBoard.gameBoard.infectionMarker.increaseInfectionRate();
 
         //Infect
         int lastCardNumber = GameBoard.gameBoard.infectionDeck.size() - 1;
@@ -94,7 +94,7 @@ public class GameBoard {
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
-                i = GameBoard.gameBoard.allCities.size();
+                break;
             }
         }
         GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(lastCardNumber));
@@ -103,7 +103,7 @@ public class GameBoard {
         //Intensify
         Collections.shuffle(GameBoard.gameBoard.infectionDiscard);
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++){
-            GameBoard.gameBoard.infectionDeck.add(GameBoard.gameBoard.infectionDiscard.get(0));
+            GameBoard.gameBoard.infectionDeck.add(0,GameBoard.gameBoard.infectionDiscard.get(0));
             GameBoard.gameBoard.infectionDiscard.remove(0);
         }
     }
@@ -143,7 +143,7 @@ public class GameBoard {
     public void checkLose() {
 
         //Check lose condition with cubes
-        if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
+        if (blueCubesLeft <= 0 || yellowCubesLeft <= 0 || blackCubesLeft <= 0 || redCubesLeft <= 0) {
             System.out.println("Game is lost! You ran out of disease cubes");
             this.gameLost = true;
         }
@@ -152,7 +152,7 @@ public class GameBoard {
     public void checkLose(OutbreakMarker outbreaks) {
 
         //Check lose condition with outbreakMarker
-        if (outbreaks.getOutbreakCounter() == 8) {
+        if (outbreaks.getOutbreakCounter() >= 8) {
             System.out.println("Game is lost! There have been too many outbreaks");
             gameLost = true;
         }
@@ -161,19 +161,24 @@ public class GameBoard {
     public void checkLose(InfectionMarker infections) {
 
         //Check lose condition with infectionMarker
-        if (infections.GetInfectionRate() == 10) {
+        if (infections.getInfectionRate() >= 10) {
             System.out.println("Game is lost! The infection rate of the disease is too high");
             gameLost = true;
         }
     }
 
-    public void checkLose(int playerCardsLeft){
+    public void checkLose(ArrayList<PlayerCard> playerDeckCardsLeft){
 
         //Check lose condition with player deck
-        if(playerCardsLeft == 0){
+        if(playerDeckCardsLeft.isEmpty()){
             System.out.println("Game is lost! There are no more cards in the player deck");
             gameLost = true;
         }
+    }
+
+    public void setLose()
+    {
+        gameLost = true;
     }
 
     public void instantiateDecks(){ //Method used to instantiate the two decks of cards

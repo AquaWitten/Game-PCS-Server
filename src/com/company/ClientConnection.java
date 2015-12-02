@@ -11,6 +11,8 @@ public class ClientConnection implements Runnable {
     BufferedReader input;
     PrintWriter output;
 
+    int cardToBeDrawn;
+
     ObjectOutputStream messageOut;
 
     Socket sock;
@@ -36,6 +38,8 @@ public class ClientConnection implements Runnable {
         GameServer.gameBoard.players.add(clientsPlayer);
         lobbyStatus.setPlayerRole(clientPlayer.getID(), clientPlayer.getRoleID());
         playerID = this.clientPlayer.getID();
+
+        cardToBeDrawn = 1;
     }
 
     /**
@@ -73,7 +77,7 @@ public class ClientConnection implements Runnable {
     public void inGame()
     {
         String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH";
-        String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE";
+        String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE", drawCard = "DRAW_CARD", discardCard = "DISCARD_CARD", drawInfectionCard = "DRAW_INFECTIONCARD";
 
         while(sock.isConnected())
         {
@@ -155,7 +159,27 @@ public class ClientConnection implements Runnable {
                         clientPlayer.CreateCure(GameBoard.gameBoard.getBlackCureMarker(), tmpCards);
                     }
                     sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
-                } else if (data == null) {
+                }
+
+                else if(data[0].equals(drawCard))
+                {
+                        clientPlayer.drawCard();
+                }
+
+                else if(data[0].equals(discardCard))
+                {
+                    int tmpIndex = clientPlayer.getCardOnHandIndex(data[1]);
+                    clientPlayer.discardCard(tmpIndex);
+
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                }
+
+                else if(data[0].equals(drawInfectionCard))
+                {
+                    GameBoard.gameBoard.drawInfectionCard( GameBoard.gameBoard.infectionMarker.getInfectionRate() );
+                }
+
+                else if (data == null) {
                     try {
                         output.close();
                         input.close();
