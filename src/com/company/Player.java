@@ -15,6 +15,7 @@ public class Player {
     int actionsLeft;
     Boolean isTurn;
     Boolean startOfTurn;
+    Boolean turnIsDone;
 
     //Only useful if Role "Contingency Planner" is active
     //PlayerCard[] extraHand;
@@ -30,6 +31,7 @@ public class Player {
         isTurn=false;
 
         startOfTurn = true;
+        turnIsDone = false;
 
         //Only useful if Role "Contingency Planner" is active
 /*        if(role.getName().toLowerCase() == "contingency planner")
@@ -312,6 +314,7 @@ public class Player {
 
         if(stateOfTurn){
             isTurn = true;
+            turnIsDone = false;
             if(startOfTurn)
             {
                 actionsLeft = 4;
@@ -325,5 +328,15 @@ public class Player {
             isTurn = false;
             startOfTurn = true;
         }
+    }
+
+    public void setTurnIsDone()
+    {
+        turnIsDone = true;
+    }
+
+    public boolean getTurnIsDone()
+    {
+        return turnIsDone;
     }
 }

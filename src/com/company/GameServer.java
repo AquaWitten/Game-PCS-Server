@@ -48,7 +48,7 @@ public class GameServer {
         lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
         InLobby();
-        gameBoard.setupPhase();
+        GameBoard.gameBoard.setupPhase();
         gameRunning();
 
     }
@@ -124,9 +124,9 @@ public class GameServer {
             GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(true);
 
             //if the player has used all his moves set his turn to false and increase playerWithIDsTurn by 1
-            if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getActionsLeft() <= 0) {
+            if (GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).getIsTurn()) {
                 GameBoard.gameBoard.players.get(GameBoard.gameBoard.getPlayerWithIDsTurn()).setIsTurn(false);
-                //ADD CODE TO DRAW CARDS!!!!
+
                 GameBoard.gameBoard.increasePlayerWithIDsTurn();
             }
         }
