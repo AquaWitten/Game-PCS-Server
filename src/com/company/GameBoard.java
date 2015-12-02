@@ -182,7 +182,7 @@ public class GameBoard {
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
-        City sanFrancisco = new City("san francisco", "blue",new ArrayList<>(Arrays.asList("chicago", "los angeles", "tokyo", "manila")));
+        City sanFrancisco = new City("sanfrancisco", "blue",new ArrayList<>(Arrays.asList("chicago", "los angeles", "tokyo", "manila")));
         allCities.add(sanFrancisco);
         City chicago = new City("chicago", "blue",new ArrayList<>(Arrays.asList("san francisco", "los angeles", "montreal", "atlanta", "mexico city")));
         allCities.add(chicago);
