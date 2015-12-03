@@ -74,6 +74,105 @@ public class ClientConnection implements Runnable {
     }
 
     /**
+     * During the lobby phase the server will respond to different commands compared to the inGame fase.
+     * Will based on commands from client perform actions and change variables in the lobbyState object
+     */
+    public void inLobby()
+    {
+
+        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
+
+        //SEND PLAYER ID TO CLIENT
+        if(data[0].equals(getPlayerID))
+        {
+            System.out.println("Sending player ID to player: "+playerID);
+            output.println("GET_PLAYER_ID@"+playerID);
+            output.flush();
+        }
+
+        //SEND PLAYER STATUS
+        else if(data[0].equals(getPlayerStatus))
+        {
+            if(data[1].equals("0"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
+
+            else if(data[1].equals("1"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
+
+            else if(data[1].equals("2"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
+
+            else if(data[1].equals("3"))
+                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
+
+            output.flush();
+        }
+
+        //Set the status of the player
+        else if(data[0].equals(setPlayerStatus))
+        {
+            if(data[1].equals("true"))
+            {
+                lobbyStatus.changePlayerStatus(data[2]+"_True");
+                System.out.println("Player "+data[2]+": is ready");
+            }
+
+            else if(data[1].equals("false"))
+            {
+                lobbyStatus.changePlayerStatus(data[2]+"_False");
+                System.out.println("Player "+data[2]+": is not ready");
+            }
+        }
+
+        //Send player role
+        else if(data[0].equals(getPlayerRole))
+        {
+            //GET_PLAYER_ROLE @ playerID @ roleID
+            output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
+            output.flush();
+        }
+
+        //set the animation to true
+        else if(data[0].equals(setAnimationTrue))
+        {
+            lobbyStatus.setAnimation();
+
+            for (int i=0; i<GameServer.connectionArray.size(); i++)
+            {
+                Socket tmpSocket = GameServer.connectionArray.get(i);
+
+                //send to all client that the animation is true
+                try
+                {
+                    PrintWriter tmpOut = new PrintWriter(tmpSocket.getOutputStream());
+                    tmpOut.println("GET_ANIMATION_STATUS@true");
+                    tmpOut.flush();
+                    System.out.println("Animation true sent to player: "+i);
+                } catch (IOException e) {System.out.println("Could not create PrintWriter for sending animation set to true");e.printStackTrace();}
+            }
+
+            //used to determine if all players have received the animation boolean
+            lobbyStatus.aniSend = true;
+        }
+
+        //If client sends null, it has disconnected. Socket and all streams are closed
+        else if(data == null)
+        {
+            try {
+                disconnectSocket();
+                output.close();
+                input.close();
+                messageOut.close();
+                sock.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("could not close output, input or socket after client returning null");
+            }
+        }
+    }
+
+
+    /**
      * Will continue running as long as client is connected to the server
      * Will, based on values of data, perform different actions and make changes to the gameboard
      */
@@ -109,6 +208,7 @@ public class ClientConnection implements Runnable {
 
                 }
 
+                /** never used **/
                 //Will move to any city using currentCity's card
                 else if (data[0].equals(moveFromCityCard)) {
                     City tmpCity;
@@ -204,8 +304,10 @@ public class ClientConnection implements Runnable {
                         sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
                         clientPlayer.setTurnIsDone();
                     }
-                    String tmpCardName = clientPlayer.cardHand.get(clientPlayer.cardHand.size()-1).getNameOfCard();
-                    output.println("CARD_DRAWN@"+tmpCardName);
+
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+//                  String tmpCardName = clientPlayer.cardHand.get(clientPlayer.cardHand.size()-1).getNameOfCard();
+//                  output.println("CARD_DRAWN@"+tmpCardName);
                 }
 
                 //Will discard card from hand
@@ -251,113 +353,14 @@ public class ClientConnection implements Runnable {
     {
         for(int i=0; i< GameServer.connectionArray.size(); i++)
         {
-            if(GameServer.connectionArray.get(i) != sock){
-                try
-                {
-                    messageOut.writeObject(messageToClients);
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Could not send Message Class to client");
-                }
-            }
-        }
-    }
-
-    /**
-     * During the lobby fase the server will respond to different commands compared to the inGame fase.
-     * Will based on commands from client perform actions and change variables in the lobbyState object
-     */
-    public void inLobby()
-    {
-
-        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
-
-        //SEND PLAYER ID TO CLIENT
-        if(data[0].equals(getPlayerID))
-        {
-            System.out.println("Sending player ID to player: "+playerID);
-            output.println("GET_PLAYER_ID@"+playerID);
-            output.flush();
-        }
-
-        //SEND PLAYER STATUS
-        else if(data[0].equals(getPlayerStatus))
-        {
-            if(data[1].equals("0"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
-
-            else if(data[1].equals("1"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
-
-            else if(data[1].equals("2"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
-
-            else if(data[1].equals("3"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
-
-            output.flush();
-        }
-
-        //Set the status of the player
-        else if(data[0].equals(setPlayerStatus))
-        {
-            if(data[1].equals("true"))
+            try
             {
-                lobbyStatus.changePlayerStatus(data[2]+"_True");
-                System.out.println("Player "+data[2]+": is ready");
+                messageOut.writeObject(messageToClients);
+                messageOut.flush();
             }
-
-            else if(data[1].equals("false"))
-            {
-                lobbyStatus.changePlayerStatus(data[2]+"_False");
-                System.out.println("Player "+data[2]+": is not ready");
-            }
-        }
-
-        //Send player role
-        else if(data[0].equals(getPlayerRole))
-        {
-            //GET_PLAYER_ROLE @ playerID @ roleID
-            output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
-            output.flush();
-        }
-
-        //set the animation to true
-        else if(data[0].equals(setAnimationTrue))
-        {
-            lobbyStatus.setAnimation();
-
-            for (int i=0; i<GameServer.connectionArray.size(); i++)
-            {
-                Socket tmpSocket = GameServer.connectionArray.get(i);
-
-                //send to all client that the animation is true
-                try
-                {
-                    PrintWriter tmpOut = new PrintWriter(tmpSocket.getOutputStream());
-                    tmpOut.println("GET_ANIMATION_STATUS@true");
-                    tmpOut.flush();
-                    System.out.println("Animation true sent to player: "+i);
-                } catch (IOException e) {System.out.println("Could not create PrintWriter for sending animation set to true");e.printStackTrace();}
-            }
-
-            //used to determine if all players have received the animation boolean
-            lobbyStatus.aniSend = true;
-        }
-
-        //If client sends null, it has disconnected. Socket and all streams are closed
-        else if(data == null)
-        {
-            try {
-                disconnectSocket();
-                output.close();
-                input.close();
-                messageOut.close();
-                sock.close();
-            } catch (IOException e) {
+            catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("could not close output, input or socket after client returning null");
+                System.out.println("Could not send Message Class to client");
             }
         }
     }

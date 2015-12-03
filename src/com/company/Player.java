@@ -239,7 +239,7 @@ public class Player {
     }
 
     /**-------------- Setters ---------------- **/
-    
+
     public void setIsTurn(boolean stateOfTurn) {
 
         if(stateOfTurn){
