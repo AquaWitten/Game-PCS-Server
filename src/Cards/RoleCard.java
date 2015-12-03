@@ -1,5 +1,9 @@
 package Cards;
 
+/**
+ * RoleCard class is currently only used to determine picture on client side
+ */
+
 public class RoleCard{
 
     String name;
