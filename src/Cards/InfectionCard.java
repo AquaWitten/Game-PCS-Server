@@ -1,23 +1,22 @@
 package Cards;
 
 
-import com.company.GameBoard;
-
 public class InfectionCard {
 
-    //variables created
+
     String name;
     String color;
 
     public InfectionCard(String name, String color){
 
-        //gives this instance of card name and color of city associated
         this.name = name;
         this.color = color;
 
     }
 
-    //getters
+    /**
+     * Getters
+     */
     public String getName() {
         return name;
     }

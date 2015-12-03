@@ -10,7 +10,7 @@ public class LobbyStatus {
     boolean p1, p2, p3, p4;
     int p1Role, p2Role, p3Role, p4Role;
     boolean changeInStatus;
-    boolean ani1, ani2, ani3, ani4;
+    boolean aniSend;
     boolean animation;
 
     LobbyStatus()
@@ -65,12 +65,6 @@ public class LobbyStatus {
         }
     }
 
-//    public void setAllReady()
-//    {
-//        if(p1 && p2 && p3 && p4)
-//            allReady = true;
-//    }
-
     /**
      * Get the status of a player
      * @param player name of the local variable for the player
@@ -97,6 +91,14 @@ public class LobbyStatus {
         }
     }
 
+
+    /**-------------- Setters ---------------- **/
+
+    /**
+     * Will set the role based on which player called the method
+     * @param playerID of the client that called the function
+     * @param playerRoleID the roleID that was randomly generated on method call is applied to clients roleID
+     */
     public void setPlayerRole(int playerID, int playerRoleID)
     {
         switch (playerID){
@@ -111,6 +113,17 @@ public class LobbyStatus {
         }
     }
 
+    public void setAnimation()
+    {
+        animation = true;
+    }
+
+    /**-------------- Setters ---------------- **/
+
+    /**
+     * @param playerID player ID of the player that is investigated
+     * @return the role ID for investigated client
+     */
     public int getPlayerRole(int playerID)
     {
         switch (playerID) {
@@ -125,11 +138,6 @@ public class LobbyStatus {
             default: return 4;
 
         }
-    }
-
-    public void setAnimation()
-    {
-        animation = true;
     }
 
     public boolean isAnimation() {

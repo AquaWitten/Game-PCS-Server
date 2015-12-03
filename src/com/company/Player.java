@@ -3,22 +3,21 @@ package com.company;
 
 import Cards.*;
 import Markers.CureMarker;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Player {
 
     RoleCard role;
-    //Color color;
+
     int ID;
+    int actionsLeft;
+
     City currentCity;
     ArrayList<PlayerCard> cardHand;
-    int actionsLeft;
-    Boolean isTurn;
 
-    //Only useful if Role "Contingency Planner" is active
-    //PlayerCard[] extraHand;
+    Boolean isTurn;
+    Boolean startOfTurn;
+    Boolean turnIsDone;
 
     Player(RoleCard role, int ID, City startCity){
 
@@ -30,11 +29,8 @@ public class Player {
         actionsLeft=0;
         isTurn=false;
 
-        //Only useful if Role "Contingency Planner" is active
-/*        if(role.getName().toLowerCase() == "contingency planner")
-            extraHand = new PlayerCard[1];
-        else
-            extraHand = null;*/
+        startOfTurn = true;
+        turnIsDone = false;
     }
 
     /**
@@ -220,22 +216,58 @@ public class Player {
      * Check if there are more cards in player deck
      */
     public void drawCard(){
-        if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
+
+        //Checks if the deck is empty
+        if(GameBoard.gameBoard.playerDeck.isEmpty())
+        {
+            GameBoard.gameBoard.setLose();
+            System.out.println("Game is lost! There are no more cards in the player deck");
+        }
+
+        //If first card is an epidemic card
+        else if(GameBoard.gameBoard.playerDeck.get(0).getNameOfCard().equals("epidemic")){
             GameBoard.gameBoard.activateEpidemicCard();
             GameBoard.gameBoard.playerDiscard.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         }
-        else if(!GameBoard.gameBoard.playerDeck.isEmpty())
+        //else the card is normal player card
+        else
         {
             cardHand.add(GameBoard.gameBoard.playerDeck.get(0));
             GameBoard.gameBoard.playerDeck.remove(0);
         }
-        else{
-        //Check Lose
-        GameBoard.gameBoard.checkLose(GameBoard.gameBoard.playerDeck.size());
+    }
+
+    /**-------------- Setters ---------------- **/
+
+    public void setIsTurn(boolean stateOfTurn) {
+
+        if(stateOfTurn){
+            isTurn = true;
+            turnIsDone = false;
+            if(startOfTurn)
+            {
+                actionsLeft = 4;
+                startOfTurn=false;
+            }
+        }
+
+        else
+        {
+            isTurn = false;
+            startOfTurn = true;
         }
     }
 
+    public void setTurnIsDone()
+    {
+        turnIsDone = true;
+    }
+
+    /**
+     * @param cityName name of the city that the index is wanted for
+     * @return the index of the card with cityName in the players hand
+     */
     public int getCardOnHandIndex(String cityName)
     {
         int returnIndex = 0;
@@ -249,6 +281,12 @@ public class Player {
         return returnIndex;
     }
 
+    /**-------------- Getters ---------------- **/
+
+    /**
+     * @param cityName name of the city that the CityCard is wanted for
+     * @return the CityCard with a name matching the cityName Sting.
+     */
     public CityCard getCityCardFromHand(String cityName)
     {
         CityCard tmpCard = null;
@@ -260,30 +298,17 @@ public class Player {
                 break;
             }
         }
-
         return tmpCard;
     }
 
-    /**
-     * get the players ID, number between 1 and 4
-     * @return returns the players ID
-     */
     public int getID() {
         return ID;
     }
 
-    /**
-     * Get the name of the city the player currently stands in
-     * @return returns the name of a city
-     */
     public String getCurrentCityName() {
         return currentCity.getName().toLowerCase();
     }
 
-    /**
-     * get the string value of the isTurn boolean
-     * @return returns the string
-     */
     public String getIsTurnString() {
         return Boolean.toString(isTurn);
     }
@@ -302,7 +327,8 @@ public class Player {
         currentCity = newCity;
     }
 
-    public void setIsTurn(boolean isTurn) {
-        this.isTurn = isTurn;
+    public boolean getTurnIsDone()
+    {
+        return turnIsDone;
     }
 }

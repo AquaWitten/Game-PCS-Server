@@ -14,11 +14,13 @@ import java.util.Collections;
 
 public class GameBoard {
 
-    //Create all relevant variables
+
     public ArrayList<City> allCities;
     public ArrayList<Player> players;
+
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
+
     public ArrayList<InfectionCard> infectionDeck;
     public ArrayList<InfectionCard> infectionDiscard;
 
@@ -68,58 +70,70 @@ public class GameBoard {
         gameBoardContent = new Message();
 
         researchStationsLeft = 6;
-        blueCubesLeft = 24;
-        yellowCubesLeft = 24;
-        blackCubesLeft = 24;
-        redCubesLeft = 24;
-        instantiateCities(); //run the method creating cities and adding them to the allCities array
-        instantiateDecks(); //run method creating cards and placing them in the decks
+        blueCubesLeft        = 24;
+        yellowCubesLeft      = 24;
+        blackCubesLeft       = 24;
+        redCubesLeft         = 24;
+
+        instantiateCities(); //creates all cities and adds them to the allCities array
+        instantiateDecks(); //creates player and infection cards and places them in the decks
 
         GameBoard.gameBoard = this;
 
     }
 
-    //Activate upon the draw of an epidemic card
+    /**
+     * Will run through the 3 steps in the epidemic fase.
+     * Will reset recentOutbreaks to allow new outbreaks.
+     * Increase : Increases the infection rate in the InfectionMarker class
+     * Infect   : Draw the last card in the infection deck and add 3 cubes to the city.
+     * Intensify: Reshuffle the infection discard and put it on top the infection deck.
+     */
     public void activateEpidemicCard(){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
 
-        //Increase
-        GameBoard.gameBoard.infectionMarker.IncreaseInfectionRate();
+        /**Increase**/
+        GameBoard.gameBoard.infectionMarker.increaseInfectionRate();
 
-        //Infect
+        /**Infect**/
         int lastCardNumber = GameBoard.gameBoard.infectionDeck.size() - 1;
         String targetName = GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getName();
+
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
-                i = GameBoard.gameBoard.allCities.size();
+                break;
             }
         }
         GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(lastCardNumber));
         GameBoard.gameBoard.infectionDeck.remove(lastCardNumber);
 
-        //Intensify
+        /**Intensify**/
         Collections.shuffle(GameBoard.gameBoard.infectionDiscard);
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++){
-            GameBoard.gameBoard.infectionDeck.add(GameBoard.gameBoard.infectionDiscard.get(0));
+            GameBoard.gameBoard.infectionDeck.add(0,GameBoard.gameBoard.infectionDiscard.get(0));
             GameBoard.gameBoard.infectionDiscard.remove(0);
         }
     }
 
-    //Activate upon the draw of an infection card
-    public void drawInfectionCard(int amount){
+    /**
+     * Will add cube(s) to the city on the drawn infection card.
+     * Will reset recentOutbreak to allow new outbreaks.
+     * @param cubeAmount used to determine how many of the specific type/color cube that will be added
+     */
+    public void drawInfectionCard(int cubeAmount){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
 
-        //DO INFECTION
+        //
         String target = GameBoard.gameBoard.infectionDeck.get(0).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(target.equals(GameBoard.gameBoard.allCities.get(i).getName())){
-                GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(0).getColor(), amount);
-                i = GameBoard.gameBoard.allCities.size();
+                GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(0).getColor(), cubeAmount);
+                break;
             }
         }
 
@@ -129,10 +143,11 @@ public class GameBoard {
 
     }
 
-
+/**
+ * If all the cures have been this will change gameWon boolean to true
+ */
     public void checkWin(){
 
-        //Check win condition
         if(blueCureMarker.getHasCure() && yellowCureMarker.getHasCure() && blackCureMarker.getHasCure() && redCureMarker.getHasCure()){
             System.out.println("Game is won! Congratulations");
             gameWon = true;
@@ -140,49 +155,39 @@ public class GameBoard {
 
     }
 
+    /**
+     * If there are no more cubes left to place on cities, will set the gameLost boolean to true
+     */
     public void checkLose() {
-
-        //Check lose condition with cubes
-        if (blueCubesLeft == 0 || yellowCubesLeft == 0 || blackCubesLeft == 0 || redCubesLeft == 0) {
+        if (blueCubesLeft <= 0 || yellowCubesLeft <= 0 || blackCubesLeft <= 0 || redCubesLeft <= 0) {
             System.out.println("Game is lost! You ran out of disease cubes");
             this.gameLost = true;
         }
     }
 
+    /**
+     * If the outbreakMarker is 8 or above the game is lost and the gameLost boolean is set to true
+     * @param outbreaks contains the variable used to store amount of outbreaks
+     */
     public void checkLose(OutbreakMarker outbreaks) {
-
-        //Check lose condition with outbreakMarker
-        if (outbreaks.getOutbreakCounter() == 8) {
+        if (outbreaks.getOutbreakCounter() >= 8) {
             System.out.println("Game is lost! There have been too many outbreaks");
             gameLost = true;
         }
     }
 
-    public void checkLose(InfectionMarker infections) {
-
-        //Check lose condition with infectionMarker
-        if (infections.GetInfectionRate() == 10) {
-            System.out.println("Game is lost! The infection rate of the disease is too high");
-            gameLost = true;
-        }
-    }
-
-    public void checkLose(int playerCardsLeft){
-
-        //Check lose condition with player deck
-        if(playerCardsLeft == 0){
-            System.out.println("Game is lost! There are no more cards in the player deck");
-            gameLost = true;
-        }
-    }
-
-    public void instantiateDecks(){ //Method used to instantiate the two decks of cards
+    /**
+     * instantiation of all PlayerCards in the playerDeck and all InfectionCards in the infectionDeck
+     * Epidemic card are not added to the playerDeck until after the initals cards have been dealt to the players
+     */
+    public void instantiateDecks(){
         //PlayerDeck without epidemic cards
         for(int i = 0; i < allCities.size(); i++){
             CityCard temp = new CityCard(allCities.get(i).getName(), allCities.get(i).getColor());
             playerDeck.add(temp);
         }
         Collections.shuffle(playerDeck);
+
         //Infection deck
         for(int i = 0; i < allCities.size(); i++){
             InfectionCard temp = new InfectionCard(allCities.get(i).getName(), allCities.get(i).getColor());
@@ -191,7 +196,51 @@ public class GameBoard {
         Collections.shuffle(infectionDeck);
     }
 
-    //Returns a city variable with the inserted name
+    /**
+     * Overall setup of the gameboard at start of the game
+     */
+    public void setupPhase(){
+
+        //Place research station on Atlanta
+        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
+            if(GameBoard.gameBoard.allCities.get(i).getName().equals("atlanta")){
+                GameBoard.gameBoard.allCities.get(i).placeResearchStation();
+                return;
+            }
+        }
+
+        //Initial infection
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(1);
+        GameBoard.gameBoard.drawInfectionCard(1);
+        GameBoard.gameBoard.drawInfectionCard(1);
+
+        //Players draw cards
+        for(int i = 0; i < GameBoard.gameBoard.players.size(); i++) {
+            GameBoard.gameBoard.players.get(i).drawCard();
+            GameBoard.gameBoard.players.get(i).drawCard();
+        }
+
+        //Add epidemic cards and shuffle player deck
+        for(int i = 0; i < 5; i++){
+            EpidemicCard temp = new EpidemicCard();
+            GameBoard.gameBoard.playerDeck.add(temp);
+            Collections.shuffle(playerDeck);
+        }
+
+    }
+
+    /**-------------- Getters ---------------- **/
+
+    /**
+     * @param city is a string mathcing the City objects name variable
+     * @return the City object mathcing the string city
+     */
     public City getCity(String city) {
         City returnCity = null;
         for (int i = 0; i < allCities.size(); i++) {
@@ -201,14 +250,6 @@ public class GameBoard {
             }
         }
         return returnCity;
-    }
-
-    public void increasePlayerWithIDsTurn()
-    {
-        if(this.playerWithIDsTurn < 3)
-            this.playerWithIDsTurn += 1;
-        else
-            this.playerWithIDsTurn = 0;
     }
 
     public int getPlayerWithIDsTurn() {
@@ -239,148 +280,136 @@ public class GameBoard {
         return gameLost;
     }
 
+    /**-------------- Setters ---------------- **/
+
+    public void setLose()
+    {
+        gameLost = true;
+    }
+
+    /**
+     * as player ID are in the range 0-3 when trying to increase beyond 3
+     * will instead set the value back to 0
+     */
+    public void increasePlayerWithIDsTurn()
+    {
+        if(this.playerWithIDsTurn < 3)
+            this.playerWithIDsTurn += 1;
+        else
+            this.playerWithIDsTurn = 0;
+    }
+
+    /**-------------- City instantiation ---------------- **/
+
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
-        City sanFrancisco = new City("sanfrancisco", "blue",new ArrayList<>(Arrays.asList("chicago", "losangeles", "tokyo", "manila")));
+        City sanFrancisco   = new City("sanfrancisco", "blue",new ArrayList<>(Arrays.asList("chicago", "losangeles", "tokyo", "manila")));
         allCities.add(sanFrancisco);
-        City chicago = new City("chicago", "blue",new ArrayList<>(Arrays.asList("sanfrancisco", "losangeles", "montreal", "atlanta", "mexicocity")));
+        City chicago        = new City("chicago", "blue",new ArrayList<>(Arrays.asList("sanfrancisco", "losangeles", "montreal", "atlanta", "mexicocity")));
         allCities.add(chicago);
-        City montreal = new City("montreal", "blue",new ArrayList<>(Arrays.asList("chicago", "newyork", "washington")));
+        City montreal       = new City("montreal", "blue",new ArrayList<>(Arrays.asList("chicago", "newyork", "washington")));
         allCities.add(montreal);
-        City newYork = new City("newyork", "blue",new ArrayList<>(Arrays.asList("montreal", "london", "washington", "madrid")));
+        City newYork        = new City("newyork", "blue",new ArrayList<>(Arrays.asList("montreal", "london", "washington", "madrid")));
         allCities.add(newYork);
-        City atlanta = new City("atlanta", "blue",new ArrayList<>(Arrays.asList("chicago", "miami", "washington")));
+        City atlanta        = new City("atlanta", "blue",new ArrayList<>(Arrays.asList("chicago", "miami", "washington")));
         allCities.add(atlanta);
-        City washington = new City("washington", "blue",new ArrayList<>(Arrays.asList("montreal", "newyork", "miami", "atlanta")));
+        City washington     = new City("washington", "blue",new ArrayList<>(Arrays.asList("montreal", "newyork", "miami", "atlanta")));
         allCities.add(washington);
-        City london = new City("london", "blue",new ArrayList<>(Arrays.asList("madrid", "newyork", "essen", "paris")));
+        City london         = new City("london", "blue",new ArrayList<>(Arrays.asList("madrid", "newyork", "essen", "paris")));
         allCities.add(london);
-        City madrid = new City("madrid", "blue",new ArrayList<>(Arrays.asList("london", "newyork", "paris", "algiers")));
+        City madrid         = new City("madrid", "blue",new ArrayList<>(Arrays.asList("london", "newyork", "paris", "algiers")));
         allCities.add(madrid);
-        City paris = new City("paris", "blue",new ArrayList<>(Arrays.asList("london", "essen", "madrid", "algiers", "milan")));
+        City paris          = new City("paris", "blue",new ArrayList<>(Arrays.asList("london", "essen", "madrid", "algiers", "milan")));
         allCities.add(paris);
-        City essen = new City("essen", "blue",new ArrayList<>(Arrays.asList("london", "paris", "stpetersburg", "milan")));
+        City essen          = new City("essen", "blue",new ArrayList<>(Arrays.asList("london", "paris", "stpetersburg", "milan")));
         allCities.add(essen);
-        City stPetersburg = new City("stpetersburg", "blue",new ArrayList<>(Arrays.asList("essen", "istanbul", "moscow")));
+        City stPetersburg   = new City("stpetersburg", "blue",new ArrayList<>(Arrays.asList("essen", "istanbul", "moscow")));
         allCities.add(stPetersburg);
-        City milan = new City("milan", "blue",new ArrayList<>(Arrays.asList("essen", "paris", "istanbul")));
+        City milan          = new City("milan", "blue",new ArrayList<>(Arrays.asList("essen", "paris", "istanbul")));
         allCities.add(milan);
         //All yellow cities
-        City losAngeles = new City("losangeles", "yellow",new ArrayList<>(Arrays.asList("sydney", "sanfrancisco", "chicago", "mexicocity")));
+        City losAngeles     = new City("losangeles", "yellow",new ArrayList<>(Arrays.asList("sydney", "sanfrancisco", "chicago", "mexicocity")));
         allCities.add(losAngeles);
-        City mexicoCity = new City("mexicocity", "yellow",new ArrayList<>(Arrays.asList("losangeles", "chicago", "miami", "bogota", "lima")));
+        City mexicoCity     = new City("mexicocity", "yellow",new ArrayList<>(Arrays.asList("losangeles", "chicago", "miami", "bogota", "lima")));
         allCities.add(mexicoCity);
-        City miami = new City("miami", "yellow",new ArrayList<>(Arrays.asList("atlanta", "washington", "mexicocity", "bogota")));
+        City miami          = new City("miami", "yellow",new ArrayList<>(Arrays.asList("atlanta", "washington", "mexicocity", "bogota")));
         allCities.add(miami);
-        City bogota = new City("bogota", "yellow",new ArrayList<>(Arrays.asList("miami", "lima", "mexicocity", "buenosaires", "saopaulo")));
+        City bogota         = new City("bogota", "yellow",new ArrayList<>(Arrays.asList("miami", "lima", "mexicocity", "buenosaires", "saopaulo")));
         allCities.add(bogota);
-        City lima = new City("lima", "yellow",new ArrayList<>(Arrays.asList("bogota", "santiago", "mexicocity")));
+        City lima           = new City("lima", "yellow",new ArrayList<>(Arrays.asList("bogota", "santiago", "mexicocity")));
         allCities.add(lima);
-        City santiago = new City("santiago", "yellow",new ArrayList<>(Arrays.asList("lima")));
+        City santiago       = new City("santiago", "yellow",new ArrayList<>(Arrays.asList("lima")));
         allCities.add(santiago);
-        City buenosAires = new City("buenosaires", "yellow",new ArrayList<>(Arrays.asList("bogota", "saopaulo")));
+        City buenosAires    = new City("buenosaires", "yellow",new ArrayList<>(Arrays.asList("bogota", "saopaulo")));
         allCities.add(buenosAires);
-        City saoPaulo = new City("saopaulo", "yellow",new ArrayList<>(Arrays.asList("bogota", "buenosaires", "madrid", "lagos")));
+        City saoPaulo       = new City("saopaulo", "yellow",new ArrayList<>(Arrays.asList("bogota", "buenosaires", "madrid", "lagos")));
         allCities.add(saoPaulo);
-        City lagos = new City("lagos", "yellow",new ArrayList<>(Arrays.asList("saopaulo", "kinshasa", "khartoum")));
+        City lagos          = new City("lagos", "yellow",new ArrayList<>(Arrays.asList("saopaulo", "kinshasa", "khartoum")));
         allCities.add(lagos);
-        City kinshasa = new City("kinshasa", "yellow",new ArrayList<>(Arrays.asList("lagos", "johannesburg", "khartoum")));
+        City kinshasa       = new City("kinshasa", "yellow",new ArrayList<>(Arrays.asList("lagos", "johannesburg", "khartoum")));
         allCities.add(kinshasa);
-        City khartoum = new City("khartoum", "yellow",new ArrayList<>(Arrays.asList("lagos", "johannesburg", "kinshasa", "cairo")));
+        City khartoum       = new City("khartoum", "yellow",new ArrayList<>(Arrays.asList("lagos", "johannesburg", "kinshasa", "cairo")));
         allCities.add(khartoum);
-        City johannesburg = new City("johannesburg", "yellow",new ArrayList<>(Arrays.asList("khartoum", "kinshasa")));
+        City johannesburg   = new City("johannesburg", "yellow",new ArrayList<>(Arrays.asList("khartoum", "kinshasa")));
         allCities.add(johannesburg);
         //All black cities
-        City algiers = new City("algiers", "black",new ArrayList<>(Arrays.asList("madrid", "paris", "istanbul", "cairo")));
+        City algiers        = new City("algiers", "black",new ArrayList<>(Arrays.asList("madrid", "paris", "istanbul", "cairo")));
         allCities.add(algiers);
-        City istanbul = new City("istanbul", "black",new ArrayList<>(Arrays.asList("milan", "algiers", "stpetersburg", "moscow", "baghdad", "cairo")));
+        City istanbul       = new City("istanbul", "black",new ArrayList<>(Arrays.asList("milan", "algiers", "stpetersburg", "moscow", "baghdad", "cairo")));
         allCities.add(istanbul);
-        City cairo = new City("cairo", "black",new ArrayList<>(Arrays.asList("algiers", "istanbul", "baghdad", "riyadh")));
+        City cairo          = new City("cairo", "black",new ArrayList<>(Arrays.asList("algiers", "istanbul", "baghdad", "riyadh")));
         allCities.add(cairo);
-        City riyadh = new City("riyadh", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "baghdad")));
+        City riyadh         = new City("riyadh", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "baghdad")));
         allCities.add(riyadh);
-        City baghdad = new City("baghdad", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "riyadh", "istanbul", "tehran")));
+        City baghdad        = new City("baghdad", "black",new ArrayList<>(Arrays.asList("cairo", "karachi", "riyadh", "istanbul", "tehran")));
         allCities.add(baghdad);
-        City moscow = new City("moscow", "black",new ArrayList<>(Arrays.asList("stpetersburg", "istanbul", "tehran")));
+        City moscow         = new City("moscow", "black",new ArrayList<>(Arrays.asList("stpetersburg", "istanbul", "tehran")));
         allCities.add(moscow);
-        City tehran = new City("tehran", "black",new ArrayList<>(Arrays.asList("moscow", "baghdad", "karachi", "delhi")));
+        City tehran         = new City("tehran", "black",new ArrayList<>(Arrays.asList("moscow", "baghdad", "karachi", "delhi")));
         allCities.add(tehran);
-        City karachi = new City("karachi", "black",new ArrayList<>(Arrays.asList("tehran", "baghdad", "riyadh", "mumbai", "delhi")));
+        City karachi        = new City("karachi", "black",new ArrayList<>(Arrays.asList("tehran", "baghdad", "riyadh", "mumbai", "delhi")));
         allCities.add(karachi);
-        City delhi = new City("delhi", "black",new ArrayList<>(Arrays.asList("tehran", "karachi", "kolkata", "mumbai", "chennai")));
+        City delhi          = new City("delhi", "black",new ArrayList<>(Arrays.asList("tehran", "karachi", "kolkata", "mumbai", "chennai")));
         allCities.add(delhi);
-        City mumbai = new City("mumbai", "black",new ArrayList<>(Arrays.asList("karachi", "delhi", "chennai")));
+        City mumbai         = new City("mumbai", "black",new ArrayList<>(Arrays.asList("karachi", "delhi", "chennai")));
         allCities.add(mumbai);
-        City kolkata = new City("kolkata", "black",new ArrayList<>(Arrays.asList("hongkong", "bangkok", "delhi", "chennai")));
+        City kolkata        = new City("kolkata", "black",new ArrayList<>(Arrays.asList("hongkong", "bangkok", "delhi", "chennai")));
         allCities.add(kolkata);
-        City chennai = new City("chennai", "black",new ArrayList<>(Arrays.asList("kolkata", "bangkok", "jakarta", "mumbai", "delhi")));
+        City chennai        = new City("chennai", "black",new ArrayList<>(Arrays.asList("kolkata", "bangkok", "jakarta", "mumbai", "delhi")));
         allCities.add(chennai);
         //All red cities
-        City bangkok = new City("bangkok", "red",new ArrayList<>(Arrays.asList("kolkata", "hongkong", "hochiminhcity", "jakarta", "chennai")));
+        City bangkok        = new City("bangkok", "red",new ArrayList<>(Arrays.asList("kolkata", "hongkong", "hochiminhcity", "jakarta", "chennai")));
         allCities.add(bangkok);
-        City jakarta = new City("jakarta", "red",new ArrayList<>(Arrays.asList("chennai", "bangkok", "hochiminhcity", "sydney")));
+        City jakarta        = new City("jakarta", "red",new ArrayList<>(Arrays.asList("chennai", "bangkok", "hochiminhcity", "sydney")));
         allCities.add(jakarta);
-        City sydney = new City("sydney", "red",new ArrayList<>(Arrays.asList("jakarta", "manila", "losangeles")));
+        City sydney         = new City("sydney", "red",new ArrayList<>(Arrays.asList("jakarta", "manila", "losangeles")));
         allCities.add(sydney);
-        City manila = new City("manila", "red",new ArrayList<>(Arrays.asList("sydney", "hochiminhcity", "hongkong", "taipei", "sanfrancisco")));
+        City manila         = new City("manila", "red",new ArrayList<>(Arrays.asList("sydney", "hochiminhcity", "hongkong", "taipei", "sanfrancisco")));
         allCities.add(manila);
-        City hoChiMinhCity = new City("hochiminhcity", "red",new ArrayList<>(Arrays.asList("jakarta", "bangkok", "hongkong", "manila")));
+        City hoChiMinhCity  = new City("hochiminhcity", "red",new ArrayList<>(Arrays.asList("jakarta", "bangkok", "hongkong", "manila")));
         allCities.add(hoChiMinhCity);
-        City hongKong = new City("hongkong", "red",new ArrayList<>(Arrays.asList("hochiminhcity", "bangkok", "kolkata", "shanghai", "taipei", "manila")));
+        City hongKong       = new City("hongkong", "red",new ArrayList<>(Arrays.asList("hochiminhcity", "bangkok", "kolkata", "shanghai", "taipei", "manila")));
         allCities.add(hongKong);
-        City taipei = new City("taipei", "red",new ArrayList<>(Arrays.asList("shanghai", "osaka", "hongkong", "manila")));
+        City taipei         = new City("taipei", "red",new ArrayList<>(Arrays.asList("shanghai", "osaka", "hongkong", "manila")));
         allCities.add(taipei);
-        City shanghai = new City("shanghai", "red",new ArrayList<>(Arrays.asList("taipei", "beijing", "hongkong", "seoul", "tokyo")));
+        City shanghai       = new City("shanghai", "red",new ArrayList<>(Arrays.asList("taipei", "beijing", "hongkong", "seoul", "tokyo")));
         allCities.add(shanghai);
-        City beijing = new City("beijing", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul")));
+        City beijing        = new City("beijing", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul")));
         allCities.add(beijing);
-        City seoul = new City("seoul", "red",new ArrayList<>(Arrays.asList("shanghai", "beijing", "tokyo")));
+        City seoul          = new City("seoul", "red",new ArrayList<>(Arrays.asList("shanghai", "beijing", "tokyo")));
         allCities.add(seoul);
-        City tokyo = new City("tokyo", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul", "osaka")));
+        City tokyo          = new City("tokyo", "red",new ArrayList<>(Arrays.asList("shanghai", "seoul", "osaka")));
         allCities.add(tokyo);
-        City osaka = new City("osaka", "red",new ArrayList<>(Arrays.asList("taipei", "tokyo")));
+        City osaka          = new City("osaka", "red",new ArrayList<>(Arrays.asList("taipei", "tokyo")));
         allCities.add(osaka);
 
     }
 
-    public void setupPhase(){
-
-        //Place research station on Atlanta
-        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
-            if(GameBoard.gameBoard.allCities.get(i).getName().equals("atlanta")){
-                GameBoard.gameBoard.allCities.get(i).placeResearchStation();
-               return;
-            }
-        }
-
-        //Initial infection
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(1);
-        GameBoard.gameBoard.drawInfectionCard(1);
-        GameBoard.gameBoard.drawInfectionCard(1);
-
-        //Players draw cards
-        for(int i = 0; i < GameBoard.gameBoard.players.size(); i++) {
-            GameBoard.gameBoard.players.get(i).drawCard();
-            GameBoard.gameBoard.players.get(i).drawCard();
-        }
-
-        //Add epidemic cards and shuffle player deck
-        for(int i = 0; i < 5; i++){
-            EpidemicCard temp = new EpidemicCard();
-            GameBoard.gameBoard.playerDeck.add(temp);
-            Collections.shuffle(playerDeck);
-        }
-
-    }
 //-----------------------------Setter methods for Message class------------------------------------
 
     /**
+     * In order to use the Message class on the client it was necessary to move all setter methods
+     * outside the class itself as these referred to values not available on the client
      * For player1, player2, player3 and player4
      * array space;
      * 0: String ID of player
@@ -391,61 +420,66 @@ public class GameBoard {
     public void messageSetPlayer1() {
         gameBoardContent.player1 = new ArrayList<>();
 
-        gameBoardContent.player1.set(0, Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
-        gameBoardContent.player1.set(1,GameBoard.gameBoard.players.get(0).getIsTurnString());
-        gameBoardContent.player1.set(2,GameBoard.gameBoard.players.get(0).getCurrentCityName());
+        gameBoardContent.player1.add(Integer.toString(GameBoard.gameBoard.players.get(0).getID()));
+        gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).getIsTurnString());
+        gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(0).cardHand.size(); i++)
         {
-            gameBoardContent.player1.set(3+i,GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player1.add(GameBoard.gameBoard.players.get(0).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer2() {
         gameBoardContent.player2 = new ArrayList<>();
 
-        gameBoardContent.player2.set(0,Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
-        gameBoardContent.player2.set(1,GameBoard.gameBoard.players.get(1).getIsTurnString());
-        gameBoardContent.player2.set(2,GameBoard.gameBoard.players.get(1).getCurrentCityName());
+        gameBoardContent.player2.add(Integer.toString(GameBoard.gameBoard.players.get(1).getID()));
+        gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).getIsTurnString());
+        gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(1).cardHand.size(); i++)
         {
-            gameBoardContent.player2.set(3+i,GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player2.add(GameBoard.gameBoard.players.get(1).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer3() {
         gameBoardContent.player3 = new ArrayList<>();
 
-        gameBoardContent.player3.set(0,Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
-        gameBoardContent.player3.set(1,GameBoard.gameBoard.players.get(2).getIsTurnString());
-        gameBoardContent.player3.set(2,GameBoard.gameBoard.players.get(2).getCurrentCityName());
+        gameBoardContent.player3.add(Integer.toString(GameBoard.gameBoard.players.get(2).getID()));
+        gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).getIsTurnString());
+        gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(2).cardHand.size(); i++)
         {
-            gameBoardContent.player3.set(3+i,GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player3.add(GameBoard.gameBoard.players.get(2).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     public void messageSetPlayer4() {
         gameBoardContent.player4 = new ArrayList<>();
 
-        gameBoardContent.player4.set(0,Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
-        gameBoardContent.player4.set(1,GameBoard.gameBoard.players.get(3).getIsTurnString());
-        gameBoardContent.player4.set(2,GameBoard.gameBoard.players.get(3).getCurrentCityName());
+        gameBoardContent.player4.add(Integer.toString(GameBoard.gameBoard.players.get(3).getID()));
+        gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).getIsTurnString());
+        gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).getCurrentCityName());
 
         for(int i = 0; i < GameBoard.gameBoard.players.get(3).cardHand.size(); i++)
         {
-            gameBoardContent.player4.set(3+i,GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.player4.add(GameBoard.gameBoard.players.get(3).cardHand.get(i).getNameOfCard().toLowerCase());
         }
     }
 
     /**
      * Each city on the board is added to the string array with, containing important values
-     * array space;
-     * 0: string name of the city
-     * 1: string describing if the city has a research station
-     * 2-5: string value of the amount of cubes on the city
+     * size of array [6][48]
+     * [6] is the number of different kinds of information
+     * [48] si the number of different cities on the gameboard
+     * [0][i]: string name of the city
+     * [1][i]: string describing if the city has a research station
+     * [2][i]: string value of the amount of BLUE cubes on the city
+     * [3][i]: string value of the amount of YELLOW cubes on the city
+     * [4][i]: string value of the amount of BLACK cubes on the city
+     * [5][i]: string value of the amount of RED cubes on the city
      */
     public void messageSetCities() {
         gameBoardContent.cities = new String[6][48];
@@ -469,7 +503,7 @@ public class GameBoard {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDeck.size(); i++)
         {
-            gameBoardContent.playerDeck.set(i, GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.playerDeck.add(GameBoard.gameBoard.playerDeck.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -481,7 +515,7 @@ public class GameBoard {
 
         for(int i = 0; i < GameBoard.gameBoard.playerDiscard.size(); i++)
         {
-            gameBoardContent.playerDiscard.set(i,GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
+            gameBoardContent.playerDiscard.add(GameBoard.gameBoard.playerDiscard.get(i).getNameOfCard().toLowerCase());
         }
     }
 
@@ -492,7 +526,7 @@ public class GameBoard {
         gameBoardContent.infectionDeck = new ArrayList<>();
 
         for(int i = 0; i < GameBoard.gameBoard.infectionDeck.size(); i++)
-            gameBoardContent.infectionDeck.set(i, GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
+            gameBoardContent.infectionDeck.add(GameBoard.gameBoard.infectionDeck.get(i).getName().toLowerCase());
     }
 
     /**
@@ -502,7 +536,7 @@ public class GameBoard {
         gameBoardContent.infectionDiscard = new ArrayList<>();
 
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++)
-            gameBoardContent.infectionDiscard.set(i, GameBoard.gameBoard.infectionDiscard.get(i).getName());
+            gameBoardContent.infectionDiscard.add(GameBoard.gameBoard.infectionDiscard.get(i).getName());
     }
 
     /**
@@ -561,6 +595,10 @@ public class GameBoard {
         gameBoardContent.gameLost = GameBoard.gameBoard.gameLost;
     }
 
+    /**
+     * calls all the setter methods for the Message class
+     * @return the instantiated Message object
+     */
     public Message setMessageContent(){
         messageSetPlayer1();
         messageSetPlayer2();
