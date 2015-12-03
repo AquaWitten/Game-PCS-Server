@@ -23,8 +23,15 @@ public class Message implements Serializable{
     int yellowCubesLeft;
     int blackCubesLeft;
 
+    int researchStationsLeft;
+
     int outbreakMarker;
     int infectionMarker;
+
+    boolean redCure;
+    boolean blueCure;
+    boolean yellowCure;
+    boolean blackCure;
 
     boolean gameWon;
     boolean gameLost;
@@ -89,6 +96,8 @@ public class Message implements Serializable{
         return blackCubesLeft;
     }
 
+    public int getResearchStationsLeft(){return researchStationsLeft;}
+
     public int getOutbreakMarker() {
         return outbreakMarker;
     }
@@ -96,6 +105,14 @@ public class Message implements Serializable{
     public int getInfectionMarker() {
         return infectionMarker;
     }
+
+    public boolean isRedCure() {return redCure;}
+
+    public boolean isBlueCure() {return blueCure;}
+
+    public boolean isYellowCure() {return yellowCure;}
+
+    public boolean isBlackCure() {return blackCure;}
 
     public boolean isGameWon() {
         return gameWon;
