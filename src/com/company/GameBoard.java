@@ -14,11 +14,13 @@ import java.util.Collections;
 
 public class GameBoard {
 
-    //Create all relevant variables
+
     public ArrayList<City> allCities;
     public ArrayList<Player> players;
+
     public ArrayList<PlayerCard> playerDeck;
     public ArrayList<PlayerCard> playerDiscard;
+
     public ArrayList<InfectionCard> infectionDeck;
     public ArrayList<InfectionCard> infectionDiscard;
 
@@ -68,29 +70,37 @@ public class GameBoard {
         gameBoardContent = new Message();
 
         researchStationsLeft = 6;
-        blueCubesLeft = 24;
-        yellowCubesLeft = 24;
-        blackCubesLeft = 24;
-        redCubesLeft = 24;
-        instantiateCities(); //run the method creating cities and adding them to the allCities array
-        instantiateDecks(); //run method creating cards and placing them in the decks
+        blueCubesLeft        = 24;
+        yellowCubesLeft      = 24;
+        blackCubesLeft       = 24;
+        redCubesLeft         = 24;
+
+        instantiateCities(); //creates all cities and adds them to the allCities array
+        instantiateDecks(); //creates player and infection cards and places them in the decks
 
         GameBoard.gameBoard = this;
 
     }
 
-    //Activate upon the draw of an epidemic card
+    /**
+     * Will run through the 3 steps in the epidemic fase.
+     * Will reset recentOutbreaks to allow new outbreaks.
+     * Increase : Increases the infection rate in the InfectionMarker class
+     * Infect   : Draw the last card in the infection deck and add 3 cubes to the city.
+     * Intensify: Reshuffle the infection discard and put it on top the infection deck.
+     */
     public void activateEpidemicCard(){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
 
-        //Increase
+        /**Increase**/
         GameBoard.gameBoard.infectionMarker.increaseInfectionRate();
 
-        //Infect
+        /**Infect**/
         int lastCardNumber = GameBoard.gameBoard.infectionDeck.size() - 1;
         String targetName = GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getName();
+
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(targetName.equals(GameBoard.gameBoard.allCities.get(i).getName())){
                 GameBoard.gameBoard.allCities.get(i).addCube(GameBoard.gameBoard.infectionDeck.get(lastCardNumber).getColor(), 3);
@@ -100,7 +110,7 @@ public class GameBoard {
         GameBoard.gameBoard.infectionDiscard.add(GameBoard.gameBoard.infectionDeck.get(lastCardNumber));
         GameBoard.gameBoard.infectionDeck.remove(lastCardNumber);
 
-        //Intensify
+        /**Intensify**/
         Collections.shuffle(GameBoard.gameBoard.infectionDiscard);
         for(int i = 0; i < GameBoard.gameBoard.infectionDiscard.size(); i++){
             GameBoard.gameBoard.infectionDeck.add(0,GameBoard.gameBoard.infectionDiscard.get(0));
@@ -108,13 +118,17 @@ public class GameBoard {
         }
     }
 
-    //Activate upon the draw of an infection card
+    /**
+     * Will add cube(s) to the city on the drawn infection card.
+     * Will reset recentOutbreak to allow new outbreaks.
+     * @param cubeAmount used to determine how many of the specific type/color cube that will be added
+     */
     public void drawInfectionCard(int cubeAmount){
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             GameBoard.gameBoard.allCities.get(i).resetRecentOutbreak();
         }
 
-        //DO INFECTION
+        //
         String target = GameBoard.gameBoard.infectionDeck.get(0).getName();
         for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
             if(target.equals(GameBoard.gameBoard.allCities.get(i).getName())){
@@ -129,10 +143,11 @@ public class GameBoard {
 
     }
 
-
+/**
+ * If all the cures have been this will change gameWon boolean to true
+ */
     public void checkWin(){
 
-        //Check win condition
         if(blueCureMarker.getHasCure() && yellowCureMarker.getHasCure() && blackCureMarker.getHasCure() && redCureMarker.getHasCure()){
             System.out.println("Game is won! Congratulations");
             gameWon = true;
@@ -140,54 +155,39 @@ public class GameBoard {
 
     }
 
+    /**
+     * If there are no more cubes left to place on cities, will set the gameLost boolean to true
+     */
     public void checkLose() {
-
-        //Check lose condition with cubes
         if (blueCubesLeft <= 0 || yellowCubesLeft <= 0 || blackCubesLeft <= 0 || redCubesLeft <= 0) {
             System.out.println("Game is lost! You ran out of disease cubes");
             this.gameLost = true;
         }
     }
 
+    /**
+     * If the outbreakMarker is 8 or above the game is lost and the gameLost boolean is set to true
+     * @param outbreaks contains the variable used to store amount of outbreaks
+     */
     public void checkLose(OutbreakMarker outbreaks) {
-
-        //Check lose condition with outbreakMarker
         if (outbreaks.getOutbreakCounter() >= 8) {
             System.out.println("Game is lost! There have been too many outbreaks");
             gameLost = true;
         }
     }
 
-    public void checkLose(InfectionMarker infections) {
-
-        //Check lose condition with infectionMarker
-        if (infections.getInfectionRate() >= 10) {
-            System.out.println("Game is lost! The infection rate of the disease is too high");
-            gameLost = true;
-        }
-    }
-
-    public void checkLose(ArrayList<PlayerCard> playerDeckCardsLeft){
-
-        //Check lose condition with player deck
-        if(playerDeckCardsLeft.isEmpty()){
-            System.out.println("Game is lost! There are no more cards in the player deck");
-            gameLost = true;
-        }
-    }
-
-    public void setLose()
-    {
-        gameLost = true;
-    }
-
-    public void instantiateDecks(){ //Method used to instantiate the two decks of cards
+    /**
+     * instantiation of all PlayerCards in the playerDeck and all InfectionCards in the infectionDeck
+     * Epidemic card are not added to the playerDeck until after the initals cards have been dealt to the players
+     */
+    public void instantiateDecks(){
         //PlayerDeck without epidemic cards
         for(int i = 0; i < allCities.size(); i++){
             CityCard temp = new CityCard(allCities.get(i).getName(), allCities.get(i).getColor());
             playerDeck.add(temp);
         }
         Collections.shuffle(playerDeck);
+
         //Infection deck
         for(int i = 0; i < allCities.size(); i++){
             InfectionCard temp = new InfectionCard(allCities.get(i).getName(), allCities.get(i).getColor());
@@ -196,7 +196,51 @@ public class GameBoard {
         Collections.shuffle(infectionDeck);
     }
 
-    //Returns a city variable with the inserted name
+    /**
+     * Overall setup of the gameboard at start of the game
+     */
+    public void setupPhase(){
+
+        //Place research station on Atlanta
+        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
+            if(GameBoard.gameBoard.allCities.get(i).getName().equals("atlanta")){
+                GameBoard.gameBoard.allCities.get(i).placeResearchStation();
+                return;
+            }
+        }
+
+        //Initial infection
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(3);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(2);
+        GameBoard.gameBoard.drawInfectionCard(1);
+        GameBoard.gameBoard.drawInfectionCard(1);
+        GameBoard.gameBoard.drawInfectionCard(1);
+
+        //Players draw cards
+        for(int i = 0; i < GameBoard.gameBoard.players.size(); i++) {
+            GameBoard.gameBoard.players.get(i).drawCard();
+            GameBoard.gameBoard.players.get(i).drawCard();
+        }
+
+        //Add epidemic cards and shuffle player deck
+        for(int i = 0; i < 5; i++){
+            EpidemicCard temp = new EpidemicCard();
+            GameBoard.gameBoard.playerDeck.add(temp);
+            Collections.shuffle(playerDeck);
+        }
+
+    }
+
+    /**-------------- Getters ---------------- **/
+
+    /**
+     * @param city is a string mathcing the City objects name variable
+     * @return the City object mathcing the string city
+     */
     public City getCity(String city) {
         City returnCity = null;
         for (int i = 0; i < allCities.size(); i++) {
@@ -206,14 +250,6 @@ public class GameBoard {
             }
         }
         return returnCity;
-    }
-
-    public void increasePlayerWithIDsTurn()
-    {
-        if(this.playerWithIDsTurn < 3)
-            this.playerWithIDsTurn += 1;
-        else
-            this.playerWithIDsTurn = 0;
     }
 
     public int getPlayerWithIDsTurn() {
@@ -243,6 +279,27 @@ public class GameBoard {
     public boolean isGameLost() {
         return gameLost;
     }
+
+    /**-------------- Setters ---------------- **/
+
+    public void setLose()
+    {
+        gameLost = true;
+    }
+
+    /**
+     * as player ID are in the range 0-3 when trying to increase beyond 3
+     * will instead set the value back to 0
+     */
+    public void increasePlayerWithIDsTurn()
+    {
+        if(this.playerWithIDsTurn < 3)
+            this.playerWithIDsTurn += 1;
+        else
+            this.playerWithIDsTurn = 0;
+    }
+
+    /**-------------- City instantiation ---------------- **/
 
     public void instantiateCities(){ //Method used to instantiate all the cities and adding them to the allCities array
         //All blue cities
@@ -348,44 +405,11 @@ public class GameBoard {
 
     }
 
-    public void setupPhase(){
-
-        //Place research station on Atlanta
-        for(int i = 0; i < GameBoard.gameBoard.allCities.size(); i++){
-            if(GameBoard.gameBoard.allCities.get(i).getName().equals("atlanta")){
-                GameBoard.gameBoard.allCities.get(i).placeResearchStation();
-               return;
-            }
-        }
-
-        //Initial infection
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(3);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(2);
-        GameBoard.gameBoard.drawInfectionCard(1);
-        GameBoard.gameBoard.drawInfectionCard(1);
-        GameBoard.gameBoard.drawInfectionCard(1);
-
-        //Players draw cards
-        for(int i = 0; i < GameBoard.gameBoard.players.size(); i++) {
-            GameBoard.gameBoard.players.get(i).drawCard();
-            GameBoard.gameBoard.players.get(i).drawCard();
-        }
-
-        //Add epidemic cards and shuffle player deck
-        for(int i = 0; i < 5; i++){
-            EpidemicCard temp = new EpidemicCard();
-            GameBoard.gameBoard.playerDeck.add(temp);
-            Collections.shuffle(playerDeck);
-        }
-
-    }
 //-----------------------------Setter methods for Message class------------------------------------
 
     /**
+     * In order to use the Message class on the client it was necessary to move all setter methods
+     * outside the class itself as these referred to values not available on the client
      * For player1, player2, player3 and player4
      * array space;
      * 0: String ID of player
@@ -571,6 +595,10 @@ public class GameBoard {
         gameBoardContent.gameLost = GameBoard.gameBoard.gameLost;
     }
 
+    /**
+     * calls all the setter methods for the Message class
+     * @return the instantiated Message object
+     */
     public Message setMessageContent(){
         messageSetPlayer1();
         messageSetPlayer2();
