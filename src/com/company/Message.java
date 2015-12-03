@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class Message implements Serializable{
 
-    ArrayList<String> player1 = new ArrayList<>();
-    ArrayList<String> player2 = new ArrayList<>();
-    ArrayList<String> player3 = new ArrayList<>();
-    ArrayList<String> player4 = new ArrayList<>();
+    ArrayList<String> player1 = new ArrayList<String>();
+    ArrayList<String> player2 = new ArrayList<String>();
+    ArrayList<String> player3 = new ArrayList<String>();
+    ArrayList<String> player4 = new ArrayList<String>();
 
     String[][] cities = new String[6][48];
 
-    ArrayList<String> playerDeck = new ArrayList<>();
-    ArrayList<String> playerDiscard = new ArrayList<>();
-    ArrayList<String> infectionDeck = new ArrayList<>();
-    ArrayList<String> infectionDiscard = new ArrayList<>();
+    ArrayList<String> playerDeck = new ArrayList<String>();
+    ArrayList<String> playerDiscard = new ArrayList<String>();
+    ArrayList<String> infectionDeck = new ArrayList<String>();
+    ArrayList<String> infectionDiscard = new ArrayList<String>();
 
     int blueCubesLeft;
     int redCubesLeft;

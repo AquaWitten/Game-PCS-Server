@@ -178,7 +178,7 @@ public class ClientConnection implements Runnable {
      */
     public void inGame()
     {
-        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH";
+        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH", moveWithoutCard = "MOVE";
         String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE", drawCard = "DRAW_CARD", discardCard = "DISCARD_CARD";
 
         while(sock.isConnected())
@@ -193,6 +193,13 @@ public class ClientConnection implements Runnable {
 
                     clientPlayer.moveToNeighbor(tmpCity);
                     sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                }
+
+                //Because the server wants to handle validation of movement, this will be used when a card is not need to move
+                else if(data[0].equals(moveWithoutCard))
+                {
+                    City tmpCity = GameBoard.gameBoard.getCity(data[1].toLowerCase());
+                    clientPlayer.setCurrentCity(tmpCity);
                 }
 
                 //Player wants to move to a city using that city's card
