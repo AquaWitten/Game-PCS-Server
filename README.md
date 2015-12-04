@@ -1,6 +1,6 @@
 # Game-PCS-Server
 
-As the game is not functioning proprerly, it is neccesarry to download the project fold and open it using a Java IDE.
+As the game is not functioning proprerly it is not a viable solution to export it as a jar or exe file since changes to the code is neccesarry see different stages in the game. Therefore, download the project fold and open it using a Java IDE.
 When running the server it will print the LAN IP to the console, this have to match the the IP that the Client tries to connect to.
 
 ##Testing the Lobby
