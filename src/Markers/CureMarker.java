@@ -1,6 +1,6 @@
 package Markers;
 
-import com.company.GameBoard;
+import example.GameBoard;
 
 /**
  * Class to track if cure for specific color has been found
