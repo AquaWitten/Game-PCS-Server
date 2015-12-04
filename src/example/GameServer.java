@@ -1,4 +1,4 @@
-package com.company;
+package example;
 
 import Cards.*;
 
@@ -39,9 +39,12 @@ public class GameServer {
         gameBoard = new GameBoard();
         lobbyStatus = new LobbyStatus();
         instantiateRoleCards();
+
         InLobby();
         GameBoard.gameBoard.setupPhase();
         gameRunning();
+
+
 
     }
 
@@ -108,7 +111,7 @@ public class GameServer {
      */
     public static void gameRunning() {
         //player with ID 0 is first player
-        GameBoard.gameBoard.playerWithIDsTurn = 0;
+        GameBoard.gameBoard.playerWithIDsTurn = 1;
         System.out.println("Game is now running and is in gameRunning loop");
         System.out.println("Start player is player with ID: "+GameBoard.gameBoard.playerWithIDsTurn);
 

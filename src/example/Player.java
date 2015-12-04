@@ -1,4 +1,4 @@
-package com.company;
+package example;
 
 
 import Cards.*;
@@ -175,22 +175,27 @@ public class Player {
      */
     public void buildResearchStation(int paymentCard){
         if(isTurn){
-            if(!currentCity.researchStation)
-            {
-                if (currentCity.getName().equals(cardHand.get(paymentCard).getNameOfCard()) )
+            if(GameBoard.gameBoard.researchStationsLeft > 0){
+                if(!currentCity.researchStation)
                 {
-                    currentCity.placeResearchStation();
-                    actionsLeft--;
-                }
+                    if (currentCity.getName().equals(cardHand.get(paymentCard).getNameOfCard()) )
+                    {
+                        currentCity.placeResearchStation();
+                        GameBoard.gameBoard.researchStationsLeft--;
+                        actionsLeft--;
+                    }
 
+                    else
+                        System.out.println("current city:"+currentCity.getName()+ " does not match paymentcard");
+                }
                 else
-                    System.out.println("current city:"+currentCity.getName()+ " does not match paymentcard");
+                    System.out.println("city has a research station");
             }
             else
-            System.out.println("city has a research station");
+                System.out.println("No more spare research stations");
         }
         else
-            System.out.println("Not your turn " + ID);
+            System.out.println("Not your turn player " + ID);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.company;
+package example;
 
 import Cards.CityCard;
 import Cards.EpidemicCard;
@@ -79,7 +79,6 @@ public class GameBoard {
         instantiateDecks(); //creates player and infection cards and places them in the decks
 
         GameBoard.gameBoard = this;
-
     }
 
     /**
@@ -539,58 +538,42 @@ public class GameBoard {
             gameBoardContent.infectionDiscard.add(GameBoard.gameBoard.infectionDiscard.get(i).getName());
     }
 
-    /**
-     * copies the amount of blue cubes on the city
-     */
     public void messageSetBlueCubesLeft() {
         gameBoardContent.blueCubesLeft = GameBoard.gameBoard.blueCubesLeft;
     }
 
-    /**
-     * copies the amount of red cubes on the city
-     */
     public void messageSetRedCubesLeft() {
         redCubesLeft = GameBoard.gameBoard.redCubesLeft;
     }
 
-    /**
-     * copies the amount of yellow cubes on the city
-     */
     public void messageSetYellowCubesLeft() {
         gameBoardContent.yellowCubesLeft = GameBoard.gameBoard.yellowCubesLeft;
     }
 
-    /**
-     * copies the amount of black cubes on the city
-     */
     public void messageSetBlackCubesLeft() {
         gameBoardContent.blackCubesLeft = GameBoard.gameBoard.blackCubesLeft;
     }
 
-    /**
-     * copies the value of the outbreak marker
-     */
-    public void messageSetOutbreakMarker() {
-        gameBoardContent.outbreakMarker = GameBoard.gameBoard.outbreakMarker.getOutbreakCounter();
-    }
+    public void messageSetResearchStationsLeft(){gameBoardContent.researchStationsLeft = GameBoard.gameBoard.researchStationsLeft;}
 
-    /**
-     * copies the amount of times the infection marker has been moved
-     */
-    public void messageSetInfectionMarker() {
-        gameBoardContent.infectionMarker = GameBoard.gameBoard.infectionMarker.getInfectionDegree();
-    }
+    public void messageSetOutbreakMarker() {gameBoardContent.outbreakMarker = GameBoard.gameBoard.outbreakMarker.getOutbreakCounter();}
 
-    /**
-     * copies the gamewon boolean from the gameboard
-     */
+    public void messageSetInfectionMarker() {gameBoardContent.infectionMarker = GameBoard.gameBoard.infectionMarker.getInfectionDegree();}
+
+    public void messageSetRedCure(){gameBoardContent.redCure = GameBoard.gameBoard.getRedCureMarker().getHasCure();}
+
+    public void messageSetBlueCure(){gameBoardContent.blueCure = GameBoard.gameBoard.getBlueCureMarker().getHasCure();}
+
+    public void messageSetYellowCure(){gameBoardContent.yellowCure = GameBoard.gameBoard.getYellowCureMarker().getHasCure();}
+
+    public void messageSetBlackCure(){gameBoardContent.blackCure = GameBoard.gameBoard.getBlackCureMarker().getHasCure();}
+
+
+
     public void messageSetGameWon() {
         gameBoardContent.gameWon = GameBoard.gameBoard.gameWon;
     }
 
-    /**
-     * copies the gamelost boolean from the gameboard
-     */
     public void messageSetGameLost() {
         gameBoardContent.gameLost = GameBoard.gameBoard.gameLost;
     }
@@ -616,8 +599,16 @@ public class GameBoard {
         messageSetYellowCubesLeft();
         messageSetRedCubesLeft();
 
+        messageSetResearchStationsLeft();
+
         messageSetInfectionMarker();
         messageSetOutbreakMarker();
+
+        messageSetRedCure();
+        messageSetBlueCure();
+        messageSetYellowCure();
+        messageSetBlackCure();
+
         messageSetGameLost();
         messageSetGameWon();
 

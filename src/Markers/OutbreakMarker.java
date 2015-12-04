@@ -1,7 +1,7 @@
 package Markers;
 
 
-import com.company.GameBoard;
+import example.GameBoard;
 
 public class OutbreakMarker {
 

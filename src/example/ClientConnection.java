@@ -1,4 +1,4 @@
-package com.company;
+package example;
 
 
 import Cards.CityCard;
@@ -9,8 +9,8 @@ import java.net.Socket;
 public class ClientConnection implements Runnable {
 
     BufferedReader input;
-    PrintWriter output;
-    ObjectOutputStream messageOut;
+    //PrintWriter output;
+    ObjectOutputStream objectOut;
 
     Socket sock;
 
@@ -38,7 +38,6 @@ public class ClientConnection implements Runnable {
         GameServer.gameBoard.players.add(clientsPlayer);
         lobbyStatus.setPlayerRole(clientPlayer.getID(), clientPlayer.getRoleID());
         playerID = this.clientPlayer.getID();
-
         cardToBeDrawn = 1;
     }
 
@@ -47,126 +46,115 @@ public class ClientConnection implements Runnable {
      * Will read input from server and store it in the clientCommand, then split and stored in data
      */
     @Override
-    public void run() {
+    public void run()
+    {
         try
         {
-            messageOut = new ObjectOutputStream(sock.getOutputStream());
-            output = new PrintWriter(sock.getOutputStream());
+            objectOut = new ObjectOutputStream(sock.getOutputStream());
             input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
         } catch (IOException e) {e.printStackTrace();}
 
-        while(sock.isConnected())
+        try
         {
-            try
-            {
-                clientCommand = input.readLine();
-                System.out.println("Client ID: "+playerID+" says: "+clientCommand);
-
-            } catch (IOException e) {System.out.println("failed to read message from client ID: "+clientPlayer.getID());}
-
-            data = clientCommand.split("@");
-
-            if(!lobbyStatus.isAnimation())
-                inLobby();
-            else
-                inGame();
+            inLobby();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        inGame();
     }
 
     /**
      * During the lobby phase the server will respond to different commands compared to the inGame fase.
      * Will based on commands from client perform actions and change variables in the lobbyState object
      */
-    public void inLobby()
-    {
+    public void inLobby() throws IOException {
 
-        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus ="SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
+        String getPlayerID = "GET_PLAYER_ID", getPlayerStatus = "GET_PLAYER_STATUS", setPlayerStatus = "SET_PLAYER_STATUS", getPlayerRole = "GET_PLAYER_ROLE", setAnimationTrue = "SET_ANIMATION_TRUE";
 
-        //SEND PLAYER ID TO CLIENT
-        if(data[0].equals(getPlayerID))
-        {
-            System.out.println("Sending player ID to player: "+playerID);
-            output.println("GET_PLAYER_ID@"+playerID);
-            output.flush();
-        }
+        while(!lobbyStatus.isAnimation()) {
 
-        //SEND PLAYER STATUS
-        else if(data[0].equals(getPlayerStatus))
-        {
-            if(data[1].equals("0"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p1")+"@0");
-
-            else if(data[1].equals("1"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p2")+"@1");
-
-            else if(data[1].equals("2"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p3")+"@2");
-
-            else if(data[1].equals("3"))
-                output.println("GET_PLAYER_STATUS@"+lobbyStatus.getPlayerStatus("p4")+"@3");
-
-            output.flush();
-        }
-
-        //Set the status of the player
-        else if(data[0].equals(setPlayerStatus))
-        {
-            if(data[1].equals("true"))
+            try
             {
-                lobbyStatus.changePlayerStatus(data[2]+"_True");
-                System.out.println("Player "+data[2]+": is ready");
-            }
-
-            else if(data[1].equals("false"))
-            {
-                lobbyStatus.changePlayerStatus(data[2]+"_False");
-                System.out.println("Player "+data[2]+": is not ready");
-            }
-        }
-
-        //Send player role
-        else if(data[0].equals(getPlayerRole))
-        {
-            //GET_PLAYER_ROLE @ playerID @ roleID
-            output.println("GET_PLAYER_ROLE@"+data[1]+"@"+lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
-            output.flush();
-        }
-
-        //set the animation to true
-        else if(data[0].equals(setAnimationTrue))
-        {
-            lobbyStatus.setAnimation();
-
-            for (int i=0; i<GameServer.connectionArray.size(); i++)
-            {
-                Socket tmpSocket = GameServer.connectionArray.get(i);
-
-                //send to all client that the animation is true
-                try
-                {
-                    PrintWriter tmpOut = new PrintWriter(tmpSocket.getOutputStream());
-                    tmpOut.println("GET_ANIMATION_STATUS@true");
-                    tmpOut.flush();
-                    System.out.println("Animation true sent to player: "+i);
-                } catch (IOException e) {System.out.println("Could not create PrintWriter for sending animation set to true");e.printStackTrace();}
-            }
-
-            //used to determine if all players have received the animation boolean
-            lobbyStatus.aniSend = true;
-        }
-
-        //If client sends null, it has disconnected. Socket and all streams are closed
-        else if(data == null)
-        {
-            try {
-                disconnectSocket();
-                output.close();
-                input.close();
-                messageOut.close();
-                sock.close();
+                clientCommand = input.readLine();
+                data = clientCommand.split("@");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("could not close output, input or socket after client returning null");
+                System.out.println("failed to read message from client ID: "+clientPlayer.getID());
+            }
+            System.out.println("Client ID: "+playerID+" says: "+clientCommand);
+
+            //SEND PLAYER ID TO CLIENT
+            if (data[0].equals(getPlayerID)) {
+                //System.out.println("Sending player ID to player: " + playerID);
+                objectOut.writeObject("GET_PLAYER_ID@" + playerID);
+                objectOut.flush();
+            }
+
+            //SEND PLAYER STATUS
+            else if (data[0].equals(getPlayerStatus)) {
+                if (data[1].equals("0"))
+                    objectOut.writeObject("GET_PLAYER_STATUS@" + lobbyStatus.getPlayerStatus("p1") + "@0");
+
+                else if (data[1].equals("1"))
+                    objectOut.writeObject("GET_PLAYER_STATUS@" + lobbyStatus.getPlayerStatus("p2") + "@1");
+
+                else if (data[1].equals("2"))
+                    objectOut.writeObject("GET_PLAYER_STATUS@" + lobbyStatus.getPlayerStatus("p3") + "@2");
+
+                else if (data[1].equals("3"))
+                    objectOut.writeObject("GET_PLAYER_STATUS@" + lobbyStatus.getPlayerStatus("p4") + "@3");
+
+                objectOut.flush();
+            }
+
+            //Set the status of the player
+            else if (data[0].equals(setPlayerStatus)) {
+                if (data[1].equals("true")) {
+                    lobbyStatus.changePlayerStatus(data[2] + "_True");
+                    System.out.println("Player " + data[2] + ": is ready");
+                } else if (data[1].equals("false")) {
+                    lobbyStatus.changePlayerStatus(data[2] + "_False");
+                    System.out.println("Player " + data[2] + ": is not ready");
+                }
+            }
+
+            //Send player role
+            else if (data[0].equals(getPlayerRole)) {
+                //GET_PLAYER_ROLE @ playerID @ roleID
+                objectOut.writeObject("GET_PLAYER_ROLE@" + data[1] + "@" + lobbyStatus.getPlayerRole(Integer.valueOf(data[1])));
+                objectOut.flush();
+            }
+
+            //set the animation to true
+            else if (data[0].equals(setAnimationTrue)) {
+                lobbyStatus.setAnimation();
+
+                for (int i = 0; i < GameServer.connectionArray.size(); i++) {
+                    Socket tmpSocket = GameServer.connectionArray.get(i);
+
+                    //send to all client that the animation is true
+                    ObjectOutputStream tmpOut = new ObjectOutputStream(tmpSocket.getOutputStream());
+                    tmpOut.writeObject("GET_ANIMATION_STATUS@true");
+                    tmpOut.flush();
+                    System.out.println("Animation true sent to player: " + i);
+                }
+                //used to determine if all players have received the animation boolean
+                lobbyStatus.aniSend = true;
+            }
+
+            //If client sends null, it has disconnected. Socket and all streams are closed
+            else if (data == null) {
+                try {
+                    System.out.println("Socket with player ID "+clientPlayer.getID()+" is closed in the in the lobby state");
+                    disconnectSocket();
+                    objectOut.close();
+                    input.close();
+                    sock.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("could not close output, input or socket after client returning null");
+                }
             }
         }
     }
@@ -178,20 +166,41 @@ public class ClientConnection implements Runnable {
      */
     public void inGame()
     {
-        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH";
+
+        String moveToNeighbor = "MOVE_NEIGHBOR", moveToCityCard = "MOVE_TO_CITYCARD", moveFromCityCard = "MOVE_FROM_CITYCARD", moveBetweenStations = "MOVE_BETWEEN_RESEARCH", moveWithoutCard = "MOVE";
         String buildStation = "BUILD", treatDisease = "TREAT_DISEASE", createCure = "CREATE_CURE", drawCard = "DRAW_CARD", discardCard = "DISCARD_CARD";
 
         while(sock.isConnected())
         {
-        //while its the players turn, wait for commands from the client
+
+            //while its the players turn, wait for commands from the client
             while(clientPlayer.getIsTurn())
             {
+                //Reads command from client
+                try {
+                    clientCommand = input.readLine();
+                    data = clientCommand.split("@");
+                } catch (IOException e) {
+                    System.out.println("failed to read message from client ID: "+clientPlayer.getID());
+                    e.printStackTrace();
+                }
+                System.out.println("Client ID: "+playerID+" says: "+clientCommand);
+
+
                 //Player moves to neighbor city
                 if (data[0].equals(moveToNeighbor)) {
                     City tmpCity;
                     tmpCity = GameBoard.gameBoard.getCity(data[1]);
 
                     clientPlayer.moveToNeighbor(tmpCity);
+                    sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
+                }
+
+                //Because the server wants to handle validation of movement, this will be used when a card is not needed to move
+                else if(data[0].equals(moveWithoutCard))
+                {
+                    City tmpCity = GameBoard.gameBoard.getCity(data[1].toLowerCase());
+                    clientPlayer.setCurrentCity(tmpCity);
                     sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
                 }
 
@@ -301,13 +310,10 @@ public class ClientConnection implements Runnable {
                         clientPlayer.drawCard();
                         cardToBeDrawn = 1;
                         doInfection();
-                        sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
                         clientPlayer.setTurnIsDone();
                     }
 
                     sendMessageToOtherClients(GameBoard.gameBoard.setMessageContent());
-//                  String tmpCardName = clientPlayer.cardHand.get(clientPlayer.cardHand.size()-1).getNameOfCard();
-//                  output.println("CARD_DRAWN@"+tmpCardName);
                 }
 
                 //Will discard card from hand
@@ -322,9 +328,9 @@ public class ClientConnection implements Runnable {
                 //if null is relieved the client has disconnected. socket and all streams are closed
                 else if (data == null) {
                     try {
-                        output.close();
+                        System.out.println("Socket with player ID "+clientPlayer.getID()+" is closed in the in the Game state");
+                        objectOut.close();
                         input.close();
-                        messageOut.close();
                         sock.close();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -355,12 +361,12 @@ public class ClientConnection implements Runnable {
         {
             try
             {
-                messageOut.writeObject(messageToClients);
-                messageOut.flush();
+                objectOut.writeObject(GameBoard.gameBoard.setMessageContent());
+                objectOut.flush();
             }
             catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Could not send Message Class to client");
+                System.out.println("Could not send Message Class to client ID "+clientPlayer.getID());
             }
         }
     }
