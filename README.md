@@ -9,10 +9,10 @@ Therefore, the main game and lobby must be tested individually.
 To test the lobby simply run the Server without changing any code. But be prepared that when the “Start Game” button is pressed in the lobby, the clients will crash.
 
 ##Testing the main game
-In order to skip the lobby phase of the game do the following:
-1: Open the ClientConnections Class 
-2: Comment out line 57-62
-3. Comment out line 177
+In order to skip the lobby phase of the game do the following:<br>
+1: Open the ClientConnections Class <br>
+2: Comment out line 57-62<br>
+3. Comment out line 177<br>
 
 This will skip the lobby phase on the server and go straight to the main game commands.
 
