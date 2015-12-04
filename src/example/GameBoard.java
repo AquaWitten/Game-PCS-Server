@@ -1,4 +1,4 @@
-package com.company;
+package example;
 
 import Cards.CityCard;
 import Cards.EpidemicCard;
@@ -79,7 +79,6 @@ public class GameBoard {
         instantiateDecks(); //creates player and infection cards and places them in the decks
 
         GameBoard.gameBoard = this;
-
     }
 
     /**
